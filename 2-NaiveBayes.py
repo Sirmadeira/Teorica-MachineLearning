@@ -21,3 +21,8 @@
 #Como consertar?
 #Para consertar isso, a gente da uma valor inicial para cada palavra
 #isso geralmente e representado por alfa do grego
+#Agora agente vai falar pq naive bayes, e inocente
+#Ele e considerado inocente pq ele da a mesma probabilidade a palavra, sem considerar a ordem delas
+#Entao se eu por em uma ordem nada ver, ele ainda vai considera naive
+#Em machine learning, a gente fala que ao ignorar o lingo entre a palavras ele tem um high bias
+#Mas ja que ele funfa ele tem uma variancia baixa
