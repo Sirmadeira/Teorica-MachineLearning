@@ -1,0 +1,12 @@
+As ideias principais
+
+De regressao linear sáo
+
+1-Usar menos quadrados para encaixar a linha
+
+2-Calcular r**2
+
+3-Calcular a p-valor do  r**2
+
+
+Aviso residuo e a distancia entre o ponto e a data
