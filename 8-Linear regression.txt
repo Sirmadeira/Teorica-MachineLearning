@@ -10,3 +10,67 @@ De regressao linear sáo
 
 
 Aviso residuo e a distancia entre o ponto e a data
+
+Lembrete para encaixar uma linha perfeitamente, voce tem que so ficar rotando
+Ate achar o minimos dos residuos ao quadrado, voce pode ate fazer um grafico de acordo 
+com o  tamanho do angulo da rotacao pela soma dos residuos ao quadrado
+Por isso least squares
+
+Ao calcularmos o r ao quadrado a gente descobre o quao bom essa predicao dado por essa linha sera
+
+
+Review de r2, imagina que a gente pega todos os pontos e traz eles para o eixo de interesse
+
+Geralmente o y, depois calcula a media entre esses pontos. E calcula a distancia entre eles
+
+O nome  disso e soma ao quadrado ao redor da media
+
+SS(MEDIA) = (dados-mean)**2
+
+VARIACAO do SS(media)= (data-mean)**2/n
+N sendo o numero de dados
+
+O que origina a formula de R**2= Variacao(media)- Variacao(da linha encaixada ou fit)/Variacao(media)
+Variacao media senda aquela feita ao puxar pro y
+
+R ao quadrado, tambem destacao o quanto de impacto aquela variavel tem. Por exemplo, se esse desse 60%
+A variavel teria 60 de impacto no evento, ou explica 60 porcento do evento
+
+R**2 e excelente quando voce tem multiplos pontos no entanto, quando voce tem somente 2 pontos
+Voce e incapaz de fazer o r ao quadrado
+
+Alem do mais tambem existe o remanescente, que seria basicamente o que nao foi explicado pelo peso
+
+Vamos chamar isso de F,
+
+F leva os niveis de liberdade em consideracao, esses seriam
+
+Os parametros adicionais na seguinte formula
+
+F= SS(MEDIA)- SS(Treinada)/ (PFIT-Pmedia)// SS(FIT)/(N-PFIT)
+ou seja
+(PFIT-Pmedia) SS(FIT)/(N-PFIT)
+
+Pfit e o numero de parametros, como o y intercept e o slope, numa funcao quadratica ele e igual a 2
+E o pmean seria o numero de parametros na linha original sem inclinacao, que geralmente da 1
+
+O que significa que ele teria um parametro a mais, geralmente os parameros sao dados pelos numeros
+de variaveis se voce tem 3 o pfit e 3, e tem dois parametros extra e assim vai
+
+Agora SS(FIT)/(N-PFIT) seria o que sobrou, do r ao quadrado
+
+Agora a pergunta e como a gente transforma o F 
+que seria a varicao explicada pela o parametro extra na linha treinada/ pela variacao nao explicada
+
+Num valor de p
+
+Lembrete o valor de p, e o numero de valores mais valiosos divididos por todos os valores
+
+Para calcular isso geralmente pega um monte de random datasets, e calcula o f
+
+Tambem se usa de uma distribuicao de f, e nessa distribuicao a gente nota que a medida que os valores de f aumentam
+a distribuicao vai acabando. Isso significa que os valores de p serao menores quando tiver mais exemplos relativos ao numero
+de parametros da linha fit
+
+
+
