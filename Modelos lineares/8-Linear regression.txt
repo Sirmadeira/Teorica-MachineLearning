@@ -47,7 +47,7 @@ F leva os niveis de liberdade em consideracao, esses seriam
 
 Os parametros adicionais na seguinte formula
 
-F= SS(MEDIA)- SS(Treinada)/ (PFIT-Pmedia)// SS(FIT)/(N-PFIT)
+F= (SS(MEDIA)- SS(Treinada)/ (PFIT-Pmedia))// SS(FIT)/(N-PFIT)
 ou seja
 (PFIT-Pmedia) SS(FIT)/(N-PFIT)
 
@@ -71,6 +71,10 @@ Para calcular isso geralmente pega um monte de random datasets, e calcula o f
 Tambem se usa de uma distribuicao de f, e nessa distribuicao a gente nota que a medida que os valores de f aumentam
 a distribuicao vai acabando. Isso significa que os valores de p serao menores quando tiver mais exemplos relativos ao numero
 de parametros da linha fit
+
+Conclusao final:
+R ** 2 precisa ser grande
+E p value determina o quanto uma relacao e confiavel.
 
 
 
