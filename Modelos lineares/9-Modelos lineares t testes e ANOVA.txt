@@ -1,4 +1,8 @@
-T tests e um estilo de grafico especifico, onde voce pega duas classificacoes. Por exemplo, ratos mutados e ratos normais como eixo x e eixo y mutacao de gene. O objetivo de um grafico, t teste e compara medias e ver se elas sao significamente diferentes.
+T tests e um estilo de grafico especifico, onde voce pega duas classificacoes. Por exemplo, ratos mutados e ratos normais como eixo x e eixo y mutacao de gene. O objetivo de um grafico, t teste e comparar medias e ver se elas sao significamente diferentes.
+
+Para testes t, se você pegar um valor-t e colocá-lo no contexto da distribuição t correta, poderá calcular as probabilidades associadas a esse valor-t.
+
+Uma probabilidade permite que determinemos em que medida nosso valor-t é comum ou raro sob a suposição de que a hipótese nula é verdadeira.
 
 E akl grafico, que tem duas tracejados verticais.
 
@@ -28,7 +32,8 @@ Se a gente isolar eles a gente consegue uma design matriz, (ver imagen design ma
 
 Tendo isso em consideracao, a funcao e escrita assim.
 
-y= media controle + mean mutante
+Calcula o SS(FIT)
+y= media1 + media2
 
 Agora a formula f e aplicavel,
 
@@ -42,4 +47,4 @@ ANOVA pode determinar se as médias de três ou mais grupos são diferentes. A A
 
 Por isso a gente formula a aplicacao f antes.
 
-Aviso a matriz de design que se utilizamos nao e a mais utilizada, proximo notacao vai mostrar quais sao e porque
+Aviso a matriz de design que se utilizamos nao e a mais utilizada, proximo notacao vai mostrar quais sao e porque.

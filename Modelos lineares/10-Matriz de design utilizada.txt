@@ -1,0 +1,18 @@
+Como terminado na aula passada, a matriz de design geralmente mais utilizada
+
+E uma matriz em que o primeiro classificante, sempre esta ligado
+Ou seja, pega a matriz design imagen, e poim 1 em todos primeiros parametros
+
+A gente pode por qualquer numero numa matriz de design importante,
+No exemplo dado, ele poim um monte de pontos que se encaixa na ssfit
+
+Agora que a gente sabe que se pode por qualquer numero numa matriz de design, significa que a gente pode misturar t-test e regressoes
+
+Interessantemente e apresentado, uma justificativa do uso de 1 em todos os primeiros os parametros e meio 0 meio 1.
+
+Se faz isso, porque se a gente so fazer uma linear. Ele nao vai destacar os detalhes do primeiro classificativo. No exemplo dado, nao iria destacar se os ratos mutante sao significamente maiores
+
+E no t-test ele ignoria a relacao entre peso e tamanho do rato. Por isso a gente se utiliza dessa matriz. Ela consegue formular 2 linhas, que destacam esse detalhes. Ver imagen matriz de design geral. Aviso a 3 coluna e os pesos, (eixo x). E lembra que se multiplica por todos  os parametros que nesse caso sao 3
+
+Se voce por na formula que acha o F, e  compara um modelo mais simples(t-test ou so levando em consideracao a relacao entre peso e size) para um modelo com matriz de design, voce notara que o P value e bem pequeno. O que significa que no exemplo, com matriz de design, e muito melhor em preditar o tamanho geral. 
+
