@@ -1,0 +1,9 @@
+Como dito anteriormente, o conceito de R**2 nao e aplicado em funcao logisticas. Ao inves dele se utilizamos de probabilidade maxima.
+
+O objetivo da probabilidade maxima, e achar o melhor jeito de se encaixar uma distribuicao aos dados.
+
+Existe multiplas distribuicao para multiplos tipos de dados.Exemplos, normais, exponenciais, e gamas.( SO pesquisar se quiser ver imagens de ca uma)
+
+Imagine, que eu peguei uma serie de distribuicao com uma serie de medias. Cada uma delas vai ter uma probabilidade, de acertar a distribuicao dos pesos. E a gente vai pegar a maior naquela funcao. Para entender ver imagen(probabilidade maxima imagen)
+
+A mesma coisa e feita para o desvio padrao.( Que seria o definidor, do tamanho da barriguinha na distribuicao). Nao precisa de imagen aqui nao que e muito semelhante, so que ao inves das curvas estariam dispersadas. Elas so tem barriguinhas diferentes.

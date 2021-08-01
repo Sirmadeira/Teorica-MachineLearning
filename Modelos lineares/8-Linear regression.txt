@@ -30,7 +30,7 @@ SS(MEDIA) = (dados-mean)**2
 VARIACAO do SS(media)= (data-mean)**2/n
 N sendo o numero de dados
 
-O que origina a formula de R**2= Variacao(media)- Variacao(da linha encaixada ou fit)/Variacao(media)
+O que origina a formula de R**2= Variacao(com a media como base) - Variacao(da linha encaixada ou fit)/Variacao(com a media como base)
 Variacao media senda aquela feita ao puxar pro y
 
 R ao quadrado, tambem destacao o quanto de impacto aquela variavel tem. Por exemplo, se esse desse 60%
@@ -45,11 +45,11 @@ Vamos chamar isso de F,
 
 F leva os niveis de liberdade em consideracao, esses seriam
 
-Os parametros adicionais na seguinte formula
-
 F= (SS(MEDIA)- SS(Treinada)/ (PFIT-Pmedia))// SS(FIT)/(N-PFIT)
-ou seja
+ou seja, os niveis de liberdade, sao
 (PFIT-Pmedia) SS(FIT)/(N-PFIT)
+
+Lembrete SS. Significa sum of squareds. Ou melhor, soma dos quadrados. Ponho ss pq fica mais legal
 
 Pfit e o numero de parametros, como o y intercept e o slope, numa funcao quadratica ele e igual a 2
 E o pmean seria o numero de parametros na linha original sem inclinacao, que geralmente da 1
@@ -73,7 +73,7 @@ a distribuicao vai acabando. Isso significa que os valores de p serao menores qu
 de parametros da linha fit
 
 Conclusao final:
-R ** 2 precisa ser grande
+R ** 2 precisa ser grande, e verifica o quanto as variaveis impactam.
 E p value determina o quanto uma relacao e confiavel.
 
 

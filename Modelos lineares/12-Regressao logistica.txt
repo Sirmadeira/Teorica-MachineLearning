@@ -1,0 +1,17 @@
+Regressao logistica e similar a regressao linear, exceto que ela e utilizada para classificacao. 
+
+Exemplo, o grafico tera dois eixos y centrais, sendo o primeiro. O rato nao obeso(valor 0), e o rato obeso(valor 1) , e o eixo x seria o peso deles.
+
+Alem do mais, ao inves de encaixar uma funcao linear ou um plano. A funcao encaixada e uma funcao logistica, funcao em S. Muito semelhante a uma funcao sigmoide 
+
+A regressao logistica, tambem pode levar em consideracao dados continuos(como peso idade). E dados discretos (como genotipo e signo astrologico) Semelhantes a regressao linear
+
+A regressao logistica semelhante a  linear tambem pode testar se a variavel e util. Ou nao
+
+Infelizmente, na regressao logistica nao e tao facil compara os modelos. Como na linear, que se utiliza de F substitui os valores na media e ja era
+
+Para a gente verificar, se a variavel esta ajudando na predicao. Se utilizamos de walds test(assunto para proximas aulas).
+
+Infelizmente(novamente), a regressao logistica nao se pode utilizar de  R**2, PORQUE ELA NAO TEM O MESMO CONCEITO DE RESIDUOS. Ao inves disso, ela se utiliza de maximum likelihood. 
+
+Mas so por desencargo, voce pega uma probabilidade escalada(qualquer linha sigmoide), e usa para identificar um rato gordo. E voce depois disso, calcula a chance de identificar um rato nao gordo. E depois voce vai indo de rato em rato. Depois disso voce multiplica todas essas probabilidades isso seria a probabilidade dos dados. Depois voce pega uma nova linha, e calcular uma nova probabilidade para os dados. Finalmente a probabilidade escalada, com a maior "probabilidade(likelihood)" e selecionada. Ver imagen(probabilidade maxima aplicada em funcoes logisticas)

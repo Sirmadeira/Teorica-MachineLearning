@@ -14,5 +14,5 @@ Se faz isso, porque se a gente so fazer uma linear. Ele nao vai destacar os deta
 
 E no t-test ele ignoria a relacao entre peso e tamanho do rato. Por isso a gente se utiliza dessa matriz. Ela consegue formular 2 linhas, que destacam esse detalhes. Ver imagen matriz de design geral. Aviso a 3 coluna e os pesos, (eixo x). E lembra que se multiplica por todos  os parametros que nesse caso sao 3
 
-Se voce por na formula que acha o F, e  compara um modelo mais simples(t-test ou so levando em consideracao a relacao entre peso e size) para um modelo com matriz de design, voce notara que o P value e bem pequeno. O que significa que no exemplo, com matriz de design, e muito melhor em preditar o tamanho geral. 
+Se voce por na formula que acha o F(ao inves de se utilizar da media como base voce usa da linha fit encaixada por metodos multiplos), e  compara um modelo mais simples(t-test ou so levando em consideracao a relacao entre peso e size) para um modelo com matriz de design, voce notara que o P value e bem pequeno. O que significa que no exemplo, com matriz de design, e muito melhor em preditar o tamanho geral. 
 
