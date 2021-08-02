@@ -11,8 +11,7 @@ Para achar a fit line (linha perfeita), de um grafico t test
 
 Temos que achar a media que tambem seria o least squares fit(linha perfeita achado pelo metodo de residuos minimos)
 
-No entanto, como no caso do grafico exemplo acima , isso forma 2 linhas fits.
-Ae a gente se utiliza de um metodo para achar o conjunto das duas, para quando calcularmos o  F (ver aula de regressao linear) termos facilidade em achar  o fit perfeito facilmente no computador.
+No entanto, isso forma 2 linhas fits.Ae a gente se utiliza de um metodo para achar o conjunto das duas, para quando calcularmos o  F (ver aula de regressao linear) termos facilidade em achar  o fit perfeito facilmente no computador.
 
 Para achar essa linha fundida.
 

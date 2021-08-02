@@ -1,0 +1,60 @@
+Vamos agora entender como regressao logistica funciona.
+Especificamente vamos falar de seus coeficientes que sao os resultados, das regressoes.
+A gente vai falar como eles sao determinados e interpretados.
+
+A gente vai falar deles, em dois contextos, um com variavel continua(exemplo:peso) e o outro com variavel discreta(exemplo:Gene mutado ou nao).
+Vale lembrar, que regressao logistica e so uma subdivisao dos modelos gerais de linearidade.
+
+Para resolver o problema dimensional, da regressao logistica. Ou seja, o limite dos domains, que nao existe domains negativos com funcoes que so estao entre valores de 1 e 0. A gente eleva o eixo y, para o log(odds do eixo y).
+
+Exemplo, eixo y==Probabilidae de ser um  rato obeso(limitado), log(Chance de um rato obeso)(ilimitado, pode ir ate infinito que nem uma funcao linear.)
+
+
+Nessa conversao do eixo y, a gente transforma a sua propria variavel em odds/log(odds) tambem conhecido como razao de probabilidade, se utilizando da logit function
+(Memorando ver aula de odds/log(odds))
+
+
+No exemplo do rato,o log(chance de ser obeso)=log(p/1-p), sendo p a probabilidade de um rato ser obeso. Que nesse caso seria um valor entre 1 e 0, no eixo y velho. Se a gente pegar o centro, que seria o valor de p = 0,5. E por ele na nova funcao, a gente obtem o log(1)=0. E esse sera o novo centro da funcao. A gente pode por qualquer ponto do eixo y velho que a gente quiser, obviamente que esteja dentro da funcao sigmoidiana.
+
+Interessantemente, quando a gente chegar no eixo y velho=1(ou p=1). A gente obtem, a seguinte logit function ,log(1/0) = log(1)-log(0), que da infinidade positiva. Ja que qualquer coisa, menos infinidade negativa(log(0)) = a infinidade positiva.
+
+Tendo isso, em vista algo semelhante acontece, no p=0. So que da infinidade negativa.
+
+Isso significa, que quando o valor p estiver entre 0,5 e 1. Os valores estarao indo para infinidade positiva. Eos entre 0 e 0,5, estarao indo para infinidade negativa, no novo eixo y. 
+
+No final da historia, tal transformacao de odds, transforma aquela linha em s da funcao, numa linha reta. E o seus coeficientes(resultados) sao apresentado, pela funcao nova log(odds y).
+
+O primeiro coeficiente, e a estimativa do y-intercept(onde x=0). Piadoca, isso significa que no grafico log(chance de ser obeso), se voce pesa 0 kilos. A chance de voce ser obeso e bem pequena. Tambem existe o standard error(AVISO NAO E IGUAL AO DESVIO PADRAO), e o valor de z que seria, a estimativa do y-intercept/ standard error.
+
+Lembrete= z e o famoso walds test (vai estar na aula de odds e log(odds))
+
+Lembrete= STANDARD ERROR, E A STANDARD DEVIATIAN DAS MEDIAS. O standard error, quantifica a variacao das medias em multiplos sets de medidas. A standard deviation, calcula a variacao dentro de um set de medidas. Para mais info(ler wikipedia do erro padrao.)
+
+O segundo coeficiente e a inclinacao do grafico, no novo eixo y. Ele significa, que para cada kilo ganha a chance do rato ser obeso aumenta por um certo numero.
+
+Agora a gente sabe todos os coeficientes quando a gente, usa uma variavel continua como o peso
+
+Agora vamos descobrir os coeficientes para variaveis discretas. 
+
+O primeiro passo a ser feito, e fazer a conversao do eixo y, de probabilidade, para log(chance de ser obeso). 
+
+
+O segundo, e pegar o classificante x primaria(no exemplo gene normal), pegar os eixo y classificantes. Que nesse caso, seria infinidade positiva, e infinidade negativa. E dividir o numero de datasets no eixo y infinidade positva/ e o numero de datasets no eixo y de infinidade negativa. Obtendo assim o log(chance gene normal). A gente faz a mesma coisa, para o classificante de x secundario.
+Aviso ver imagen(Coeficiente de regressao logistica, com variaveis discretas. Sendo achados.)
+
+As duas linhas achadas, sao fundidas para formar o coeficientes da equacao.
+
+A equacao no exemplo seria,Tamanho=log(chance gene normal)*B1+log(chance gene mutado/chance gene normal)**B2
+
+Interessantemente, depois da matematica ser feita. A gente nota, que o "y-intercept"
+e o log(change de gene normal), ou seja, o coeficiente. E o log (odds ratio) que seria esse monstro aqui,log(chance gene mutado/chance gene normal). E o outro coeficiente. Esse log(odds ratio), basicamente te da numa escala de log, o quanto o gene mutado (no exemplo) impacta a chance de ser obeso ou nao.
+
+Conclusao final:
+A gente viu como certo conceitos de regressoes lineares e t-test, se aplica na regressao logistica.
+
+Em curto, em relacao aos seus coeficientes(resultados),a regressao logistica e a mesma coisa do modelos lineares. Exceto que, o eixo y esta no termo de log(odds)
+
+Isso significa que todas as coisas bonitinhas como, multiplas regressoes e ANOVA podem ser feitas usando regressao logistica.
+
+
+
