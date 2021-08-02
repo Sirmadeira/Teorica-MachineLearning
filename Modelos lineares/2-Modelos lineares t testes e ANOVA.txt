@@ -2,7 +2,7 @@ T tests e um estilo de grafico especifico, onde voce pega duas classificacoes. P
 
 Para testes t, se você pegar um valor-t e colocá-lo no contexto da distribuição t correta, poderá calcular as probabilidades associadas a esse valor-t.
 
-Uma probabilidade permite que determinemos em que medida nosso valor-t é comum ou raro sob a suposição de que a hipótese nula é verdadeira.
+Uma probabilidade permite que determinemos em que medida nosso valor-t é comum ou raro sob a suposição de que a hipótese nula(hipotese nula e quando, voce considera que nao existe diferenca entre certas caracteristica da populacao, ou na geracao dos dados para exemplos, ver imagen Exemplo hipotese nula) é verdadeira.
 
 E akl grafico, que tem duas tracejados verticais.
 
@@ -11,7 +11,7 @@ Para achar a fit line (linha perfeita), de um grafico t test
 
 Temos que achar a media que tambem seria o least squares fit(linha perfeita achado pelo metodo de residuos minimos)
 
-No entanto, isso forma 2 linhas fits.Ae a gente se utiliza de um metodo para achar o conjunto das duas, para quando calcularmos o  F (ver aula de regressao linear) termos facilidade em achar  o fit perfeito facilmente no computador.
+No entanto, isso forma 2 linhas fits, quando a gente tiver 2 classificadores.Ae a gente se utiliza de um metodo para achar o conjunto das duas, para quando calcularmos o  F (ver aula de regressao linear) termos facilidade em achar  o fit perfeito facilmente no computador.
 
 Para achar essa linha fundida.
 
@@ -23,16 +23,13 @@ a gente faz a formulinha
 
 y=1xmedia1+0Xmedia2+ residuo entre ponto e media
 
+Aviso o residuo seria a diferenca, entre o ponto e sua media.
+
 Aviso, o que define se e 1 ou 0 no coeficiente. A qual numero da matriz, voce ta baseando o seu residuo.
 
 Imagine que 1 e quando aquele media esta ligada, e quando desligado ele e 0
 
 Se a gente isolar eles a gente consegue uma design matriz, (ver imagen design matriz)
-
-Tendo isso em consideracao, a funcao e escrita assim.
-
-Calcula o SS(FIT)
-y= media1 + media2
 
 Agora a formula F e aplicavel,
 
@@ -41,6 +38,10 @@ Aviso existe pequenas diferencas por exemplo, o p media na formula F NO T test, 
 E o pfit, refere-se nao ao parametros da funcao como , na linha fit regularm, mas sim ao numero de medias no  t test. Que no exemplo e 2
 
 Agora vamos para ANOVA
+
+ANOVA e utilizado muito em marketing, e vou me usar de um exemplo para explica-la.
+
+Imagine que voce quer testar uma hipotese, voce ira se utilizar de ANOVA para verificar como o seus diferentes grupos respondem, se houver uma diferenca estatistica consideravel entre as medias dos grupos. Signifca que as populacoes sao diferente. A gente se utiliza dela para responder perguntas como: Sera que situacao de casal(solteiro, casado, viuvo) afeta temperamento?
 
 ANOVA pode determinar se as médias de três ou mais grupos são diferentes. A ANOVA usa testes F para testar estatisticamente a igualdade entre médias.
 
