@@ -56,5 +56,7 @@ Em curto, em relacao aos seus coeficientes(resultados),a regressao logistica e a
 
 Isso significa que todas as coisas bonitinhas como, multiplas regressoes e ANOVA podem ser feitas usando regressao logistica.
 
+Proxima aula log(odds ratio)
+
 
 

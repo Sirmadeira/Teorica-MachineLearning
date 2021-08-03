@@ -1,0 +1,35 @@
+Chances e mais facilmente explicavel por exemplos
+
+Imagine que a chance de meu time de futebol vencer e 1 em 5
+
+Imagine que eu peguei uma bolinha azul que representa a chance de eu vencer e bolinhas vermelhas a chance de eu perder.
+
+Se eu dividir bolinhas azuis por bolinhas vermelhas, eu vou ter a chance de eu vencer. Que seria um 1/5 ou melhor 0.20
+
+Agora imagine que a chance de meu time vencer e 5 em 3, isso resultaria em  5/3,ou 1.7
+
+Lembrete: Chances nao sao probabilidades, chances ou odds, e o ratio de algo acontecer, para algo nao acontecendo.
+Probabilidade, e o ratio de algo acontecer, por todas as possibilidades possiveis.
+No ultimo exemplo, a probabilidade seria 5/8.
+
+Agora a gente vai ver como achar a chances(odds) atraves da probabilidade
+
+No ultimo exemplo, existe duas probabilidades. A de eu vencer e a de eu perder. Interessantemente, eu posso calcular a chance de eu perder somente com a chance de eu ganhar, tudo que eu tenho que fazer e fazer 1-5/8(5/8 sendo a chance de eu ganhar) o que resulta em 8/8-5/8=3/8. 
+
+Agora se eu pegar, o ratio que seria. Probabilidade de eu vencer/Probabilidade de eu perder, eu obtenho o odds. No ultimo, exemplo seria algo assim. (5/8)//(3/8)=5/3
+
+Essa formula, e a formula complexificada disso daki. p/1-p. Onde p e a probabilidade primaria, no exemplo a de vitoria.
+
+Se a chance e favoravel, e eu ficar aumentando o numerador da chance ja favoravel. Sou capaz de notar que o numero que eu obtenho vai de 1 para infinito.
+Agora se a chance e desfavoravel e eu ficar aumentando, o denominador. A chance ja infavoravel, eu vou obter um numero entre 1 e 0. Isso forma um problema, de simetricidade. Que e consertado pelo log(odds) ou log(chance), aviso a base dessa log function e 10.
+
+Aviso o log(odds), pode ser calculado tanto de probabilidades quanto chances, como demonstrado anteriormente. No exemplo.
+
+Isso torna a seguinte funcao possivel. log(p/1-p) possivel. E essa funcao e chamada FUNCAO LOGIT(importante para aula passada). Muito usado em regressao linear.
+
+Conclusao final:
+
+Odds ou chances e nada mais do que ratio de algo acontecendo, para algo nao acontecendo
+
+E o log(odds) e nada mais, que uma ferramenta simetrica. E o log do odds. Simples assim
+
