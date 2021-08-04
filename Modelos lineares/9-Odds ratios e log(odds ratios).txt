@@ -29,7 +29,7 @@ O desvio padrao na nossa matriz padrao e de 0.47.
 
 Tudo que o wald test faz e achar o log(odds ratio) da matriz de confusao, que nesse caso e o mesmo do exemplo anterior. So que ao inves de ser o odds ratios e o log(odds ratio). log(6.88)=1.93, e poim esse ponto na distribuicao normal. Que teve como origem, o histograma. Ela e centrada no 0(o que significa que sua media e 0) e tem o mesmo desvio padrao de 0.47.
 
-Depois disso ela pega o log(odds ratio)= 1.93 e poim naquela distribuicao, depois disso calcula-se no walds test o numero de desvios padroes que cabem entre 1.93 e 0. Ou seja, log(odds ratio)/desvio padrao.
+ Depois disso calcula-se no walds test o numero de desvios padroes que cabem entre 1.93 e 0. Ou seja, log(odds ratio)/desvio padrao.
 O que no exemplo, seria 1.93/0.47=4.11.
 
 Existe uma lei "comum", de que tudo alem de 2 desvios padroes da media (no exemplo 0) tem um p-value <0.05 o que signfica que tem um valor estatistico consideravel. O aspecto de calculo para achar o p-value e relativamente inutil para a gente agora, so confia que e isso mesmo.

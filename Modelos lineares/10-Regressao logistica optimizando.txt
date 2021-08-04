@@ -1,0 +1,38 @@
+Agora a gente vai aprender como uma linha e optimizada, em regressao logistica.
+
+Como foi v isto na aula 7, a gente vai transformar o grafico de regressao logistica com uma funcao sigmoide.Para um grafico linear, atraves da conversao log(odds). No exemplo, sero log(odds obesidade do rato).
+
+Ao fazermos essa conversao, temos um problema. A transformacaoo direciona os dataset ou ponto, para infinito ou infinito negativo.
+E isso significa que a distancia entre os pontos da linha sao iguais, a infinito + para os dataset obesos, ou infinito negativo para os datasets nao obesos no exemplo.
+
+Isso signfica que least square e outo(fora), inves disso utilizamo-nos de maximum likelihood.
+
+A primeira coisa que a gente vai fazer e projetar os pontos de origem. Na linha candidata(ver imagen projecao na regressao logistica), isso nos da cada log(odds). Basicamente o eixo y no grafico pos transformacao e projecao, para cada ponto identificado.
+
+Depois disso a gente reverte a funcao de transformacao do eixo y (log(odds) vai para (regressao original)), para fazer isso temos que pegar aqueles log(odds) de cada ponto, e por eles na funcao logit so que inversa. Essa daqui, p=e**log(odds)/1+e**log(odds), sendo e o numero de Euler. So relembrando que e para o log(odds) identificada de cada ponto anterior.
+
+Ae a gente pega a "likelihood" de cada ponto, nada mais do que o eixo y do grafico revertido. 
+
+Se a gente quiser pegar a likelihood do grupo de dados, por exemplo ratos obesos. Tudo que a gente tem que fazer e multiplicar a likelihoods achadas de cada rato.No entanto, para os ratos nao obesos a likelihood deles e calculada atraves da formula, likelihood=(1-probabilidade do rato1 nao obeso ser obeso(eixo y do rato nao obeso)). Isso resulta na formula final.
+Likelihood da linha s atual=eixoy do rato 1 obeso * eixo y do rato 2 obeso *...( n ratos obesos)*(1-probabiliadde do rato1 nao obeso ser obeso)*(1-probabiliadde do rato2 nao obeso ser obeso)...(1 -n ratos nao obesos)
+
+Aviso: Os pontinho e vai ate n
+
+Essa formula geralmente e calculada por log, mas tanto faz. Porque ao maxizarmos a likelihood da linha s tambem maximizamos o log dela.
+Mas so por desencargo, formula na pratica=
+log(Likelihood da linha s atual)=log(eixoy do rato 1 obeso) * log(eixo y do rato 2 obeso) *...(n ratos obesos)*log(1-probabiliadde do rato1 nao obeso ser obeso)*log(1-probabiliadde do rato2 nao obeso ser obeso)...(1 -n ratos nao obesos)
+
+Depois de obtermos a log(likelihood dos dados), a gente volta la para aquele grafico log(odds transformado mas nao projetado). E inclina um pouco a linha linear.E faz a mesma coisa, projeta, conversao logit inversa, calcula log(likelihood dos dados). E vai fazendo isso para multiplas inclinacoes. Aquela que tiver o maior valor entre os log(likelihood dos dados), e selecionado(maximizacao)
+
+
+Como dito anteriormente, o grafico logistico nao e fazivel por residuos minimos, entao para encontrarmo o p value e o r**2 precisamos fazer eles de uma maneira diferente assunto para a proxima aula.
+
+
+
+
+
+
+
+
+
+
