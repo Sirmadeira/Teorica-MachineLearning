@@ -1,0 +1,43 @@
+Na aula passado eu deixei, claro que odds e um tipo de ratio. As pessoas ao se utilizarem do termo odds ratio, nao se referem a isso exatamente. 
+
+Quando as pessoas se utilizam da expressao odds ratio eles estao falando do ratio de dois odds. Ou a razao entre dois odds.
+
+Imagine os seguintes odds, 2/4 e 3/1. O odds ratio desse dois odds, seria (2/4)//(3/1). O que da 0.17
+
+Pelo mesmo motivo apresentado na aula odds e log(odds), por razoes simetricas a gente tambem se utiliza de log(odds ratio).
+
+Agora que a gente ja sabe o que e um odds ratio, o que a gente pode fazer com eles?
+
+Bom para entender isso e so ver a imagen exemplo odds ratio exemplo utilidade, nela voce vai notar que temos uma matriz de confusao. Dividada entre gene mutado e nao mutado, como eixo vertical. E no eixo horizontal,  cancer ou nao. O odds ratio achado naquela imagen, destaca quanto a mais uma pessoa com o gene mutado comparada a uma pessoa nao mutado, tem chance de ter cancer. Nesse caso a chance e de 6.88.
+
+Concluindo o odds ratio e log(odds ratio), demonstra a relacao entre duas coisas. Muito semelhante a R**2. E igual ao R**2 ele calcula o impacto da variavel nas associacoes. No exemplo, devido a ter um valor grande de odds ratio, o gene mutado e uma boa variavel preditora. Se esse valor fosse menor, ela nao seria uma boa preditora no modelo de regressao logistico.
+
+Entretanto como R**2, a gente tem que ver se essa relacao e estatisticamente significante( nao e mera coincidencia).
+
+Existe 3 maneiras, de determinar se um odds ratio e significante.
+1-Fishers exact test
+2-Chi square test
+3-The wald test
+
+Eu sou vou mostra o wald test pq esse o mais utilizado nas regressoes logisticas, e para derteminar intervalos de confianca.
+
+O wald test se aproveita que o log(odds ratio), tem uma distribuicao normal.
+
+Para entender, olhe a imagen histograma walds test. Esse histograma, seria 10000 odds ratios, calculados. Sendo que a matriz de confusao deles, varia e nao tem uma relacao predifinida entre o cancer e o tipo gene mutado ou nao mutados. Resumidamente todos os valores da matriz da confusao foram gerado randomicamente.No final temos aquele histograma.
+
+O desvio padrao na nossa matriz padrao e de 0.47.
+
+Tudo que o wald test faz e achar o log(odds ratio) da matriz de confusao, que nesse caso e o mesmo do exemplo anterior. So que ao inves de ser o odds ratios e o log(odds ratio). log(6.88)=1.93, e por ele na distribuicao normal. Que teve como origem, o histograma. Ela e centrada no 0(o que significa que sua media e 0) e tem o mesmo desvio padrao de 0.47.
+
+Depois disso ela pega o log(odds ratio)= 1.93 e poim naquela distribuicao, depois disso calcula-se no walds test o numero de desvios padroes que cabem entre 1.93 e 0. Ou seja, log(odds ratio)/desvio padrao.
+O que no exemplo, seria 1.93/0.47=4.11.
+
+Existe uma lei "comum", de que tudo alem de 2 desvios padroes da media (no exemplo 0) tem um p-value <0.05 o que signfica que tem um valor estatistico consideravel. O aspecto de calculo para achar o p-value e relativamente inutil para a gente agora, so confia que e isso mesmo.
+
+Conclusao final:
+
+O odds ratio, e so o razao entre dois odds, ou em numero.odds1/odds2.E o log(odds ratio)=log(odds1/odds2)
+
+O odds ratio afirma, o quao forte a nossa relacao e!
+E o walds test, afirma o quao significante e essa relacao.
+
