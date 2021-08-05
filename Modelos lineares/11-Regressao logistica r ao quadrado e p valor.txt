@@ -1,0 +1,29 @@
+ Aula passada a gente nao tinha r**2 e o p valor na regressao logistica, agora a gente vai descobrir  como ela funciona?
+
+ Apesar da ideia de modelo generais lineares, seria uma framework comum para todos os tipos de modelos lineares. O resultado e uma verdadeira putaria. Isso significa que apesar de haver um consenso, no calcula de p valor e r**2 dos modelos de regressao linear, na logistica ja nao e tao assim.
+
+
+ Entao ao inves de falar de todos, eu vou mencionar aquele que e o mais utilizado. Que seria o macfadden pseudo r**2
+
+Lembrete: Formula do r**2 numa linha linear e R**2=SS(media)-SS(FIT)/SS(media), sendo ss media a soma dos residuos ao quadrado, da pior linha possivel a media do eixo y. E ss(FIT) a soma dos residuos ao quadrado, para a melhor linha.
+
+Na aula passada, a gente tambem viu como achar o melhor LL(FIT), que seria a log(likelihood dos dados para aquela funcao), atraves do walds test. Essa seria a nossa SS(FIT).
+
+Agora a gente precisa de algo que substitua o SS(MEDIA), a gente acha isso desconsiderando a variavel impactante no grafico log(odds). Que no exemplo dos ratos obesos, seria somente os pontos obesos no infinito positivo e os ponto nao obesos no infinito negativo. Depois a gente so pega o log(odds) desse dois. Ver imagen (Log(odds)-sem levar em consideracao peso do rato).
+
+Depois a gente projeta os dados para a reta do ultimo achado log(odds), que no exemplo seria 5 ratos obesos e 4 magros. O que da em 0.22
+
+Depois disso a gente faz a logit inversa, que no exemplo seria p=e**0.22/1+e*0.22=0.56
+
+Isso nos da a linha media na linha de regressao logistica. E tambem a probabilidade de ser obeso que no exemplo e 0.56. Depois disso a gente calcula a probabilidade geral que nao e nada mais do que no exemplo, numero de ratos obesos/numero total de ratos. E ve que eles sao iguais o que e um belo de um assurance
+
+
+Depois disso a gente pega  a log("likelihood" dos dados dado a probabilidade geral de obesidade), a gente chama isso de LL(probabilidade geral) e usa como substituto de SS(media). Ele e obtido a fazer numero de ratos obesos/numeros de ratos magro. Tracar uma linha no eixo y  e projetar os valores nela. E fazer aquele log("likelihood" dos dados). Que e muito semelhante a essa forma, log(eixoy do rato 1 obeso) * log(eixo y do rato 2 obeso) *...(n ratos obesos)*log(1-probabiliadde do rato1 nao obeso ser obeso)*log(1-probabiliadde do rato2 nao obeso ser obeso)...(1 -n ratos nao obesos). So que ratos obesos e ratos nao obesos, tem o mesmo valor que seria numero de ratos obesos/numeros de ratos magro.
+
+Agora a gente combina eles na formula normal de r**2 so substituindo os valores. r**2=LL(probabilidade geral)-LL(FIT)/LL(probabilidade geral) a gente obtem o valor r**2.
+
+Lembrete: Nesse quesito o r**2 de mcfadden funciona igual ao r**2 normal, ele se tiver um valor 1 e bom se tiver um valor 0 e ruim.
+
+O valor de p ja e mais simples, a gente se utiliza de chi squares na maior parte do tempo
+
+Obtendo a seguinte formula 2(ll(fit)-ll(probabiliade geral)) = Um valor chi ao quadrado, baseado no numero de liberdade. Que no exemplo e 1 por causa do numero de parametro, y intercep e slope - 1. Esse valor chi ao quadrado e somente um tipo de grafico, tudo que voce faz e pegar esse grafico e por o ponto no eixo x originado por  2(ll(fit)-ll(probabiliade geral)). Dando assim nosso valor p
