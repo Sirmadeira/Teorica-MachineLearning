@@ -1,0 +1,18 @@
+Regressao polinomial e muito semelhante a a multipla regressao linear.
+
+Mas ao inves de multiplas variaveis com a mesma ordem, a gente avalia. A mesma variavel em multiplas ordens(potenciacoes)
+
+Vamos imaginar que voce tenha um conjunto de datapoints semelhante ao da imagen(Exemplo de dataset bom para polinomial)
+
+Voce ve que tem meio que uma ondulacao para baixo no dataset, o que significa que uma regressao linear simples. Nao estaria tendo o encaixe adequado em relacao ao dataset pelo menos pela medida de soma dos residuos ao quadrado. Para acharmos uma linha encurvado que melhor se encaixa a esse dataset, utilizamos nos de regressao polinomiais, que tem a capacidade de encurvacao devido a sua formula de origem.
+
+y=bo+b1*x1+b2*x1**2+....+bn*x1**n
+
+Um exemplo de uso e em caso pandemicos.
+
+Agora e pergunta e porque ainda e chamado de linear?
+
+Se analisarmos a formula da equacao polinomial, ela somente envolve somataria. E qualquer analise linear somente e eficaz quando os seus coeficientes(Bs) podem ser convertido em uma relacao linear(onde eles se somam) caso isso nao fosse o caso, por exemplo quando os coeficiente se dividem e mutliplicam, forma-se uma relacao nao linear.
+
+E e isso meu povo acabou
+

@@ -1,6 +1,6 @@
 Agora a gente vai aprender como uma linha e optimizada, em regressao logistica.
 
-Como foi v isto na aula 7, a gente vai transformar o grafico de regressao logistica com uma funcao sigmoide.Para um grafico linear, atraves da conversao log(odds). No exemplo, sero log(odds obesidade do rato).
+Como foi visto na aula 7, a gente vai transformar o grafico de regressao logistica com uma funcao sigmoide.Para um grafico linear, atraves da conversao log(odds). No exemplo, sero log(odds obesidade do rato).
 
 Ao fazermos essa conversao, temos um problema. A transformacaoo direciona os dataset ou ponto, para infinito ou infinito negativo.
 E isso significa que a distancia entre os pontos da linha sao iguais, a infinito + para os dataset obesos, ou infinito negativo para os datasets nao obesos no exemplo.
@@ -25,7 +25,7 @@ log(Likelihood da linha s atual)=log(eixoy do rato 1 obeso) * log(eixo y do rato
 Depois de obtermos a log(likelihood dos dados), a gente volta la para aquele grafico log(odds transformado mas nao projetado). E inclina um pouco a linha linear.E faz a mesma coisa, projeta, conversao logit inversa, calcula log(likelihood dos dados). E vai fazendo isso para multiplas inclinacoes. Aquela que tiver o maior valor entre os log(likelihood dos dados), e selecionado(maximizacao)
 
 
-Como dito anteriormente, o grafico logistico nao e fazivel por residuos minimos, entao para encontrarmo o p value e o r**2 precisamos fazer eles de uma maneira diferente assunto para a proxima aula.
+Como dito anteriormente, o grafico logistico nao e fazivel por residuos minimos, entao para encontrarmos o p value e o r**2 precisamos fazer eles de uma maneira diferente assunto para a proxima aula.
 
 
 

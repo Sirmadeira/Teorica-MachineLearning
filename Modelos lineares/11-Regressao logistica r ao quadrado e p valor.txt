@@ -26,4 +26,7 @@ Lembrete: Nesse quesito o r**2 de mcfadden funciona igual ao r**2 normal, ele se
 
 O valor de p ja e mais simples, a gente se utiliza de chi squares na maior parte do tempo
 
-Obtendo a seguinte formula 2(ll(fit)-ll(probabiliade geral)) = Um valor chi ao quadrado, baseado no numero de liberdade. Que no exemplo e 1 por causa do numero de parametro, y intercep e slope - 1. Esse valor chi ao quadrado e somente um tipo de grafico, tudo que voce faz e pegar esse grafico e por o ponto no eixo x originado por  2(ll(fit)-ll(probabiliade geral)). Dando assim nosso valor p
+Obtendo a seguinte formula 2(ll(fit)-ll(probabiliade geral)) = Um valor chi ao quadrado, baseado no numero de liberdade. Que no exemplo e 1 por causa do numero de parametros, (y intercept e slope - 1). Esse valor chi ao quadrado e somente um tipo de grafico, tudo que voce faz e pegar esse grafico e por o ponto no eixo x originado por  2(ll(fit)-ll(probabiliade geral)). Dando assim nosso valor p
+
+
+Existe um video, sobre modelos saturados e devianca mas nao acho necessario, ir muito a frente em regressao logistica ja que ela nao e tao utilizada assim.
