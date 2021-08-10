@@ -1,0 +1,5 @@
+Antes de tentar entender uma arvore de regressao primeiro temos que entender a motivacao para ela.
+Imagine que eu quero saber a dosagem que eu deveria dar para um paciente.
+Mas os dados dela sao super perdidos.Ver imagem(Exemplo arvore de regressao)
+Quando a gente tem um dataset zuado desse jeito, nos utilizamos de arvores de regressao. Para podermos fazer uma definicao numerica ajeitada.
+No exemplo dado, e facil notar isso e pensar porra mas e so olhar o grafico? Mas imagine que voce tem mais dataset base, ae fudeu ne mermao?
