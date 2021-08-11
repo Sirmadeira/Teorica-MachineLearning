@@ -3,3 +3,23 @@ Imagine que eu quero saber a dosagem que eu deveria dar para um paciente.
 Mas os dados dela sao super perdidos.Ver imagem(Exemplo arvore de regressao)
 Quando a gente tem um dataset zuado desse jeito, nos utilizamos de arvores de regressao. Para podermos fazer uma definicao numerica ajeitada.
 No exemplo dado, e facil notar isso e pensar porra mas e so olhar o grafico? Mas imagine que voce tem mais dataset base, ae fudeu ne mermao?
+
+No entanto, temos o mesmo problema da arvore de decisao de classificacao qual sera o root node? No exemplo a dosagem inicial? 
+
+Para sabermos a dosagem root node adequada, a gente calcula a media dos dataset que chegam nos leaf nodes(pos filtro). Com uma dosagem qualquer. Depois a gente calcula a soma dos residuo ao quadrado entre o tracejado da media,dos ponto observados e a localizacao do ponto (eixo y dele). Ver imagem(Selecao de dosagem adequada do root node). 
+
+E assim vai indo, para cada dosagem no exemplo. Geralmente se monta um grafico para verificar a soma dos residuos ao quadrado e seleciona-se o minimo de cada dosagem. Ver imagem(Grafico soma dos residuos ao quadrado por dosagem)
+
+O processo se repete na formacao dos galhos sucessores. Ate chegar no ponto em que um dos nodes leafs tem somente um dado observado, porque e impossivel calcular novos limiares(threshholds) com somente um dado observado. Outro limitante, dos leaf nodes e a eficacia da divisao. No exemplo, se todos os datapoint que sobraram naquele leaf node tem o mesmo valor de eficacia de droga entao nao ha necessidade de fazer mais galhos afinal eles estao no seu grupo adequado. 
+
+Entretanto, essa metodo logicamente resulta em overfit ja que ne a leitura dos dados e perfeita, 0 bia variancia vai pro caralho. Entao,no exemplo, a gente generaliza a dosagem destacando o numero minimo de datapoints que tem que ter em cada leaf node,e destacamos no exemplo a media de efetivade na droga. Para assim termos um maior bias
+
+Agora para calcularmos com multiplos datasets base, e muito semelhante ao processos anterior de calcular media e depois fazer multiplos somas de residuos ao quadrado, so que ao inves de limitarmos somente a uma coluna de dados, comparamos multiplas e selecionamos aquele com a soma dos residuos do quadrado minima. Definimos como root node, e a selecao dos galhos e feito do mesmo jeito.
+
+Conclusao final:
+
+Arvores de regressao, sao representadas por valores numericos
+
+A gente determina como dividir os pontos observados tentando multiplos limiares(divisores/thresholds) e calculando  a soma dos residuos ao quadrado entre o ponto observado e sua media. E depois selecionamos o limiar com a menor soma dos residuos ao quadrado
+
+A gente evita overfittin atraves de pruning e limitando o numero de dataset que chegam em um leaf node.(Pontos que chegam depois de passar pelo processo de filtracao)
