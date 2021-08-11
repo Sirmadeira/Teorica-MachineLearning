@@ -2,9 +2,9 @@ Existe multiplos metodos de pruning o melhor deles e o cost complexity pruning, 
 
 Como ja dito anteriormente nos utilizamos de pruning para evitar overfitting. E seria o processo de remocao de cada galho, mas a pergunta e? Qual da arvores cortadas se utilizar de? A gente responde isso com cost complexity pruning
 
-A primeira coisa que a gente vai fazer e pegar os leaf node  de cada arvore, calcular a soma dos residuos ao quadrado atraves da media dos pontos observados e sua posicao atual,pos filtro dos limiares.
+A primeira coisa que a gente vai fazer e pegar os leaf node  de cada arvore, calcular a soma dos residuos ao quadrado, entre a media dos pontos observados dentro daquela leaf node e sua posicao atual,pos filtro dos limiares.
 
-Depois a gente faz a soma da soma dos residuos ao quadrados. Daquela arvore primaria.Ver imagen(Pruning primeiros passos)
+Depois a gente faz a soma da soma dos residuos ao quadrados dos leaf nodes. Da arvore.Ver imagen(Pruning primeiros passos)
 
 E depois a gente faz o mesmo processo de calculo de soma da soma dos residuos ao quadrado, para arvores pos retirada de certos leaf nodes. Obviamente essa soma das somas, vai ser maior a medida que a gente retira as folhas. Mas essa e a intencao durp. Mas e agora como selecionar?
 
@@ -16,7 +16,7 @@ Pontuacao da arvore= SR**2+aT)
 
 Entao vamos ver isso na aplicacao mesmo, levando em consideracao tanto a testing data quanto a training data da decision tree.
 
-Primeiramente, a gente vai aumentar o tamanho do alfa. Ate que a primeira arvore de decisao tenha uma Pontuacao de arvore menor do que a arvore conseguinte com as folhas ja cortada. E faz isso, ate a arvore com somente uma folha.
+Primeiramente, a gente vai aumentar o tamanho do alfa. Ate que a primeira arvore de decisao tenha uma Pontuacao de arvore menor do que a arvore conseguinte com alguns leaf nodes ja cortadas. E faz isso, ate a arvore com somente uma folha.
 
 Agora divida os dados novamente, em training e testing sets. 
 Usando somente o dados de treinamento monte as arvores de decisao, e repita  o processo anterior de aumento de alpha. 
@@ -24,7 +24,7 @@ Depois calcula, soma dos residuos ao quadrado de cada arvore somente usando os d
 Depois crie um novo conjunto de dados de treinamento, e de teste. 
 E agora somente se utilizando da training data recente, monte uma nova arvore de decisao. 
 Depois repita o processo primario de aumentar o tamanho de alfa.
-Depois calcula a SR**2(entre media e pontos observados pos filtro), usando somente o novo conjunto de dados teste.
+Depois calcula a soma dos SR**2(entre media e pontos observados pos filtro dos leaf nodes), usando somente o novo conjunto de dados teste.
 Voce viu que eu repeti o processo ne? Pra destacar como fazer ele memo fdp
 
-E vai repetindo ate chegarmos num 10 fold cross validation(esse ciclo 10 vezes), e o valor de alpha ,que em media(nessas 10 repeticoes) teve o menor dos multiplos dos SR**2 ,levando em consideracao os dados testes. Sera o valor de alpha final. Por fim, a gente volta para as primeiras arvores feitas com todos os dados, e seleciona a arvore que esse valor de alpha selecionado se encontra.
+E vai repetindo ate chegarmos num 10 fold cross validation(esse ciclo 10 vezes), e o valor de alpha ,que em media(nessas 10 repeticoes) teve o menor das soma  dos SR**2 dos leaf nodes,levando em consideracao os dados testes. Sera o valor de alpha final. Por fim, a gente volta para as primeiras arvores feitas com todos os dados, e seleciona a arvore que esse valor de alpha selecionado se encontra.
