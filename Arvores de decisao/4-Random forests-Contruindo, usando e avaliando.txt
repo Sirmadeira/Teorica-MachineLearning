@@ -1,0 +1,35 @@
+Arvores de decisao tem um problema severo, de imprecisao. Ou melhor dito, elas naos sao flexiveis quando se classifica novos exemplos. Mas elas sao muito boas com os dados ja verificados.
+
+Random forest, combinam a simplicidade das arvores mais tambem acrescentando mais flexibilidade resultando numa melhoria consideravel na precisao do modelo.
+
+Entao vamos entender como criar uma random forest
+
+A primeira coisa que a gente faz com os nossos dados e criar um nova dataset, mas o dataset vai ser montada no formato bootstrap. Basicamente um formato em que linhas da coluna podem repetir. E tem o mesmo numero de linhas do que o dataset base.
+
+
+A segunda coisa que fazemos e montar uma arvore de decisao, usando o dataset bootstraped. Mas somente se utilizando de certos pedacos das colunas que sao selecianados randomicamente na formacao dos galhos e do root node. Ou seja, nao levamos todas as variaveis (colunas) do dataset em consideracao ao montar os nosso galhos e root node.
+Agora so por exemplo, assuma que uma das colunas selecionadas fez um melhor trabalho do que a outra(o como e avalaido isso fodase) em separar os dados. Essa coluna e por assim dizer desconsiderada nos galhos seguintes. E o processo de selecao randomica de variaveis se repete. E vai construindo a arvore ate chegar no limite imposto de datasets que chegam nos leaf nodes.
+
+Depois disso voce repete esse processo, de formacao de datasets bootstraps. E selecao randomica de subsets de variaveis na formacao dos galhos e root nodes na arvore de decisao com o dataset bootstraped como base.Idealmente faz se umas 100 arvores de decisao.
+
+Mas e agora como utilizamos dessas multiplas arvores de decisao na classificacao de evento? Por exemplo, se ele tem problemas de coracao.
+
+Bom tudo que a gente faz e passar uma linha do dataset original qualquer, por todas as arvores de decisao. E a gente vai contando o numero de vezes que cada arvore classifico como sim ou nao. Ver imagem(Como classificar usando random forest)
+
+O nome desse processo, de bootstrapar a data usando o agregado(soma) para formar uma decisao e chamado de "bagging"
+
+Agora como sabemos se ela e boa? O melhor avaliamos-a?
+
+
+Tipicamente um dataset bootstrapado, desconsidera 1/3 das linhas originais.
+O nome dados para os datasets que nao entraram no dataset bootstrapado e out-of-bag-dataset.
+
+Depois disso a gente passa uma linha desse out-of-bag dataset pelas as arvores de decisao formadas pelo bootstrap. E repete o processo de somar as vezes que resulto em sim ou nao. E verifica, quais random forests tiveram o maior numero de linhas out-of-bag corretamente classificados.
+
+A proporcao de out-of-bags exemplos que foram incorretamente classificado levando em consideracao o numero total de exemplos, e chamado de out-of-bag-error.
+
+Agora que sabemos identificar quem ta fazendo merda, vamos optimizar o nosso modelo.
+
+Se lembra quando a gente constroiu a arvore de decisao(do dataset bootstrap) usando somente uma parcela das variaveis, agora a gente pode comparar o out-of-bag-error de uma random forest que forma seu root node e seus galhos usando somente 2 variaveis com random forests que se utilizam de 3 colunas.
+
+E a gente seleciona aquela com mais precisao.
