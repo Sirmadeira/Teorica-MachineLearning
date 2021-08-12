@@ -30,6 +30,4 @@ A proporcao de out-of-bags exemplos que foram incorretamente classificado levand
 
 Agora que sabemos identificar quem ta fazendo merda, vamos optimizar o nosso modelo.
 
-Se lembra quando a gente constroiu a arvore de decisao(do dataset bootstrap) usando somente uma parcela das variaveis, agora a gente pode comparar o out-of-bag-error de uma random forest que forma seu root node e seus galhos usando somente 2 variaveis com random forests que se utilizam de 3 colunas.
-
-E a gente seleciona aquela com mais precisao.
+Se lembra quando a gente constroiu a arvore de decisao(do dataset bootstrap) usando somente uma parcela das variaveis, agora a gente pode comparar o out-of-bag-error de uma random forest que forma seu root node e seus galhos usando somente 2 variaveis com random forests que se utilizam de 3 colunas. Quanto maior ele for pior elas sao.
