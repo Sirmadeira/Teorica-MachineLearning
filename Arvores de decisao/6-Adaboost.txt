@@ -1,0 +1,96 @@
+Antes de tudo mais vale destacar que adaboost e o utilizado em grande parte, em conjunto com arvores de decisao. Por isso ele ta aqui
+
+Eu vou me utilizar dos conceitos de arvores de decisao e arvores random, para explicar os conceitos por tras de adaboost.
+
+Existe 3 conceitos principais do adaboost.
+
+Numa floresta random, nao existe um numero limite de profundidade(nao limia-se o numero de leaf nodes).
+
+No adaboost, as arvores sao geralmente somente um node e dois leaf nodes.
+Aviso: UMA ARVORE COM SOMENTE UM ROOT NODE  E DOIS LEAFS E CHAMADA DE STUMP(tronquinho), obviamente stumps nao sao bons em classificar as coisas como uma arvore de decisao comum. Por isso mistura os dois, honhon.
+
+
+Numa floresta random, o numero de votas que cada arvore tem e equivalente. Sabe no processo de classificao.
+
+Agora no adaboost, alguns stumps TEM MAIS PODER de voto na classificacao que outros.
+
+Numa random forest cada arvore feita e independente das outras.
+
+Numa floresta de stump feita em adaboost, ordem e importante. Um tronquinho pode influenciar consideralvemente o outro, e o stump sucessor pode levar os erros do segundo em consideracao.
+
+Agora a gente vai aprender como criar uma floresta de stumps usando adaboost!
+
+
+Primeira pega um conjunto de dados, depois a gente cria uma coluna chamado peso de cada datapoint. E preenche ela com impacto inicial do datapoint(sempre 1)//Numero total de exemplos. Isso significa, que cada datapoint tem o mesmo impacto.Melhor explicado ao vermos a database. Ver imagen:(Peso de cada exemplo adaboost)
+
+No entanto depois de fazermos o primeiro tronquinho, o impacto de um datapoint sera alterado. Mas isso vai ser feito depois
+
+Primeiro vamos fazer o nosso tronquinho inicial. Para isso a gente se utiliza da mesma metodologia de impuridade de gini total, la da primeira aula de arvores de decisao.
+
+Agora sim volta para descobrir o peso de cada tronquinho. A gente determina o quanto de impacto um tronquinho tera na classificacao final, ao analisarmos o quao bem ele classifica os dataset.Ver imagem:(Teste dos stumps)
+
+Lembrete: Os pesos de cada datapoint(ou sample weights no exemplo), sempre se adicionam a 1, por isso o erro total do stump vai estar entr 1 e 0. Sendo 1 um tronquinho merda e 0 um tronquinho perfeito.
+
+A gente usa o total error para determinar o quanto um tronquinho tem de impacto na classificacao final.
+
+Formula erro total:
+Numero de incorretos//Numero total de eventos
+A formula seria:
+
+Quantidade de impacto=1//2log(1-Erro total//Erro total)
+
+Geralmente para descobrir o quanto, de impacto. Um certo stump tem, a gente desenha o grafico dessa funcao. Pondo um monte de total error entre 0 e 1 obviamente. Ver imagen(Relacao total error impacto do datapoint).
+
+Algo interessante e que se tiver muitos stomps com um total error alto, e que logo entrarao na parte negativo do grafico. Terao um impacto negativo, o que significa que caso tenha muitos deles vai para o outro lado classificativo. Legal ne?
+
+AVISO: Se o erro total for 1 essa equacao fica doida. Por isso na pratica, pomos um termo de erro adicional(acrescente um total error) para previnir isso.
+
+Depois de calcularmos o erro total de certo divisor, so pegar ele e por no grafico formula. E isso nos dara, o quanto de impacto cada tronquinho tem
+
+Agora vamos descobrir como modificar o impacto de cada datapoint(sample weight da dataset base) para que os proximos stumps vao levar o erro em consideracao?
+
+Bom isso e foda, entao vamos la! Primeira coisa e voltar para o dataset. Nele a gente deu o mesmo valor de impacto(sample weight) para todos exemplos. Isso significa que nao puzemos enfase na importancia de classificar um datapoint especifico do dataset.
+Para fazermos isso a gente so aumenta o impacto daquele datapoint em especifico e diminui o dos outros datapoints.
+
+Para fazermos isso usamos da seguinte formula
+
+Novo impacto do datapoint = impacto atual(sample weight)*e**Quantidade de impacto
+
+Para entendermos como o e** quantidade de impacto, influencia o novo impacto do datapoint desenha-se o grafico dessa formula.Ver imagen:(Grafico euler e seu impacto). Como se pode ver quando a quantidade de impacto e alta(fez um bom trabalho o troquinho) sobe por bosta o novo impacto do datapoint, quando nao e(fez um tronquinha merda) o nova impacto e pequeno.
+
+E pronto a gente descobre o quanto o novo impacto e.
+
+Mas agora quanto diminuir os outros?Faz se essa formula aqui.
+
+Nova impacto dos outros datapoint(sample weights) = impacto atual*e**-(Quantidade de impacto)
+
+O grafico desse daqui e literalmente o da imagen anterior, so que inverso mas ponho por desencargo.Ver imagen:(Grafico euler e impacto negativo). A relacao nesse caso seria caso o amount of say.
+
+E pronto converte os outros datapoints para outros valores.
+
+Mas agora precisa normalizar para que o valor total de soma dos Novos impactos, seja 1. Voce faz soma todos os novos impactos e depois divide cada um pelo valor da soma.
+
+Agora a gente pode usar os novos impactos para formar o segundo troquinho.
+
+
+Na teoria, a gente pode usar os novos impactos para calcular o indice de gini de impacto(weighted gini index), para assim determinar qual variavel deveria dividir o proximo tronquinho. O weighted gini index pora mais enfase, em corretamente classificar os datapoints incorretos. Que no exemplo somente era um.(Mas isso e dificil de mais se fuder)
+
+Alternativamente, ao inves de usar o weighted gini index, a gente pode fazer uma colecao de datapoints, que contem duplicatas dos datapoints com mais Novo impacto(sample weight)
+
+Entao a gente pega um novo dataset, que tem o mesmo tamanho da original. E pega um numero random entre 0 e 1. E ve onde esse numero cairia na distribuicao dos novos impactos(sample weights).Ver imagen:(Fazendo novo dataset adaboost). E vai indo, ate preencher todas as linahs. No final, o datapoint com o maior novo impacto(sample weight) tem uma chance maior de entrar no dataset pq no final ele e aquele que engole a maior  parte da pizza da distribuicao. 
+
+Depois disso a gente da para todos os datapoints, o mesmo impacto(sample weight) que nem no inicio, e repete o processo de construcao do root node. Atraves do gini de impuridade.
+
+E assim e como a gente faz com que o erro da arvore anterior seja considerado. 
+
+Agora por fim temos que falar como ele classifica... jesus?
+
+Pegamos sei la 100 tronquinho que a gente fez pelo processo anterior, e pegamos a classificacao que cada um da para um datapoint novo. E faz uma contagem de votos, de cada stump. Mas a gente tambem contabiliza a quantidade de impacto de cada um. E soma elas. Ver imagen(Classificacao com adaboost). No final, aquele com a maior quantidade de impacto(AMOUNT OF SAY) somada, sera o classificador atribuido.
+
+Conclusoes finais:
+
+ADABOOST combina muitos aprendedores fracos(stumps) para fazer classificacao
+
+Alguns stumps tem mais a dizer que os outros
+
+Os proximos stumps levam em consideracao o erros dos outros.

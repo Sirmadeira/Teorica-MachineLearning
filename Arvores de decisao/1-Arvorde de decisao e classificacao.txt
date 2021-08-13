@@ -16,21 +16,21 @@ Galhos, tem flechas entrando neles, e flechas saindo deles.(Verdadeiro ou falso 
 Os finais sao chamados de folhas, ou leaves. Leaves tem flechas entrando neles, mas nao saindo.
 
 
-Agora a pergunta e como a gente vai escolher o root node? Se voce pensar uma database tem multiplos parametros classificativo, exemplo gosta de pipoca, ou gosta de soda, ou gosta de chupar um cu. Como eu escolho aquele que melhor prediz, os outros? Bom o que a gente faz e pequenas arvores de decisao, que equiparam o resultados de cada uma ver imagem(Como escolher root node). Como se pode ver na image, se acontabiliza o numero de vezes que um certo dataset chegou em certo leaf node.Aviso: Quando  o leaf node, tem mais de uma classificacao final, chama-se de node impuro. Tendo isso em vista a arvore com menos nodes finais impuros, e a escolhida. Mas isso nao e muito por assim dizer quantitativo. 
+Agora a pergunta e como a gente vai escolher o root node? Se voce pensar uma database tem multiplos parametros classificativo, exemplo gosta de pipoca, ou gosta de soda, ou gosta de chupar um cu. Como eu escolho aquele que melhor prediz, os outros? Bom o que a gente faz e pequenas arvores de decisao, que equiparam o resultados de cada uma ver imagem(Como escolher root node). Como se pode ver na imagen, se acontabiliza o numero de vezes que um certo dataset chegou em certo leaf node.Aviso: Quando  o leaf node, tem mais de uma classificacao final, chama-se de node impuro. Tendo isso em vista a arvore com menos nodes finais impuros, e a escolhida. Mas isso nao e muito por assim dizer quantitativo. 
 
 Por isso a gente se utiliza de indice de gini de impuridade, pelo menos esse e o mais famosinho.
 
 A formula de gini de impuridade na folha e
-Gini de impuridade na folha=1-(Probabilidade de sim de um leaf node)**2=(Probabilidade de nao de um leaf node)**2
+Gini de impuridade na folha=1-(Probabilidade de sim de um leaf node)**2+(Probabilidade de nao de um leaf node)**2
 
-No entanto, a impuridade de gene tambem tem que considerar a disproporcao entre o numero de pessoas, ou eventos em cada leaf node.
+No entanto, a impuridade de gini tambem tem que considerar a disproporcao entre o numero de pessoas, ou eventos em cada leaf node.
 
 Por isso a gente calcula a media dos pesos dos leaf nodes
 
-Lembrete: Peso e o total numero de um leaf node/ pelo  total numero de evento nos leaf nodes comparados.
+Lembrete: Peso = o total numero de datasets em um leaf node/ pelo  total numero de evento nos leaf nodes comparados.
 
 A formula da impuridade total de gini.
-Impuridade total de gini=(numero de eventos da arvore1/numero total de eventos).gini de impuridade da folha1+(numero de eventos da arvore2/numero total de eventos).gini de impuridade da folha2
+Impuridade total de gini=(numero de eventos da arvore1//numero total de eventos)*gini de impuridade da folha1+(numero de eventos da arvore2//numero total de eventos)*gini de impuridade da folha2...(de acordo com o numero de folhas)
 
 Para entender melhor ver imagem exemplo(Exemplo gini de impuridade total)
 
@@ -39,12 +39,12 @@ Agora como se faz para classificantes numericos?
 Bom e um pouquinho mais convuluido entao mais exemplo.
 Imagine um dataset cheio de idades.
 
-A primeira coisa que a gente faz e calcular a media entre as linhas.
-E depois calculumos o impuridade total de gini, da arvore de decisao tendo como base a media da linha.Ver exemplo(Exemplo gini de impuridade numero)
+A primeira coisa que a gente faz e calcular a media entre as linhas(datapoint).
+E depois calculamos o impuridade total de gini, da arvore de decisao tendo como base a media da linha.Ver exemplo(Exemplo gini de impuridade numero)
 Depois disso selecionamos a media,com o menor indice de impuridade total.
 
 
-E no final selecionamos aquele, o dataset com o menor indice de gini.
+E no final selecionamos, o dataset com o MENOR indice de gini.
 
 No entanto, as vezes mesmo selecionando o root node com o menor indice de gini, ainda temos leaf nodes impuros.Para diminuir isso acrescentamos galhos.
 

@@ -1,0 +1,58 @@
+Random forests, sao pesadamente afetadas pela falta de dados devido a natureza do seu modelo.
+
+Ela leva em consideracao dois tipos de falta de dados:
+
+1-Falta de dados no dataset original mas com a coluna de categoria preenchida.
+
+2-E falta de dados em um novo datapoint que nao tem categoria, e tambem perde nas linhas de dados sucessivas.
+
+
+Vamos comecar pelo primeiro
+
+Para tentarmos obter o valor correto da coluna que tem falta de dados, a gente se baseia na coluna de categoria. Ver imagem(Preenchendo dados em colunas com categoria). No exemplo exposto na imagem, a categoria atribuida e de nao existe chance de ataque cardiaco. Logo a gente pega outros datapoint que tem a variavel(coluna) faltante preenchida e a mesma categoria, e preenche o valor faltante com a media no caso de dados numericos. No caso de dados categoricos, a categoria que apareceu mais vezes. Isso no inicio.
+
+Agora a gente vai tentar refinar esse processo.
+
+A gente faz isso tentando achar linhas similares no dataset. 
+A gente encontra linhas similares construindo uma random forest, com o processo da aula 4.
+Depois a gente passa todos os datapoint da mesma CATEGORIA, pelas random trees. Quando os dados caiem no mesmo leaf node significa que os dados sao similares. 
+Tendo isso em vista, a gente monta uma matriz de proximadade(essa matriz tem uma linha para cada dado e uma coluna para cada dado, ela basicamente conta o numero de vezes que  uma linha foi similar(caiu no mesmo leaf node) ela tambem destaca a posicao das linhas associadas).Ver imagen(Matriz de proximidade).
+
+Depois disso a gente divide os valores da matriz de proximidade pelo numero total de arvores random.
+
+Depois desse processo temos que calcular a frequencia do "nome da variavel", para assim sermos capazes de identificar. Qual dado categorico sera selecionado para preencher o dado faltante na linha. Para entender isso veja exemplo
+ 
+Ver exemplo
+(Calculo da frequencia do peso utilizando-se de similaridade frequencia sim.).
+Para calcular a frequencia do peso de sim
+A gente faz a formula
+
+Sim= Frequencia de sim(Numero de vezes que o sim apareceu no dataset/Numero total de datasets) * Peso de sim
+
+Agora para calcular o peso de sim faz-se a formula
+Peso de sim = Proximadade(Entre o dado categorico sim e dado categorico faltante da linha 4)(Basicamente a coluna 2 com a linha 4 na matriz )//Todas as proximidades da linha 4
+
+O mesmo se faz para o dado categorico nao. Ver imagem(Calculo da frequencia do peso utilizando-se de similaridade frequencia nao)
+
+No final a frequencia de peso maior, e aquela selecionada. Nesse caso a frequencia de peso nao. E o NAO ira PREENCHER O DADO FALTANTE.
+
+Agora para os valores numericos, se faz o seguinte. No exemplo o peso medio dos valores.
+
+Ver imagen:(Peso medio como calcular dado faltante para valores numericos passo 1)
+E imagen:(Peso medio como calcular dado faltante para valores numericos passo 2)
+
+Depois disso multiplica-se esse valor pelo o peso de 125 que seria o valor da linha 1 daquele dado numerico.
+
+Depois disso soma-se todas, os valores pesos para cada linha do dataset.
+Ver imagen:(Finalizando peso media)
+E esse sera a media que ira entrar no dado faltante de pesos.
+
+Agora que a gente tem os dados faltante, a gente monta uma random forest com esses dados, faz os dados passar pelas as arvores, recalcula as proximidade e depois recalcula os valores perdidos. A gente faz isso umas 6 7 vezes ate que os valores nao convirjam(nao mudem mais)
+
+Agora vamos falar do segundo caso de dados faltantes que tambem nao tem categoria.
+
+A primeira coisa a se fazer nesse caso e criar duas copias das dado, uma que tem a categoria positiva e outra nao. Depois a gente se utiliza do metodo descrito anteriormente (calculo de frquencia em dados categorios, calcula de media do "nome da variavel" em dados numericos) para preencher os dados faltantes nao relacionado a categorizacao. Lembre-se: A categoria classificativa pode alterar o valor de preenchimento, tanto de dados categoricos quanto numericos.
+
+
+Depois disso a gente passa os dois tipos de dados preenchido, por uma random forest. E ve quantas vezes cada dado categorico preenchido caiu corretamente, no leaf node de sua categoria. Aquele que tiver caido mais e selecionado.
+Ver imagen(Ver quais dois tipos de categoria sao melhores depois do processo de preenchimento)
