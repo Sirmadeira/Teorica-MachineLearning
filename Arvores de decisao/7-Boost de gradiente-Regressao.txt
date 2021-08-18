@@ -1,0 +1,60 @@
+Gradiente boost e um tipo de modelo que se assemelha com arvores de decisao, por isso ele esta aqui. Ele pode ser utilizado tanto para regressao quanto classificacao. A aula de hoje vai ser ele utilizado em regressoes. A aula seguinte e a comprovacao matematica do porque ele funciona.
+
+O algoritmo parece complicado porque ele foi criado para ser aplicado de multiplas maneiras(tem multiplas configuracoes), mas em pratica somente uma maneira(configuracao) e utilizada, para classificar ou identificar a regressao dos dados.
+
+Bom entao vamos tentar se utilizar ele para preditar um dado futuro, como peso.
+
+Adaboost e semelhante a gradiente boost , por isso eu vou tentar explicar atraves de uma comparacao entre os dois.
+
+No adaboost, o tronquinho novo se "lembra" da cagada do tronquinho velho. E ele sempre comeca pelo root node.
+
+Em contraste, o gradient boost comeca por um leaf node ao inves de uma arvore. Essa folhinha em nosso exemplo, refere-se a primeira media dos pesos de todos os dados.
+
+Depois disso o gradiente boost cria uma arvore.Como no adaboost, essa arvore e criada com base dos erros da arvore anterior. E ela geralmente e maior do que um tronquinho, mas ele ainda restringe um pouco os leaf nodes. Em pratica eles geralmente, ficam entre 8 e 32.
+
+No entanto, no gradient boost as arvores pos adaptadas(pos levar o erro da arvore anterior) sempre persiste com o mesmo escalao de impacto.
+
+Agora vamos ver como a configuracao(maneira) mais comun ira se utilizar desse conjunto de dados para preditar o peso  de nosso exemplo.Ver imagen(Gradiente boost database)
+
+E vamos pro primeiro passo que e fazer aquele leaf node, com a media de todos os pesos.
+
+Agora vamos contruir uma arvore levando os erros anteriores do leaf node ('primeira arvore').
+
+
+Se formos pegar o acumulado so fazer a somatoria dos erros de todos os dados.Ver imagen(Pseudo residuo de todos gradiente boost)
+
+O erro do leaf node por dado e identificado pela seguinte formula:
+Erro por dado ou (Pseudo residuo)=Dado Observado - Dado predito
+
+PSEUDO PARA VOCE NAO ACHAR QUE E LINEAR FDP
+
+Agora a gente vai construir uma arvore(atraves de gini de impuridade mas levando o limite de leaf nodes em consideracao), que tem como objetivo preditar os pseudo residuos resultantes da arvore primaria(leaf node), ao inves do peso que seria o normal. 
+(Leaf nodes tem como destino os residuos individuais de cada dataset)
+
+Devido ao limite de folhas, as vezes dois ou mais residuos vao cair na mesma folha. Quando isso acontece faz-se a media dos dois, e define-os como o novo leaf node.Ver imagem(Multiplos residuos em leaf nodes)
+
+
+Agora a gente pode tentar preditar um novo valor de peso, para isso pegamos o leaf node primario (media) e o leaf node final(depois de passar pela arvore) isso resulta em. E SOMAMOS ELES.
+Ver imagen(Processo de soma para predicao gradient boost)
+
+SE VOCE VER A IMAGEN VAI ENCAIXAR MUITO PERFEITINHO O DEUS ABENCOADO ACABE COM O MEU SOFRIMENTO
+
+Para evitar isso gradiente boost usa de algo chamado learning rate, para escalar o quanto de contribuicao no processo de soma final, para chegar na predicao do peso, uma nova arvore vai ter. O valor do learning rate sempre vai estar entre 0 ou 1. E o learning rate geralmente, e um valor pequeno. Porque assim sempre vamos dar um pequeno passo para a direcao certa, JEROME FRIEDMAN (criador do gradient boost)
+
+Vamos construir a segunda arvore, do mesmo jeito que construimos a primeira. Mas dessa vez ao calcularmos os pseudo residuos, acrescentamos a predicao da primeira arvore* o learning rate, na parte da formula(pseudo residuo) que se refere ao dado predito. Ver imagem(Construindo segunda arvore)
+
+Agora so uma imagem de comparacao entre os residuos dos dois datasets porque e legal a importancia. Ver imagem(Comparacao entre dados pseudo residuos)
+E repete. Ate chegar ao limite de arvores especificado ou ate adicionar uma nova arvore nao diminui significamente o tamanho do pseudo residuo
+ 
+
+Conclusao final:
+
+Quando gradiente boost e usado para predicao
+
+A gente comeca com um leaf node, que e a media dos valores da variavel que queremos preditar
+
+Depois acrescentamos uma arvore baseado nos pseudo residuos do leaf node, e a gente poim um learning rate para nao dar overfitting.
+
+Depois acrescentamos uma nova arvore baseado nos novos residuos
+
+

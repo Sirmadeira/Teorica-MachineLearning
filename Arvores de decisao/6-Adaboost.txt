@@ -4,13 +4,13 @@ Eu vou me utilizar dos conceitos de arvores de decisao e arvores random, para ex
 
 Existe 3 conceitos principais do adaboost.
 
-Numa floresta random, nao existe um numero limite de profundidade(nao limia-se o numero de leaf nodes).
+Numa floresta random, nao existe um numero limite de profundidade(nao limita-se o numero de leaf nodes).
 
 No adaboost, as arvores sao geralmente somente um node e dois leaf nodes.
 Aviso: UMA ARVORE COM SOMENTE UM ROOT NODE  E DOIS LEAFS E CHAMADA DE STUMP(tronquinho), obviamente stumps nao sao bons em classificar as coisas como uma arvore de decisao comum. Por isso mistura os dois, honhon.
 
 
-Numa floresta random, o numero de votas que cada arvore tem e equivalente. Sabe no processo de classificao.
+Numa floresta random, o numero de votos que cada arvore tem e equivalente. Sabe no processo de classificacao.
 
 Agora no adaboost, alguns stumps TEM MAIS PODER de voto na classificacao que outros.
 
@@ -35,7 +35,7 @@ A gente usa o total error para determinar o quanto um tronquinho tem de impacto 
 
 Formula erro total:
 Numero de incorretos//Numero total de eventos
-A formula seria:
+A formula da quant de impacto:
 
 Quantidade de impacto=1//2log(1-Erro total//Erro total)
 
@@ -85,7 +85,7 @@ E assim e como a gente faz com que o erro da arvore anterior seja considerado.
 
 Agora por fim temos que falar como ele classifica... jesus?
 
-Pegamos sei la 100 tronquinho que a gente fez pelo processo anterior, e pegamos a classificacao que cada um da para um datapoint novo. E faz uma contagem de votos, de cada stump. Mas a gente tambem contabiliza a quantidade de impacto de cada um. E soma elas. Ver imagen(Classificacao com adaboost). No final, aquele com a maior quantidade de impacto(AMOUNT OF SAY) somada, sera o classificador atribuido.
+Pegamos sei la 100 tronquinho que a gente fez pelo processo anterior, e pegamos a classificacao que cada um da para um datapoint novo. Mas a gente nao da o mesmo valor, contabiliza-se atraves da quantidade de impacto de cada um. E soma elas. Ver imagem(Classificacao com adaboost). No final, aquele com a maior quantidade de impacto(AMOUNT OF SAY) somada, sera o classificador atribuido.
 
 Conclusoes finais:
 
