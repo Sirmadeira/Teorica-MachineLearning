@@ -5,7 +5,7 @@ Basicamente, eles tem mais uma variavel. E logo tem mais uma dimensao.
 Exemplo, vamos analisar o tamanho de um rato desconhecido.
 Atraves de 3 variaveis, peso, tamanho e tamanho da cauda.
 
-Aviso. O r**2(R squared) para regressao multipla e regressao de multiplas dimensoes. E a mesma
+Aviso. O r**2(R squared) para regressao multipla e regressao de multiplas dimensoes. E a mesma.
 Ao fazermos o F, abaixo
 
 F=(SS(funcao simples)-SS(funcao multipla)/(P multiplo- P simples))/SS(funcao multipla)/(n-p multiplo)

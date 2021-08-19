@@ -1,0 +1,36 @@
+Gradiente descendente e utilizado para estimar parametros. Logo ele e muito utilizado para optimizar muitos algoritmos. NAO IMPORTA QUAL SEJA.
+
+Optimizar seria o processo, de encaixar uma funcao de maneira adequada.
+Por exemplo, ao fazermos um modelo linear. A gente optimiza a funcao linear dele para que ela se encaixe adequadamente a data, no modelo linear optizamos o intercept e o slope(inclinacao)
+
+Vamos comecar com um dataset simples. No eixo x temos peso, no eixo y Altura. Ver imagem(Dataset Gradiente Descente).
+Obviamente, conseguimos preditar(adivinhar) um novo eixo y do dataset se tivermos o eixo x. Mas para ter uma boa funcao preditora precisamos optimizar seus parametros. No exemplo ela e linear logo os parametros a serem optimizado e o  intercept e  slope.
+
+Primeiro optimazeremos o intercept, depois que entendermos gradient descent  vamos otimizar o intercept e o slope ao mesmo tempo.
+O slope de inicio, vai ter um valor artificial(0.64).
+
+Comecamos, dando um valor random ao intercept. Vamos com 0 porque e mais suave. Isso resulta numa funcao linear, muito pra baixa. Ver imagen( Gradiente descendente linha inicial).
+
+Com essa linha, calculamos a loss function SR**2(SOMA DOS RESIDUOS AO QUADRADO). De cada ponto. Para calcular o SR**2, tudo que a gente tem quer fazer e calcular a diferenca entre o dado observado(dado treino) e o dado predito(dado da funcao). Para descobrirmos o dado predito, pegamos o eixo x dado pelo dado observado e encaixamos ele na funcao. 
+Depois disso pegamos o residuo achado, e elevamos ao quadrado. 
+E repete esse processo em todos os ponto e soma os RESIDUOS ao quadrado deles.
+Ver imagen(SR ao quadrado.)
+
+Tendo isso em mente, aumentamos o valor do nosso intercept gradativamente. Para acharmos o intercept com a menor SR**2. Montamos um  grafico, da relacao entre intercept(eixo x) e SR**2(eixo y). Ver imagen:(Grafico para achar ponto minimo)
+
+E pronto ne? Selecionamos o ponto minimo deste grafico que teve um aumento gradual do y intercept de 0.25 em 0.25? NAO PORQUE QUEREMOS TER CERTEZA QUE TEMOS O VALOR PERFEITO, ENTAO VAMOS fazer em 0.0001 a 0.0001 o aumento UE MAS AE O PC NAO aguente ae fudeu. CALMA LA JOVEM, isso daki foi um exemplo. No gradient descent, temos um jeito muito mais eficiente.
+
+Gradiente descente diferente dessa metodologia de 0.001 0.001, tem algo chamado step-size. De inicio, ao nota que o SR**2 e alto, ele da um belo de um passao(dentro do grafico de relacao intercept SR**2), depois ao notar que o SR**2 esta menor ele diminui o tamanho do passo.Lembre-se:(Big steps at the beginning baby  steps at the end)
+
+Entao vamos voltar la para quando o intercept inicial era 0(linha 12 no sublime).
+
+Se lembra quando eu expliquei que o dado predito, nao era nada mais do que por o eixo x do dado observado na funcao linear? Entao isso significa que eu posso simplificar matematicamente. A funcao da SR**2, ver imagem: (SR ao quadrado simplificada com uma variavel). Assim conseguindo, a sr**2 para qualquer valor intercept
+Voce viu que na imagem a gente meio que formou uma funcao? Agora a gente consegue pegar a derivada dessa funcao, e determinar o slope de qualquer valor do intercept.
+
+Entao vamos pegar a derivada da SR**2 com respeito ao intercept.
+E a associamos, a derivada de cada datapoint com respeito ao intercept.
+Ver imagem:(Derivadas associadas ao intercept)
+
+Resolvemos essa variavel atraves da chain rule(ver aula). Ver imagem:(Derivada resolvida SR ao quadrado com respeito ao intercept)
+Agora iremos nos utilizar de gradient descent para achar onde SR**2 esta no seu minimo dentro do (grafico intercept com SR**2).
+Aviso: Se tivessemos nos utilizando de least squares para achar o melhor valor para o intercept, a gente simplesmente acharia o local onde a inclinacao e igual a 0. Em contraste, o gradiente descente acha o valor minimo atraves de passos partindo de um valor inicial ate chegar no melhor valor minimo. Isso faz do gradiente descente muito util quando nao e possivel achar a derivada=0, e e por isso que gradient descent pode ser utilizada de multiplas maneiras.

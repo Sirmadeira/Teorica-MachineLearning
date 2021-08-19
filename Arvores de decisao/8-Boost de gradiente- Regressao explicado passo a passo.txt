@@ -1,0 +1,1 @@
+Para entender como o boost de gradiente funciona, internamente. Temos que saber como funciona gradientes descendentes(Ver aula, na pasta conceitos base)

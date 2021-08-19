@@ -1,8 +1,8 @@
-Gradiente boost e um tipo de modelo que se assemelha com arvores de decisao, por isso ele esta aqui. Ele pode ser utilizado tanto para regressao quanto classificacao. A aula de hoje vai ser ele utilizado em regressoes. A aula seguinte e a comprovacao matematica do porque ele funciona.
+Gradiente boost e um tipo de modelo que se assemelha com arvores de decisao. Ele pode ser utilizado tanto para regressao quanto classificacao. A aula de hoje vai ser ele utilizado em regressoes. A aula seguinte e a comprovacao matematica do porque ele funciona. E as sucedentes vai ser em classificao.
 
 O algoritmo parece complicado porque ele foi criado para ser aplicado de multiplas maneiras(tem multiplas configuracoes), mas em pratica somente uma maneira(configuracao) e utilizada, para classificar ou identificar a regressao dos dados.
 
-Bom entao vamos tentar se utilizar ele para preditar um dado futuro, como peso.
+Bom entao vamos tentar se utilizar dele para preditar um dado futuro, como peso.
 
 Adaboost e semelhante a gradiente boost , por isso eu vou tentar explicar atraves de uma comparacao entre os dois.
 
@@ -20,11 +20,10 @@ E vamos pro primeiro passo que e fazer aquele leaf node, com a media de todos os
 
 Agora vamos contruir uma arvore levando os erros anteriores do leaf node ('primeira arvore').
 
+Para fazer isso calculamos.O erro da predicao do dado que chegou no leaf node, identificado pela seguinte formula:
 
-Se formos pegar o acumulado so fazer a somatoria dos erros de todos os dados.Ver imagen(Pseudo residuo de todos gradiente boost)
-
-O erro do leaf node por dado e identificado pela seguinte formula:
 Erro por dado ou (Pseudo residuo)=Dado Observado - Dado predito
+Ver imagen(Pseudo residuo de todos gradiente boost)
 
 PSEUDO PARA VOCE NAO ACHAR QUE E LINEAR FDP
 
