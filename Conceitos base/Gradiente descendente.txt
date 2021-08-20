@@ -36,3 +36,81 @@ Agora iremos nos utilizar de gradient descent para achar onde SR**2 esta no seu 
 
 
 Aviso: Se tivessemos nos utilizando de least squares para achar o melhor valor para o intercept, a gente simplesmente acharia o local onde a slope e igual a 0. Em contraste, o gradient descent acha o valor minimo atraves de passos partindo de um valor inicial ate chegar no melhor valor minimo. Isso faz do gradiente descente muito util quando nao e possivel achar a derivada=0, e e por isso que gradient descent pode ser utilizada de multiplas maneiras.
+
+Lembre-se que a gente comeco com um intercept random, nesse caso 0. A gente pode pegar o intercept nulo e por naquela formula ja resolvida da derivada da SR**2 com respeito ao intercept. Se pormos esse valor conseguimos obter a inclinacao(slope) da funcao SR**2, com aquele intercept nulo. Ver imagem:(Inclinacao descoberta pela derivada resolvida). 
+
+Aviso: Quanto mais perto a gente chega do valor optimal do intercept, mais perto de 0 o slope chega. Isso significa que quando o slope esta perto do valor 0, a gente deveria tomar baby steps porque estamos proximos do melhor valor intercept. Agora quando o slope esta longe de 0 devemos dar "passoes" porque estamos longe do valor optimal(melhor valor intercept). No entanto, se tomarmos um passao gigante demais, a gente vai aumentar a SR**2 acidentalmente(porque a curva da funcao volta a subir). Logo o tamanho do passo(step size), deve ser relacionado ao slope, ja que ele fala pra gente se e pra dar passao o passinho. (O slope quando o intercept = a 0 e -0.57)
+
+Por isso gradiente descente, faz a seguinte formula.
+
+Step size(tamanho do passo)= Slope(Achado atraves da derivada com relacao a SR**2 de um intercept random)* learning rate
+
+Vamo falar mais sobre esse learning rate mais tarde. Vamos dar um valor para ele, no exemplo de  0.1.
+
+Bom com o step size definido, podemos calcular o novo intercept. Que requer do step size para ser calculado.
+
+A formula do novo intercept. Ou seja, o intercept que se sucedera depois de dar um passo, e dara um novo slope. E a seguinte.
+
+Novo intercept = Velho intercept - Step size 
+
+Isso era resultar num novo intercept com uma SR**2 muito menor. Esse processo se repete, calcula-se a derivado com respeito a intercept o que resulta no slope, calcula-se o step size e depois calcula-se um novo intercept. A gente vai notar que o proximo step size dessa vez e  menor. 
+Isso e importante porque e assim que notamos quando devemos parar esse processo.
+
+O processo de gradient descent PARA QUANDO ELE NOTA QUE O STEP SIZE ESTA MUITO PERTO DE 0, O STEP SIZE VAI ESTAR BEM PERTO DE 0 QUANDO O SLOPE ESTIVER BEM PERTO DE 0. Na pratica, o step size tem que ser menor do que 0.001. No entanto, gradient descent para nao explodir o pc tambem tem um limite do numero de passos que podem ser feitos antes de desitir. Na pratica o numero maximo de passos dados, nao pode ser maior do que 1000.
+
+Bom vamos rever oque a gente fez ate agora.
+1- Nossa loss function, e SR**2. Uma loss function serve para avaliar o quao bom nosso modelo e!
+2-Pegamos a derivada do SR**2 com respeito a derivado do intercept, basicamente o slope. Pusemos um intercept com valor random nesse caso 0. E obtemos o slope, quando o intercept e 0.
+3-Com esse slope, calculamos o step size. E logo em seguida calculamos o novo intercept.
+4- Por ultimo, pegamos esse novo intercept pomos na derivada e repetimos esse processo, ate chegarmos num step size perto de 0.
+
+E pronto acabamos de entender, como gradient descent pode estimar o intercept. 
+Agora vamos entender como ele pode calcular tanto o slope quanto o intercept ao mesmo tempo.
+
+Como antes a gente usa SR**2 como nossa loss function.
+
+Para entender melhor. Ver imagen:(Grafico da loss function com respeito ao slope e intercept). Esse grafico mostra a correlacao entre intercept slope e sr**2. O axis vertical, seria SR**2. O horizontal que nao e destacado na imagem sao multiplos valores no eixo slope, e o destacado na imagem, o segundo horizontal sao multiplos valores no eixo intercept.
+
+Como feito antes.A gente quer achar os valores, de intercept e slope. Que nos da o minimo SR**2.
+
+E como feito antes a gente calcula aquela derivada do SR**2 com respeito ao intercept.
+
+Mas calma dessa vez, a gente tambem tem que calcular a derivada do SR**2 com respeito ao slope.
+
+Vamos comecar pegando a derivada do SR**2 com respeito ao intercept. Como antes, a gente pega a derivada de cada datapoint mas considerando tambem a inclinacao dele(Nao isolamos o slope como anteriorment). Ver imagem:(Derivadas associado ao intercept com slope incluso)
+
+E exatamente como antes, nos utilizaremo da chain rule. E resolvemos. Vale lembrar:Que na resulacao pos chain rule, o slope e uma constante. E a derivada de uma constante e sempre 0. Ver imagem:(Derivada resolvida do sr ao quadrado com respeito ao intercept mas com variavel adicional slope)
+
+O processo do slope e literalmente o mesmo. Ver imagem:(Derivada resolvida do sr ao quadrado com respeito ao slope).So um aviso: O 0.5,2.3 e 2.9 na imagem estao em negrito porque eles sao o peso(eixo x, no exemplo, de cada datapoint)
+
+Aviso: Quando voce tem duas ou mais derivadas da mesma funcao, elas sao chamadas de gradiente. Iremos nos utilizar desse gradiente para descender para o menor ponto de nossa loss function, SR**2. Por isso o algoritmo e chamado de gradient descent.
+
+Exatamente como antes, vamos pegar um numero random para o intercept. Nesse caso 0. Mas tambem para o slope nesse caso 1. Isso vai nos dar dois slopes diferentes. Poim eles em dois step sizes, um em relacao ao slope outro em relacao ao intercept. Ver imagem:(Obtendo o step size dos dois slopes.) 
+
+Para calcular o step size precisamos multiplicar pelo learning rate ne? Entao mas qual seria o valor adequado para ele? Bom gracas a deus, em pratica o learning rate pode ser determinado dando um valor grande para ele e diminuindo ele, por cada passo(Ou seja, nao se preocupe com ele). Aviso: Gradient descent e muito sensivel a learning rate.
+
+Agora a gente obtem um novo intercept e um novo slopes com os dois step sizes. Ver imagen:(Novo intercep e novo slope finalizado).
+
+Agora a gente repete o processo ate chegar a um step size bem pequeno ou o numero maximo de steps. Aviso ver imagem:(Funcao pos multiplos passos), para ver coma a inclinacao da funcao tambem e e alterada
+
+Agora sabemo como gradiente descente optimiza 2 parametros, se tivessemos mais parametros a gente somente faria mais derivadas nos passos iniciais, o processo de resulucao seria o mesmo. Por isso ele e tao aplicavel.
+
+Processo de resulacao de gradiente descente:
+
+1-Pegar a derivada da loss function, ou em linguagem chique pegar o gradiente da loss function.
+
+2-Pegue valores random para os parametros (no exemplo intercept e slope)
+
+3-Plugue os valores dos parametros nas variaveis(Gradiente)
+
+4-Calcule o step size
+
+5-Calcule novos parametros
+
+E volta do passo 5 acima para o 3, ate o step size ser muito pequeno ou o numero limite de passsos serem  atingidos.
+
+Uma ultima coisa, no nosso exemplo somente tinhamos 3 datapoint entao a matematica nao fui muito longa. Mas cada a gente tem uma caralhada de datapoint pode demorar muito tempo. Por isso nos utilizamos de algo chamado stochastic gradient descent. Isso reduz o tempo devoto para calculas as derivadas da loss function.
+
+
+
+
