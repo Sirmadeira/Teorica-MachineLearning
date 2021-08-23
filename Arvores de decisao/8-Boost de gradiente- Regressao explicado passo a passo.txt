@@ -1,1 +1,45 @@
-Para entender como o boost de gradiente funciona, internamente. Temos que saber como funciona gradientes descendentes(Ver aula, na pasta conceitos base)
+Para entender como o boost de gradiente funciona, internamente. Temos que saber como funciona gradientes descendentes.(Ver aula)
+
+E ja que isso daki vai ter muita formulinha vou explicar cada passo a passo na imagem.Ver imagem:(Passo a passo gradient boost)
+
+Input:
+Essa linha, e um jeito abstrato de demonstrar a parte de treinamento do dataset atual, e o metodo que iremos nos utilizar para avaliar o nosso modelo,(nossa loss function). Aquela parte na linha da imagem que tem Data e um monte de simbolos sucessivo seria um jeito chique de demonstrar nosso dataset. X sub i(Xi), se refere a cada linha do dataset. Ver imagen:(X sub i linha 3 e dataset utilizado)  e o Y sub i (Yi) se refere ao peso(weight) do dataset da imagem anterior(Ou melhor, o ponto observado). Aquele finalzinho que tem n e i=1, seria que vai de 1 ate n (sendo n o numero de pessoas avaliadas, nesse caso 3). Juntando todos esses aspectos, e a gente entende que quando estivermos na linha 1, o X sub i, sera = X1, e  o Y sub i = Y1.
+
+Agora em relacao da parte loss function, nessa parte a loss function utilizada seria:
+
+Loss function = 1/2(Dado observado - Dado predito)**2
+
+Se voce prestar atencao se vai notar que essa loss function e bem semelhante a  loss function dos residuos ao quadrado, muita utilizada nos modelos lineares. Isso e porque ela e literalmente a mesma. SO QUE DIVIDIDA POR 1/2 porque? Para facilitar a matematica. Quando a gente faz aquele processo de fazer a derivada, e montar a chain rule. 
+Mas e aquele L(yi,F(x)), bom o y sub i seria o y de certo datapoint. E o F(x) seria a funcao que nos da os valores preditos. 
+Aviso: Vamos falar sobre ela mais tarde.
+
+A a gente tambem sabe que a loss function e diferenciavel porque somos capazes de fazer a derivada em cada ponto. Diferenciavel, significa que qualquer ponto da funcao, nesse caso da loss function, pode ter a sua derivada(tangente) retirada.
+
+Passo 1:
+Bom a gente comeca inicializando nosso modelo com um valor constante.
+
+Aquele bagulho estranho na imagem(Passo a passo gradient boost) no finalzinho do passo 1, e mais legivel se a gente ler da direita, para a esquerda. A parte L(Yi,y) e somente a loss function. Y sub i(Yi), ja foi explicado.	E aquele y seria um gamma, ele se refere ao valores preditos(valores dentro da funcao).
+
+Aquele simbolo de somatoria significa que a gente adiciona uma loss function, para cada valor observado. Ou melhor dita, faz a somatoria da metade dos residuos ao quadrados de TODOS OS DATAPOINTS. Ver imagem(Simbologia da somatoria).
+
+E aquele argmin sobre gamma, significa que a gente precisa achar um valor predito(Predicted, na imagem Simbologia da somatoria), que minimiza a somatoria da metade dos residuos ao quadrado(Sum(1/2)(SR**2)).
+Aviso: Podemos ate fazer gradiente descente, para achar o valor optimal. Mas a gente tambem so pode resolver porque a matematica ta easy.
+
+A primeira coisa, que fazemos e retirar a derivada de cada datapoint com respeito a predicao. Eu nao te falei que simplificava para caralho a derivado aquele 1/2 na loss function. Olha la? 
+Ver imagem:(Porque usamos metade nas loss function)
+Voce viu que a gente perdeu a potencia e so negativo a diferenca entre observado e predito?
+
+Depois disso, a gente iguala a soma das derivadas a 0. E resolve. Ver imagem(Soma das derivadas igualada a 0 resolvidas). 
+
+Veja como a gente acabou com a media dos datapoints observados (no exemplo pesos).
+
+Ou seja, tudo aquela simbologia significa que tendo em consideracao a loss function dada. O primeiro ponto predito(F0(x)), sera nada mais nada menos do que a media dos y sub is.
+
+Se voce se lembra da aula passada, se vai notar que isso e o desenvolvimento do leaf node inicial. 
+
+E pronto acabamos o passo 1, inicializamos o nosso modelo com a media dos y sub is.
+
+
+O passo 2 e gigante, por isso vamos dividir em a, b , c, d.
+
+Passo 2:
