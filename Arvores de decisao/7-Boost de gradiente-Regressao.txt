@@ -33,17 +33,17 @@ Agora a gente vai construir uma arvore(atraves de gini de impuridade mas levando
 Devido ao limite de folhas, as vezes dois ou mais residuos vao cair na mesma folha. Quando isso acontece faz-se a media dos dois, e define-os como o novo leaf node.Ver imagem(Multiplos residuos em leaf nodes)
 
 
-Agora a gente pode tentar preditar um novo valor de peso, para isso pegamos o leaf node primario (media) e o leaf node final(depois de passar pela arvore) isso resulta em. E SOMAMOS ELES.
+Agora a gente pode tentar preditar um novo valor de peso, para isso pegamos o leaf node primario (media) e o leaf node final(depois de passar pela arvore). E SOMAMOS ELES.
 Ver imagen(Processo de soma para predicao gradient boost)
 
 SE VOCE VER A IMAGEN VAI ENCAIXAR MUITO PERFEITINHO O DEUS ABENCOADO ACABE COM O MEU SOFRIMENTO
 
-Para evitar isso gradiente boost usa de algo chamado learning rate, para escalar o quanto de contribuicao no processo de soma final, para chegar na predicao do peso, uma nova arvore vai ter. O valor do learning rate sempre vai estar entre 0 ou 1. E o learning rate geralmente, e um valor pequeno. Porque assim sempre vamos dar um pequeno passo para a direcao certa, JEROME FRIEDMAN (criador do gradient boost)
+Para evitar isso gradiente boost usa de algo chamado learning rate, para escalar o quanto de contribuicao no processo de soma final, para chegar na predicao do peso, que uma nova arvore vai ter. O valor do learning rate sempre vai estar entre 0 ou 1. E o learning rate geralmente, e um valor pequeno. Porque assim sempre vamos dar um pequeno passo para a direcao certa, JEROME FRIEDMAN (criador do gradient boost)
 
-Vamos construir a segunda arvore, do mesmo jeito que construimos a primeira. Mas dessa vez ao calcularmos os pseudo residuos, acrescentamos a predicao da primeira arvore* o learning rate, na parte da formula(pseudo residuo) que se refere ao dado predito. Ver imagem(Construindo segunda arvore)
+Vamos construir a terceira arvore, do mesmo jeito que construimos a segunda. Mas dessa vez ao calcularmos os pseudo residuos, acrescentamos a predicao da segunda arvore* o learning rate, na parte da formula(pseudo residuo) que se refere ao dado predito. Ver imagem(Construindo segunda arvore)
 
 Agora so uma imagem de comparacao entre os residuos dos dois datasets porque e legal a importancia. Ver imagem(Comparacao entre dados pseudo residuos)
-E repete. Ate chegar ao limite de arvores especificado ou ate adicionar uma nova arvore nao diminui significamente o tamanho do pseudo residuo
+E repete. Ate chegar ao limite de arvores especificado ou ate adicionar uma nova arvore nao diminuir significamente o tamanho do pseudo residuo
  
 
 Conclusao final:

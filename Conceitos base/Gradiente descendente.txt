@@ -43,7 +43,7 @@ Aviso: Quanto mais perto a gente chega do valor optimal do intercept, mais perto
 
 Por isso gradiente descente, faz a seguinte formula.
 
-Step size(tamanho do passo)= Slope(Achado atraves da derivada com relacao a SR**2 de um intercept random)* learning rate
+Step size(tamanho do passo)= Slope(Achado atraves da derivada com relacao a SR**2 de um parametro random)* learning rate
 
 Vamo falar mais sobre esse learning rate mais tarde. Vamos dar um valor para ele, no exemplo de  0.1.
 

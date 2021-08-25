@@ -1,0 +1,32 @@
+Nessa aulas nos utilizaremos desse training data.Ver imagen:(Dados de treinamento classificacao gradient boost)
+
+Exatamente igual ao modelo de regressao, comecamos construindo um leaf node que representa a predicao para cada datapoint.
+
+A predicao inicial (dada pelo leaf node), para cada datapoint e o log(odds). Log(odds), e um equivalente a media da regressao logistica.Ver aula(Odds e log(odds)).
+
+No exemplo o nosso log(odds) vai ser igual log(4/2)=0,7. Lembrete:
+Odds=Total de positivos/Total de negativos.
+
+Como na regressao logistica, a maneira mais facil de usar log(odds) e convertendo ele em probabilidade.
+
+E a gente faz isso se utilizando da logistic function, tambem conhecida como funcao logit inversa visto na aula de regressao logistica optimizando, linha 12.(p=e**log(odds)/1+e**log(odds)).
+
+No exemplo,isso nos vai dar a probabilidade, de alguem amar trolls 2. Que seria igual a 0.7, ela nao igual ao log(odds). Ela so esta arrendodada.
+
+E ja que a probabilidade de alguem amar trolls 2, e maior que 0.5. A gente pode classificar todo mundo do training set, como alguem que ama trolls 2. 0.5 e SO UM THRESHHOLD, a gente poderia se utilizar de numeros maiores e menores que esteja entre 0 e 1 obviamente.
+
+No entanto ao fazermos isso obviamente estamos dando overfit. Para notar o quao ruim essa predicao e, calculamos o pseudo residuos(Observado-Predito) de cada datapoint. Algo facilmente visivel se desenharmos os residuos em um grafico.Ver imagen:(Grafico de probabilidade residual). O predito no exemplo sera igual a 0.7 em todas as ocasioes. Os datapoint negativos vao estar no eixo 0 de probabilidade de amar trolls 2 e aqueles que amam tal filme vao estar no eixo 1.Como voce pode ver na imagen estamos arquivando os residuos. De cada datapoint.
+
+Agora a gente, construi uma arvore usando todos os outros dados. Do dataset.Mas para preditar os residuos originados do da primeira arvore(leaf node). Lembre-se que limitamos o quanto, de folhas a arvore pode ter.
+
+Bom mas e agora? Devido ao numero limitado de folhas, e destinado que o residuo de mais de um datapoint ao passar pela arvore caia em um leaf node como a gente define o valor do output(leaf node residual)? E fazendo a media dos residuos que nem na regressao, e considerando eles como output? NAO. Pq a predicao inical(dado pela arvore leaf node) esta no termo log(odds) e a predicao dada pela arvore residual , e derivada de uma probabilidade. Entao a gente nao pode soma-las sem um tipo de transformacao.
+
+A gente faz isso, com a seguinte formula
+
+Novo valor de output(Novo valor de predicao)=
+Somatoria dos residuos que cairam no mesmo leaf node//
+Somatoria[Probabilidade anteriori*(1-Probabilidade anteriori)]
+
+A probabilidade anterior nao e nada mais do que o log(odds) do leaf node, no exemplo. Do primeira arvore(leaf node) para segunda(primeira arvore residual).Ver imagen:(Exemplo de formula de transformacao resolvida com dois residuos no output)
+
+AVISO:A probabilidade anterior, e igual agora mas isso muda na proxima arvore. 

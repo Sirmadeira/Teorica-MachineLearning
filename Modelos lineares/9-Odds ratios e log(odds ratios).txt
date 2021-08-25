@@ -8,7 +8,7 @@ Pelo mesmo motivo apresentado na aula odds e log(odds), por razoes simetricas a 
 
 Agora que a gente ja sabe o que e um odds ratio, o que a gente pode fazer com eles?
 
-Bom para entender isso e so ver a imagen exemplo odds ratio exemplo utilidade, nela voce vai notar que temos uma matriz de confusao. Dividada entre gene mutado e nao mutado, como eixo vertical. E no eixo horizontal,  cancer ou nao. O odds ratio achado naquela imagen, destaca quanto a mais uma pessoa com o gene mutado comparada a uma pessoa nao mutado, tem chance de ter cancer. Nesse caso a chance e de 6.88.
+Bom para entender isso e so ver a imagen: (exemplo odds ratio exemplo utilidade), nela voce vai notar que temos uma matriz de confusao. Dividada entre gene mutado e nao mutado, como eixo vertical. E no eixo horizontal,  cancer ou nao. O odds ratio achado naquela imagen, destaca quanto a mais uma pessoa com o gene mutado comparada a uma pessoa nao mutado, tem chance de ter cancer. Nesse caso a chance e de 6.88.
 
 Concluindo o odds ratio e log(odds ratio), demonstra a relacao entre duas coisas. Muito semelhante a R**2. E igual ao R**2 ele calcula o impacto da variavel nas associacoes. No exemplo, devido a ter um valor grande de odds ratio, o gene mutado e uma boa variavel preditora. Se esse valor fosse menor, ela nao seria uma boa preditora no modelo de regressao logistico.
 

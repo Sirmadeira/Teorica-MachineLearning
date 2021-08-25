@@ -43,3 +43,38 @@ E pronto acabamos o passo 1, inicializamos o nosso modelo com a media dos y sub 
 O passo 2 e gigante, por isso vamos dividir em a, b , c, d.
 
 Passo 2:
+
+O passo 2 e uma simbologia para todas arvores sucessivo a arvore que e somente um leaf node. Por isso ele e representado como um loop, onde M seria o numero total te arvores existente e m o numero de cada arvore individual. No exemplo, m=1 porque se refere ao comeco do loop ou melhor a primeira arvore de verdade feita.
+
+A)
+Na frase da letra A a gente ve um monte de simbolos estranhos. Isso seria o processo que resulta no residuo(Dado observado - dado predito), ele chega nessa formula depois de derivar e negativar artificialmente. Ver imagem:(Simbologia letra a)
+
+Aquela parte F(x)=Fm-1(x), seria o F0(x) no exemplo ou a arvore que consiste de somente um leaf node. Lembrando que isso SE REFERE A PRIMEIRA ARVORE(m=1, SE FOSSE m=2, seria o residuo pos segunda arvore e  arvore leaf node).
+
+O ri,m, na letra a. O r se refere ao residuo, i seria o numero do datapoint. E m seria a arvore que a gente ta construindo.
+Ou seja r1,1, seria o residuo do primeiro datapoint(dado observado) comparado a primeira arvore(dado predito)
+
+Aquele for i= 1,.... n significa, calcular o residuo de todos os datapoints.
+
+E pronto calculamos o pseudo-residuo de cada datapoint. Obviamente com a loss function, 1/2(Observado-Predito)**2. Se a gente usasse outra
+
+B)
+A frase da parte B no geral, esta dizendo que vamos construir uma arvore de regressao. Para preditar os residuos ao inves dos pesos.
+
+A parte sucedente referese a criacao de label para as regioes terminais(leaf nodes). m seria o index da arvore, no exemplo dado m=1. j index para cada folha na arvore. Jm, serio o numero total de leaf nodes da arvore formada tendo os residuos como base. So para treinamento se a PRIMEIRA arvore treinada de acordo com os residuos tivesse 4 leaf nodes, o label de cada leaf node seria. Em ordem numerica, R1,1,R2,1,R3,1,R4,1
+
+E boom terminamos a parte  B ,treinamos uma arvore de acordo com os residuos e pusemos labels nos leaf nodes.
+
+C)
+Na parte C determinamos o valor de output(residuo de cada datapoint) de cada folha.
+
+Essa parte e excessivamente complexa para explicar passo a passo, basicamente se refere aquele processo que a gente faz a media dos residuos de certos datapoint que "caieram naquela folha".
+
+D)
+
+Atualizacao da nova predicao que seria, o pseudo residuo do leaf node + learning rate*residuo do leaf node depois do datapoint ser classificado pela arvore + learning rate* ..... (dependendo do numero de interacoes). Isso dae seria a predicao do dado observado.Ver imagen:(Imagem output de predicao quando M =3)
+
+O passo 3:
+E nada mais que a simbologia do output desse processo.
+
+Aviso: Chato pra caralho
