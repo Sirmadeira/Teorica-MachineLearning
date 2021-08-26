@@ -13,7 +13,7 @@ Data{(xi,yi)}**n i=1, ja foi explicado anteriormente mas vamos dar uma lembradin
 Agora temos que achar uma loss function diferenciavel, que funciona em classificacao. Para entender a loss function utilizada, vou me utilizar de um grafico.Ver imagen:(Grafico de probabilidade de amar ou nao amar)
 Os detalhes do grafico sao auto explicativos.
 
-Como antes, igual ao que e feito em regressao logistica. A gente pode calcular a log(likelihood) dos dados dada a probabilidade predita. Neste exemplo 0.67.
+Como antes, igual ao que e feito em regressao logistica. A gente pode calcular a log(likelihood) dos dados dada a probabilidade predita. Neste exemplo 0.67(2/3).
 
 A log(likelihood dos dados observados dada a predicao inicial)= Ver imagen:(log(likelihood dos dados observados dada a predicao inicial))
 
@@ -52,11 +52,14 @@ Passo 1:
 
 Como antes temos que inicializar o modelo com algum tipo de predicao.
 E exatamente como no modelo de regressao, precisamos encontrar a melhor predicao inicial. 
-Lembrete:L(yi,y(gamma)), e a loss function. O gamma nesse caso, refere-se ao log(odds) na loss function.(-Observado*log(odds)+log(1+e**log(odds))).
+Lembrete:L(yi,y(gamma)), e a loss function. O gamma nesse caso, seria ao log(odds) na loss function.(-Observado*log(odds)+log(1+e**log(odds))).
 A somatoria significa que temos que adicionar as losses functions de todos datapoints. 
-O argmin sobre y(gamma), significa que precisamos encontrar o log(odds) que minimiza essa funcao.
+O argmin sobre y(gamma), significa que precisamos encontrar o log(odds) tambem gamma, que minimiza essa funcao.
 
-A primeira coisa que fazemos e retirar a derivado de cada datapoint, como respeito ao log(odds). Depois substituimos, os log(odds) dentro da funcao (atraves da logit function) pela probabilidade e igualamos as derivadas a  0. E resolvemos. Retornamos para funcao log(odds) essa probabilidade. E achamos o log(odds) que minimiza a funcao gamma.No exemplo, ele e igual 0.69.
+A primeira coisa que fazemos e retirar a derivado de cada datapoint, como respeito ao log(odds). Depois substituimos, os log(odds) dentro da funcao (atraves da logit function) pela probabilidade e igualamos as derivadas a  0.Ver imagen:(Resulacao da derivada para achar o ponto otimal do log odd) 
+E resolvemos obtendo uma probabilidade de predicao(p).
+Retornamos para funcao log(odds) essa probabilidade (atraves de log(odds)=log(p/1-p). 
+E achamos o log(odds) que minimiza a funcao gamma.No exemplo, ele e igual log(odds)=log(2/1)=0.69. Achamos o ponto otimal.
 E pronto inicializamos o modelo, com o valor constante. Ou em outras palavra, criamos o leaf node que prediz o log(odds) que alguem vai amar trolls 2.
 
 Passo 2:
@@ -65,12 +68,14 @@ O passo 2 que nem no gradient boost para regressao, sao os passos de construcao 
 
 A) 
 Na parte a calculamos os pseudo residuos de cada datapoint, com essa coisa feia aqui.
-Ver imagem:(Parte feia pra caralho passo a). Isso nao e nada mais, do que a derivada da loss function com respeito aos log(odds) preditos. O que ja foi calculado.
-(-Observado+(e**log(odds)//1+e**log(odds)).
+Ver imagem:(Parte feia pra caralho passo a). Isso nao e nada mais, do que a derivada da loss function com respeito aos log(odds) preditos. O que ja foi calculado.(-Observado+(e**log(odds)//1+e**log(odds)).
 Aquele sinal de - antes daquele baguiu feio pra caralho. Origina isso:(Observado-(e**log(odds)//1+e**log(odds)).
-Nao esquece que podemos trocar o valor depois de observado-, pela predita probabilidade(p).(Observado-p). O que resulta nos pseudo residuos.
-Os F(x)=Fm-1(x), significa para por o log(odds) de predicao mais recente. No exemplo, o F0(x)=log(1/2)=0.69. Podemos converte isso na probabilidade predita. Que seria 0.67. Atraves denovo da funcao logistic.
-Agora podemos computar, os pseudo residuos para cada datapoint. 
+Nao esquece que podemos trocar o valor depois de Observado- na formula acima, pela predita probabilidade(p).(Observado-p). O que resulta nos pseudo residuos.
+Os F(x)=Fm-1(x), significa para por o log(odds) de predicao mais recente(ponto otimal achado anteriormente).
+No exemplo, o F0(x)=log(2/1)=0.69. Podemos converter isso na probabilidade predita. p=0.67. Atraves denovo da funcao logistic.
+Agora podemos computar, os pseudo residuos para cada datapoint.
+(Observado-0,67)
+Lembrete: A probabilidade predita varia no futura com adicao do learning rate * contribuicao do valor de output da arvore. 
 Ri,m. i=Numero do datapoint, m qual arvore estamos construindo. 
 Ver imagen:(Residuos da diferenca entre observado e p da primeira arvore)
 
@@ -79,6 +84,8 @@ Parte b e parte de construcao de uma arvore residual de regressao, que tera como
 E tambem a parte que criamos os labels de nossas regioes terminais(leaf nodes).
 Lembrete: j=leaf node do residuo avaliado, m arvore atual.
 Ver imagen:(Parte b feita)
+C)
+E nessa parte que calculamos o valor de output, para a nova arvore
 
 
 
