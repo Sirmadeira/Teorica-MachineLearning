@@ -3,8 +3,10 @@ Nessa aulas nos utilizaremos desse training data.Ver imagen:(Dados de treinament
 Exatamente igual ao modelo de regressao, comecamos construindo um leaf node que representa a predicao para cada datapoint.
 
 A predicao inicial (dada pelo leaf node), para cada datapoint e o log(odds). Log(odds), e um equivalente a media da regressao logistica.Ver aula(Odds e log(odds)).
+Aviso a base desse log e euler. Que nem tudo na estatistica
 
-No exemplo o nosso log(odds) vai ser igual log(4/2)=0,7. Lembrete:
+No exemplo o nosso log(odds) vai ser igual log(4/2)=0,7. 
+Lembrete:
 Odds=Total de positivos/Total de negativos.
 
 Como na regressao logistica, a maneira mais facil de usar log(odds) e convertendo ele em probabilidade.
@@ -15,7 +17,7 @@ No exemplo,isso nos vai dar a probabilidade, de alguem amar trolls 2. Que seria 
 
 E ja que a probabilidade de alguem amar trolls 2, e maior que 0.5. A gente pode classificar todo mundo do training set, como alguem que ama trolls 2. 0.5 e SO UM THRESHHOLD, a gente poderia se utilizar de numeros maiores e menores que esteja entre 0 e 1 obviamente.
 
-No entanto ao fazermos isso obviamente estamos dando overfit. Para notar o quao ruim essa predicao e, calculamos o pseudo residuos(Observado-Predito) de cada datapoint. Algo facilmente visivel se desenharmos os residuos em um grafico.Ver imagen:(Grafico de probabilidade residual). O predito no exemplo sera igual a 0.7 em todas as ocasioes. Os datapoint negativos vao estar no eixo 0 de probabilidade de amar trolls 2 e aqueles que amam tal filme vao estar no eixo 1.Como voce pode ver na imagen estamos arquivando os residuos. De cada datapoint.
+No entanto ao fazermos isso obviamente estamos generalizando. Para notar o quao ruim essa predicao e, calculamos o pseudo residuos(Observado-Predito) de cada datapoint. Algo facilmente visivel se desenharmos os residuos em um grafico.Ver imagen:(Grafico de probabilidade residual). O predito no exemplo sera igual a 0.7 em todas as ocasioes. Os datapoint negativos vao estar no eixo 0 de probabilidade de amar trolls 2 e aqueles que amam tal filme vao estar no eixo 1.Como voce pode ver na imagen estamos arquivando os residuos. De cada datapoint.
 
 Agora a gente, construi uma arvore usando todos os outros dados. Do dataset.Mas para preditar os residuos originados do da primeira arvore(leaf node). Lembre-se que limitamos o quanto, de folhas a arvore pode ter.
 
@@ -30,3 +32,44 @@ Somatoria[Probabilidade anteriori*(1-Probabilidade anteriori)]
 A probabilidade anterior nao e nada mais do que o log(odds) do leaf node, no exemplo. Do primeira arvore(leaf node) para segunda(primeira arvore residual).Ver imagen:(Exemplo de formula de transformacao resolvida com dois residuos no output)
 
 AVISO:A probabilidade anterior, e igual agora mas isso muda na proxima arvore. 
+
+E exatamente como antes depois de passarmos certo datapoint pela arvore residual, a gente multiplica o novo valor de output, pelo learning rate. Somo-o ao log(odds) da arvore anterior.
+Assim obtendo a predicao de log(odds).
+Ver imagen:(Predicao log(odds)  exemplo simples)
+
+Depois disso convertemos a predicao com aquela mesma funcao logit inversa.((p=e**log(odds)/1+e**log(odds)))
+
+Obtendo assim a nova probabilidade predita, para aquele datapoint.
+
+E repete o processo para todos os datapoints.Ver imagen:(Fazendo para outros datapoint a probabilidade predita)
+
+E agora exatamente como antes, calculamos os residuos.Com base da nova probabilidade predita, de cada datapoint.
+Lembre-se:Residuo=(Observado -Predito)
+Ver imagen:(Residuo de probabilidade predita agora dissociados pos primeiro passo)
+
+Agora que temos os residuos, formamos uma nova arvore de acordo com os residuos.
+
+Agora a gente repete a formula que calcula um novo valor de output para cada leaf node. Mas agora com a nova predicted probability.
+Ver imagen:(Influencia da probabilidade predita no novo valor de output em um leaf node com multiplos residuals)
+
+Como voce pode ver, a prababilidade predita se altera de acordo com o residuo do datapoint,a qual ela e associada.BEM IMPORTANTE ISSO
+
+E assim obtemos o novo valor de output da arvore residual de cado leaf node.O que possbilita a combinacao com as arvores anteriores na predicao.
+
+Vamos revisar oque a gente fez:
+
+1-Criamos um leaf node generalizado, que e obtido atraves da log(odds). Das classificacoes. Convertemos aquilo em probabilidade. E obtemos os residuos de cada dataset.
+
+2-Depois criamos uma arvore residual, depois calculamos os valores de output dos leaf nodes. E escalamos ele pelo learning rate.(Multiplica geral)
+
+3-Depois construimos uma nova arvore residual, que tem como base os novos residuo, que sao oriundos da diferenca entre dado observado e dado predito, do leaf node e da primeira arvore*learning rate.
+
+E repete, ate chegarmos ao numero maximo de arvores, ou os residuos ficam super pequenos.
+
+Agora para mantermos o exemplo, imagine que so fizemos 3 arvores contando o leaf node. E a gente precisasse classificar um novo datapoint.
+
+A predicao,comeca com o log(odds) do leaf inicial, depois passamos o datapoint pelas duas arvores, obtemos o valor de output individual dele e multiplicamos pelo learning rate. Soma-se todos os log odds obtidos, assim obtendo a nova predicao log(odds).
+Ver imagen:(Nova predicao log(odds) baseada em 2 arvores)
+
+Agora preicsamos converter esse log(odds) em probabilidade faz a logit inversa e parabim parabam. Obtemos a probabilidade predita daquele individuo. E ja que o nosso threshhold para ser classificado como troll e >0.5. Classificamos ele como sim.Ver imagen:(Finalizando classificacao de gradient boost)
+

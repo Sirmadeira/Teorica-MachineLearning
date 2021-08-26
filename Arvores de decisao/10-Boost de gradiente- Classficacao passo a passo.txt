@@ -1,0 +1,84 @@
+Prepare a sua booty, fudeu galerinha.
+
+Para isso daki iremos nos utilizar do seguinte passa a passo para interpretacao.Ver imagen:(Passo a passo para classificacao)
+
+E da seguinte database, ver imagen:(Data passa a passo)
+
+Vamos comecar com o.
+
+Input:
+
+Data{(xi,yi)}**n i=1, ja foi explicado anteriormente mas vamos dar uma lembradinha. X sub i se refere a uma linha do dataset, y sub i se refere a classificacao dada. n e pq e variavel de acordo com o  numero de dados. E o i igual a 1 significa que o 1 sera o ponto de partida.
+
+Agora temos que achar uma loss function diferenciavel, que funciona em classificacao. Para entender a loss function utilizada, vou me utilizar de um grafico.Ver imagen:(Grafico de probabilidade de amar ou nao amar)
+Os detalhes do grafico sao auto explicativos.
+
+Como antes, igual ao que e feito em regressao logistica. A gente pode calcular a log(likelihood) dos dados dada a probabilidade predita. Neste exemplo 0.67.
+
+A log(likelihood dos dados observados dada a predicao inicial)= Ver imagen:(log(likelihood dos dados observados dada a predicao inicial))
+
+Os p na imagen se referem, a probabilidade predita. Que seria 0.67.
+Os y sub is se referem, aos valores observados da coluna ama trolls 2.
+Para as pessoas que amam o filme, o valor de y sub i igual a 1, oque significa que a segunda porcao da formula sera nulificada.(Depois de (1-yi)). Para as pessoas que nao amam o filme, y sub i igual a 0 o que significa que o primeiro termo(antes de (1-yi)) sera nulificado. 
+Aviso: ja que essa forma e um somataria ela se repete de acordo com o numero de datapoints.
+
+Ver imagen:(Formula log summation resolvida).
+
+Aviso: Quanto melhor uma predicao, maior a log(likelihood), e e por isso que quando a gente faz regressao logistica o objetivo e maximizar log(likelihood). Isso significa que a se a gente quiser usar log(likelihood) como uma loss function, onde os valores menores representam modelos mais bem treinados. A gente precisa multiplicar a log(likelihhod) por -1.
+
+O que significa que na formula da imagen:((log(likelihood dos dados observados dada a predicao inicial))), poim-se um menos na frente e retira a somatoria, porque a gente geralmente faz datapoint por datapoint.
+
+E para ficar mais facil de ler, substituimos y sub i por observado.
+
+Ver imagen:(Semi simplificada formula log(likelihood) negativa individual).
+
+Agora a gente precisa converter essa equacao negativa log(likelihood) para que seja uma funcao da predicao log(odds) ao inves de probabilidade de predicao(p). Basicamente temos que destruir os ps.
+
+Existe uma serie de passos, mas so dois deles precisam ser explicados o resto e idiota. Ver imagen:(Conversao para log(odds))
+
+O passo 3 na imagen, seria a substituicao [log(p)-log(1-p)]. Pelo, log(odds).  Que e possivel por causa da relacao entre p e log(odds).
+(log(p//1-p)=log(odds))
+
+O passo 4 e muito semelhante, so que e outra relacao. De substituicao. Ver imagen:(Relacao 1-p com log(odds)).
+
+E boom chegamos na nossa loss function.
+
+Agora so precisamos comprovar que ela e diferenciavel
+Pegamos a derivada da funcao do passo 5 nos utilizamos da chain rule, para resolver (+log(1+e**log(odds)) e notamos que temos dois resultados um com probabilidade e outro com log(odds). Porque consiguimos converter elas entre si usando a funcao logit.Ver imagen:(Derivada da loss function resolvida)
+
+E acabamos input
+
+Passo 1:
+
+Como antes temos que inicializar o modelo com algum tipo de predicao.
+E exatamente como no modelo de regressao, precisamos encontrar a melhor predicao inicial. 
+Lembrete:L(yi,y(gamma)), e a loss function. O gamma nesse caso, refere-se ao log(odds) na loss function.(-Observado*log(odds)+log(1+e**log(odds))).
+A somatoria significa que temos que adicionar as losses functions de todos datapoints. 
+O argmin sobre y(gamma), significa que precisamos encontrar o log(odds) que minimiza essa funcao.
+
+A primeira coisa que fazemos e retirar a derivado de cada datapoint, como respeito ao log(odds). Depois substituimos, os log(odds) dentro da funcao (atraves da logit function) pela probabilidade e igualamos as derivadas a  0. E resolvemos. Retornamos para funcao log(odds) essa probabilidade. E achamos o log(odds) que minimiza a funcao gamma.No exemplo, ele e igual 0.69.
+E pronto inicializamos o modelo, com o valor constante. Ou em outras palavra, criamos o leaf node que prediz o log(odds) que alguem vai amar trolls 2.
+
+Passo 2:
+
+O passo 2 que nem no gradient boost para regressao, sao os passos de construcao da arvore. E definimos o m = 1(primeira arvore) e comecamos dae. 
+
+A) 
+Na parte a calculamos os pseudo residuos de cada datapoint, com essa coisa feia aqui.
+Ver imagem:(Parte feia pra caralho passo a). Isso nao e nada mais, do que a derivada da loss function com respeito aos log(odds) preditos. O que ja foi calculado.
+(-Observado+(e**log(odds)//1+e**log(odds)).
+Aquele sinal de - antes daquele baguiu feio pra caralho. Origina isso:(Observado-(e**log(odds)//1+e**log(odds)).
+Nao esquece que podemos trocar o valor depois de observado-, pela predita probabilidade(p).(Observado-p). O que resulta nos pseudo residuos.
+Os F(x)=Fm-1(x), significa para por o log(odds) de predicao mais recente. No exemplo, o F0(x)=log(1/2)=0.69. Podemos converte isso na probabilidade predita. Que seria 0.67. Atraves denovo da funcao logistic.
+Agora podemos computar, os pseudo residuos para cada datapoint. 
+Ri,m. i=Numero do datapoint, m qual arvore estamos construindo. 
+Ver imagen:(Residuos da diferenca entre observado e p da primeira arvore)
+
+B)
+Parte b e parte de construcao de uma arvore residual de regressao, que tera como base os outros fatores do dataset(gosta de pipoca, idade, etc) focada em adivinhar em adivinhar o residuo utilizado.
+E tambem a parte que criamos os labels de nossas regioes terminais(leaf nodes).
+Lembrete: j=leaf node do residuo avaliado, m arvore atual.
+Ver imagen:(Parte b feita)
+
+
+
