@@ -12,7 +12,7 @@ E assim vai indo, para cada dosagem no exemplo. Geralmente se monta um grafico p
 
 O processo se repete na formacao dos galhos sucessores. Ate chegar no ponto em que um dos nodes leafs tem somente um dado observado, porque e impossivel calcular novos limiares(threshholds) com somente um dado observado. Outro limitante, dos leaf nodes e a eficacia da divisao. No exemplo, se todos os datapoint que sobraram naquele leaf node tem o mesmo valor de eficacia de droga entao nao ha necessidade de fazer mais galhos afinal eles estao no seu grupo adequado. 
 
-Entretanto, essa metodo logicamente resulta em overfit ja que ne a leitura dos dados e perfeita, 0 bia variancia vai pro caralho. Entao,no exemplo, a gente generaliza a dosagem destacando o numero minimo de datapoints que tem que ter em cada leaf node,e destacamos no exemplo a media de efetivade na droga. Para assim termos um maior bias
+Entretanto, essa metodo logicamente resulta em overfit ja que ne a leitura dos dados e perfeita, 0 bias variancia vai pro caralho. Entao,no exemplo, a gente generaliza a dosagem destacando o numero minimo de datapoints que tem que ter em cada leaf node,e destacamos no exemplo a media de efetivade na droga. Para assim termos um maior bias
 
 Agora para calcularmos com multiplos datasets base, e muito semelhante ao processos anterior de calcular media e depois fazer multiplos somas de residuos ao quadrado, so que ao inves de limitarmos somente a uma coluna de dados, comparamos multiplas e selecionamos aquele com a soma dos residuos do quadrado minima. Definimos como root node, e a selecao dos galhos e feito do mesmo jeito.
 
@@ -20,6 +20,6 @@ Conclusao final:
 
 Arvores de regressao, sao representadas por valores numericos
 
-A gente determina como dividir os pontos observados tentando multiplos limiares(divisores/thresholds) e calculando  a soma dos residuos ao quadrado entre o ponto observado e sua media. E depois selecionamos o limiar com a menor soma dos residuos ao quadrado
+A gente determina como dividir os pontos observados tentando multiplos limiares(divisores/thresholds) e calculando  a soma dos residuos ao quadrado entre o ponto observado e o limiar atual. E depois selecionamos o limiar com a menor soma dos residuos ao quadrado
 
-A gente evita overfittin atraves de pruning e limitando o numero de dataset que chegam em um leaf node.(Pontos que chegam depois de passar pelo processo de filtracao)
+A gente evita overfittin atraves de pruning e limitando o numero de datasets que chegam em um leaf node.(Pontos que chegam depois de passar pelo processo de filtracao)

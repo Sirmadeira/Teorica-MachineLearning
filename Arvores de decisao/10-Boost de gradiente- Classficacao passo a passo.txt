@@ -98,6 +98,6 @@ Depois desse passo consiguimos o log odds preditivo para o dado.
 
 Passo 3:
 
-Seria a parte em que a gente pega todas as arvores residuais e leaf nodes criados, pega um novo datapoint qualquer. Passa ele pelas as arvores multiplicados pelos learning rates. Soma todos os valores de output, e obtem-se um log(odds).Ver imagen(Predicao final de classificacao log(odds))
+Seria a parte em que a gente pega todas as arvores residuais e leaf nodes criados, pega um novo datapoint qualquer. Passa ele pelas as arvores,obtem-se o valor de output individual multiplicao pelos learning rates. Soma todos os valores de output, e obtem-se um log(odds).Ver imagen(Predicao final de classificacao log(odds))
 Converte esse log(odds) em probabilidade e boom, voce tem um valor. Se esse valor passar do threshold classifique ele, como positivo senao negativo.
 

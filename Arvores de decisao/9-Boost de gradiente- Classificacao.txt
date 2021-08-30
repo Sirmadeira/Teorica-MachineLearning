@@ -31,9 +31,9 @@ Somatoria[Probabilidade anteriori*(1-Probabilidade anteriori)]
 
 A probabilidade anterior nao e nada mais do que o log(odds) do leaf node, no exemplo. Do primeira arvore(leaf node) para segunda(primeira arvore residual).Ver imagen:(Exemplo de formula de transformacao resolvida com dois residuos no output)
 
-AVISO:A probabilidade anterior, e igual agora mas isso muda na proxima arvore. 
+AVISO:A probabilidade anterior, e igual agora mas isso muda nas proximas arvores. 
 
-E exatamente como antes depois de passarmos certo datapoint pela arvore residual, a gente multiplica o novo valor de output, pelo learning rate. Somo-o ao log(odds) da arvore anterior.
+E exatamente como antes depois de passarmos certo datapoints pela arvore residual, a gente multiplica o novo valor de output, pelo learning rate. Somo-o ao log(odds) da arvore anterior.
 Assim obtendo a predicao de log(odds).
 Ver imagen:(Predicao log(odds)  exemplo simples)
 

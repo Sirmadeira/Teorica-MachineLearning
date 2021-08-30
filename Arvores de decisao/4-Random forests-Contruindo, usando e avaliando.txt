@@ -8,7 +8,7 @@ A primeira coisa que a gente faz com os nossos dados e criar um nova dataset, ma
 
 
 A segunda coisa que fazemos e montar uma arvore de decisao, usando o dataset bootstraped. Mas somente se utilizando de certos pedacos das colunas que sao selecianados randomicamente na formacao dos galhos e do root node. Ou seja, nao levamos todas as variaveis (colunas) do dataset em consideracao ao montar os nosso galhos e root node.
-Agora so por exemplo, assuma que uma das colunas selecionadas fez um melhor trabalho do que a outra(o como e avalaido isso fodase) em separar os dados. Essa coluna e por assim dizer desconsiderada nos galhos seguintes. E o processo de selecao randomica de variaveis se repete. E vai construindo a arvore ate chegar no limite imposto de datasets que chegam nos leaf nodes.
+Agora so por exemplo, assuma que uma das colunas selecionadas fez um melhor trabalho do que a outra(o como e avaliado isso fodase) em separar os dados. Essa coluna e por assim dizer desconsiderada nos galhos seguintes. E o processo de selecao randomica de variaveis se repete. E vai construindo a arvore ate chegar no limite imposto de datasets que chegam nos leaf nodes.
 
 Depois disso voce repete esse processo, de formacao de datasets bootstraps. E selecao randomica de subsets de variaveis na formacao dos galhos e root nodes na arvore de decisao com o dataset bootstraped como base.Idealmente faz se umas 100 arvores de decisao.
 

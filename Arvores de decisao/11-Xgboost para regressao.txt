@@ -1,0 +1,128 @@
+Xgboost e EXTREMO. Isso significa que e um algoritmo com muitas partes.
+Segue as partes exatas.
+Ver imagen:(Passos do xgboost) 
+
+Como voce pode ver os dois primeiros passos, sao passar por um gradient boost, e regularization de ridge. Acrescimo de bias. Tem aula dos dois. 
+
+O terceiro, e construir uma arvore de regressao unica.Esse passo em especifico e bem  pedreiro e vai ser muito desenvolvido.
+
+Aviso:Xgboost foi desenhado para ser usado em dataset enormes complicados.
+Mas o nosso dataset exemplo vai ser bem facinho, ele basicamente e uma relacao entre dosagem, e qualidade de impacto da droga utilizada.
+Ver imagen:(Dataset de explicacao xgboost)
+
+Entao vamos la de inicio iremos fazer uma predicao qualquer. Geralmente, 0.5 seria a predicao dada.
+Depois calculamos os residuos dos datapoint quando comparados, a essa pequena predicao.
+
+E agora exatamente como, no gradient boost formamos uma arvore de regressao treinada nos residuos. No entanto, ao inves de gradient boost a gente nao se utiliza de uma arvore de regressao normal. A gente usa a arvore de regressao Xgboost, ou arvore de xgboost.
+
+Entao vamos aprender como montar uma arvore de xgboost, para regressao.
+Aviso:Existe muitas maneiras de construir essa regressao mas vamos pela mais comum
+
+Cada arvore criado,comeca com somente uma folha. Todos os residuos calculados entram nessa folha. Agora calculamos um Quality score(Similarity score) para esses residuos.
+
+Formula Similarity:
+
+Similarity score= Soma dos residuos ao quadrado/Numero de residuos+ Lambda
+
+O lambda e um parametro de regularizacao, vamos falar sobre ele depois. Por enquanto, o lambda=0. Para ver como foi o calculo em nosso dataset exemplo. Ver imagen:(Calculo do similarity score no exemplo)
+
+Agora a pergunta e se dividirmos os residuos em dois clusters(leaf nodes) ao inves de um o similarity score melhorara?
+
+Para responder isso, vamos pegar os dois menores datapoints do exemplo. E pegamos a media entre os dois. Entao com essa media, formamos um galho. Que e basicamente, a media com uma expressao de menor.
+Ver imagen:(Dividindo e calculando a media entre os ponto menores)
+
+Agora repetimos o processo de calculo do similarity score, so que dessa vez temos que considerar o processo de passagem pelo galho recentemente criado. Entao, na parte de soma de residuos(na formula de similarity) somente consideramos os residuos dos datapoints que chegaram no leaf node. Ver imagen:(Demonstracao do segunda passo)
+
+Agora que calculamos os similarity para cada node a gente ve que quando os residuos dentro de um node, sao muito diferentes os residuos meio que se cancelam na somatoria e o similarity score e bem pequeno.
+
+Em contraste, quando os residuos sao semelhantes(mesmo valor), ou se tem somente um deles eles nao se cancelam(na somatoria da formula), e a similaridade entre eles e relativamente alta.
+
+Agora precisamos, quantificar o quao melhor os leafs nodes associam(cluster) residuos similhares do que o root node.
+
+Calculamos isso atraves do Gain(GANHO).
+
+Ganho(Gain)=Similarity do leaf node da esquerda+ Similidarity do leaf node da direita- Similaridade do root node.
+
+Para ver no exemplo isso calculado. Ver imagen:(Ganho calculado do exemplo)
+
+Esse Gain foi calculado com o limiare(media) entre os dois menores pontos ne, agora podemos calcular ele para os outros limiares(Media entre os pontos sucedentes)
+Ver imagen:(Calculo de ganho de outros limiares)
+
+Ja que o Gain, do limiar sucedente(<22.5) foi menor do que o primeiro limiar. Isso significa que o primeiro limiar(<15), e melhor em dividir os residuos em clusters(leafs) de valores semelhantes. 
+
+Faz esse processo de equiparacao para todos os limiares sucedentes, no exemplo so ha mais um.
+
+Aquele que tiver o maior Gain sera o galho selecionado, dessa arvore xgboost.
+
+O processo se encerra quando chegarmos em leaf nodes, que so contem um residuo(datapoint) dentro deles. 
+
+Quando ha mais de um residuo, a gente repete o processo de formacao de galho divisor. Essa construcao de arvore e em pratica levada ate 6 niveis.
+O processo resumido seria: 
+O calculo do similarity score dos residuos dentro do leaf node inicial(que ira formar o galho ou root node se for o primeiro). Formacao dos galhos, de acordo com os limiares(medias) entre os pontos que originam esses residuos. Selecao do galho com o maior Gain.
+Ver imagen:(Repeticao do processo na formacao de outro galho, com mais de um residuo dentro dele)
+
+Como nas arvores de decisao anteriores, tambem temos o famoso problema de overfitting. Agora precisamos falar de como prunar(retirar leaf nodes) dela! 
+
+A gente retira certos leaf nodes, atraves do seu valor de Gain.
+
+Comecamos pegando um numero, no exemplo 130. Xgboost chama esse 130 de gamma.
+
+Depois, calculamos a diferenca entre o Gain associado ao galho menor da arvore e o valor de gamma. Se essa diferencao for negativa o galho sera retirado, caso contrario ele se mantera. Ver imagen:(Pruning de arvore xgboost). 
+Aviso:Em nosso exemplo o Gain do root node da arvore de xgboost. E menor que 130(valor de gamma) entao a diferenca sera negativa, no entanto devido a gente nao ter removido o primeiro galho com um Gain de 140 a gente nao remove o root.
+
+Agora se o valor de gamma fosse por exemplo 150, voltariamos a predicao inicial random, que no caso era 0.5 ;).
+
+
+So para melhor explicarmos o lambda agora, vamos refazer nossa arvore de xgboost so que agora lambda = 1 , no mesmo dataset do exemplo anterior.
+
+Lembre-se: Lambda e um parametro de regularizacao, o que significa que ele e suposto reduzir a sensibilidade da predicao para observacoes individuais.
+
+Ver imagen:(Calculando similarity da mesma arvore so que lambda=1)
+
+Ao vermos essa imagem, notamos que quando lambda>0 os Similarity score, sao menores. E a quantidade de diminuicao, entre os lambdas. E inversamente proporcional, ao numero de residuos no node.
+No exemplo, o leaf node da esquerda  do root node que so tem 1 residuo, notamos uma diminuicao de 50% no  Similarity Score. Agora no root node, que tem mais de 4 residuos notamos uma diminuicao de 20%.
+
+No calculo dos Gains tanto do root node quanto do galho sucessor, tambem notamos uma diminuicao nos valores quando comparado a arvore xgboost formadas anteriormente. Ver imagen:(Arvores de xgboost com labdas diferentes)
+
+A diferenca entre eles e gritante, principalmente no processo de pruning. Na arvore onde lambda =1, quando gamma e 130 ela e totalmente retirada devido ao Gain pequeno tanto do root node quanto do galho.
+
+Logo quando lambda>0, e mais facil dar prune porque os valores de Gain sao menores
+
+Agora uma ultima coisa interessante sobre lambda.No exemplo,nao iremos parar de dar prune. Mesmo se gamma=0.
+Ver imagen:(Pruning mesmo com gamma igual a 0)
+Como se pode ver,  o Gain do galho recentemente formado e negativo ainda se retira os leafs, mesmo com um gamma baixo. Isso demonstra que lambda tambem e um regularizdor, e evita overfitting da data.
+
+
+Agora para calcular o valor de output dos leafs, temos que fazer a seguinte equacao.
+
+Valor de output= Soma dos residuos/Numero de residuos +lambda
+
+Essa formula e bem semelhante a similarity, mas note que a soma dos residuos nao esta ao quadrado.
+Calculo de valor de output no exemplo: Ver imagen:(Calculo de exemplo quando lambda=0)
+Se lambda=1, no exemplo a gente iria notar que o valor de output foi cortado pela metade.
+Isso significa, que quando lambda>0 iremos reduzir o impacto dessa predicao na predicao final. Ou melhor dito, ira reduzir a sensibilidade dessa observacao individual.
+A gente tabem nota que quando lambda=0, o valor de output nao e nada mais que a media dos residuos do leaf node.
+
+Agora podemos comecar a fazer predicoes!
+Como no gradient boost nao extremo, comecamos com a predicao inicial random, 0.5 no exemplo. E somamos a eta(learning rate) * valor de output pos passagem da arvore.
+Obtendo assim a valor predito, do dado individual.
+Ver imagen:(Predicao para cada datapoint no inicio)
+
+E como no gradient boost, construimos uma nova arvore de regressao xgboost baseado nos novos residuos obtido, e continuamos ate que os residuos sejam super pequenos ou a gente tenha chegado no numero maximo de arvores.
+
+Em resumo:
+Quando contruimos arvores de xgboost para regressao. 
+Calculamos similiraty scores e ganhos, para determinar como rachar a data.
+E a gente corta os leafs usando a diferenca, entre gain e gamma(Tree complexity parameter). Positivo nao corta, negativo corta
+
+
+
+
+
+
+
+
+
+
+
+
