@@ -1,0 +1,27 @@
+Nessa aula iremos visualizar como arvores de Xgboost de classificacao são criadas.
+
+O dataset utilizado e um de eficacia de uma droga. Ver imagen:(Dataset xgboost para classificacao)
+
+
+O primeiro passo para encaixar xgboost a parte de treinamento desse dataset e, fazer uma predicao inicial.
+
+A predicao inical, e um numero random geralmente 0.5. Nao importa se e classificacao ou regressao.
+
+Esse numero sera o ponto de partida de tudo, incluido o calculo dos residuos dos dataset observados. No exemplo, as dosagens eficazes tem o valor 1, as ineficazes 0. 
+Lembrete: Residuo=Dado observado-Dado predito
+
+Agora como a gente fez na regressao, a gente treina uma arvore de xgboost para com os residuos.
+
+No entanto dessa vez temos uma nova formulinha para calcular o Similiraty Score.
+
+Similiraty Score= (Soma dos residuos) ao quadrado//
+Soma[Probabilidade anterior*(1-Probabilidade anterior)]+lambda
+
+A gente ja viu isso de probabilidade anterior em gradient boost normal. Mas so por recapitulacao seria a probabilidade predita anterior para o valor do datapoint analisado, lembre-se probablidade predita considera a passagem  pelas arvores passadas*learning rate + predicao inicial.
+Lembrete: A soma acontece antes de pormos eles ao quadrado.
+
+Exatamente como na regressao a gente comeca contruindo nossa arvore por somente um leaf node, com todos os residuos da predicao inicial dentro dele. No exemplo, o numerador e zerado. Logo a similaridade e 0 para o galho inicial. Ver imagen:(Calculo do xemplo dosagem classificacao inicial)
+
+Agora temos que decidir, se podemos melhorar a nosso metodologia de clustering de residuos, se dividirmos em grupos.
+
+Vamos comecar com aquela parte de selcao de limiares.

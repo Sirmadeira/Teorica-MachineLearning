@@ -22,7 +22,7 @@ Cada arvore criado,comeca com somente uma folha. Todos os residuos calculados en
 
 Formula Similarity:
 
-Similarity score= Soma dos residuos ao quadrado/Numero de residuos+ Lambda
+Similarity score= (Soma dos residuos) ao quadrado/Numero de residuos+ Lambda
 
 O lambda e um parametro de regularizacao, vamos falar sobre ele depois. Por enquanto, o lambda=0. Para ver como foi o calculo em nosso dataset exemplo. Ver imagen:(Calculo do similarity score no exemplo)
 
@@ -113,7 +113,11 @@ E como no gradient boost, construimos uma nova arvore de regressao xgboost basea
 Em resumo:
 Quando contruimos arvores de xgboost para regressao. 
 Calculamos similiraty scores e ganhos, para determinar como rachar a data.
-E a gente corta os leafs usando a diferenca, entre gain e gamma(Tree complexity parameter). Positivo nao corta, negativo corta
+E a gente corta os leafs usando a diferenca, entre gain e gamma(Tree complexity parameter). Positivo nao corta, negativo corta. E lembre-se se nao cortar no galho, nao corte em cima.
+
+Depois calculamos, o valor de output para os leafs nodes.
+
+Por ultimo, lambda e um parametro de regularizacao porque ele diminui Gain e Similarity Score resultando em mais pruning. E tambem em valores de output menores.
 
 
 
