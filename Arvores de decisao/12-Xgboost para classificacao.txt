@@ -24,4 +24,21 @@ Exatamente como na regressao a gente comeca contruindo nossa arvore por somente 
 
 Agora temos que decidir, se podemos melhorar a nosso metodologia de clustering de residuos, se dividirmos em grupos.
 
-Vamos comecar com aquela parte de selcao de limiares.
+Vamos comecar com aquela parte de selecao de limiares. Comecamos com o threshhold dos dois ultimos pontos no exemplo, esse vai originar a divisao entre os residuos. E calculamos o similarity score.
+O lambda no exemplo e 0. 
+Ver imagen:(Similarity score primeiro limiar arvore de classificacao)
+
+E logo em seguida calculamos o gain. A formula e a mesma da de regressao.
+
+Ganho(Gain)=Similarity do leaf node da esquerda+ Similidarity do leaf node da direita- Similaridade do root node.
+
+No exemplo, nenhum dos outros limiares no root nade tem um gain maior.
+
+Depois a gente faz o mesmo processo, nos residuos do leaf node esquerdo. 
+Ver imagem:(Leaf node esquerdo arvore clasfficacao)
+
+A gente para ae porque limitamos, o numero de niveis de leaf nodes em 2.
+
+No entanto, XGboost tambem tem um numero minimo residuos que pode ter dentro de cada leaf node.
+Esse numero e definido por algo chamado Cover.
+
