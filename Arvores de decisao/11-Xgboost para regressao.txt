@@ -41,7 +41,7 @@ Agora precisamos, quantificar o quao melhor os leafs nodes associam(cluster) res
 
 Calculamos isso atraves do Gain(GANHO).
 
-Ganho(Gain)=Similarity do leaf node da esquerda+ Similidarity do leaf node da direita- Similaridade do root node.
+Ganho(Gain)=Similarity do leaf node da esquerda+ Similidarity do leaf node da direita- Similaridade do root node(ou galho).
 
 Para ver no exemplo isso calculado. Ver imagen:(Ganho calculado do exemplo)
 

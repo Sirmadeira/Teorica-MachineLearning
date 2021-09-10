@@ -2,7 +2,6 @@ Nessa aula iremos visualizar como arvores de Xgboost de classificacao são criad
 
 O dataset utilizado e um de eficacia de uma droga. Ver imagen:(Dataset xgboost para classificacao)
 
-
 O primeiro passo para encaixar xgboost a parte de treinamento desse dataset e, fazer uma predicao inicial.
 
 A predicao inical, e um numero random geralmente 0.5. Nao importa se e classificacao ou regressao.
@@ -15,12 +14,12 @@ Agora como a gente fez na regressao, a gente treina uma arvore de xgboost para c
 No entanto dessa vez temos uma nova formulinha para calcular o Similiraty Score.
 
 Similiraty Score= (Soma dos residuos) ao quadrado//
-Soma[Probabilidade anterior*(1-Probabilidade anterior)]+lambda
+Soma[Probabilidade anteriori*(1-Probabilidade anteriori)]+lambda
 
 A gente ja viu isso de probabilidade anterior em gradient boost normal. Mas so por recapitulacao seria a probabilidade predita anterior para o valor do datapoint analisado, lembre-se probablidade predita considera a passagem  pelas arvores passadas*learning rate + predicao inicial.
 Lembrete: A soma acontece antes de pormos eles ao quadrado.
 
-Exatamente como na regressao a gente comeca contruindo nossa arvore por somente um leaf node, com todos os residuos da predicao inicial dentro dele. No exemplo, o numerador e zerado. Logo a similaridade e 0 para o galho inicial. Ver imagen:(Calculo do xemplo dosagem classificacao inicial)
+Exatamente como na regressao a gente comeca contruindo nossa arvore por somente um leaf node, com todos os residuos da predicao inicial dentro dele. No exemplo, o numerador e zerado. Logo a similaridade e 0 para o galho inicial. Ver imagen:(Calculo do exemplo dosagem classificacao inicial)
 
 Agora temos que decidir, se podemos melhorar a nosso metodologia de clustering de residuos, se dividirmos em grupos.
 
@@ -30,15 +29,86 @@ Ver imagen:(Similarity score primeiro limiar arvore de classificacao)
 
 E logo em seguida calculamos o gain. A formula e a mesma da de regressao.
 
-Ganho(Gain)=Similarity do leaf node da esquerda+ Similidarity do leaf node da direita- Similaridade do root node.
+Ganho(Gain)=Similarity do leaf node da esquerda+ Similidarity do leaf node da direita- Similaridade do root node(ou galho).
 
-No exemplo, nenhum dos outros limiares no root nade tem um gain maior.
+No exemplo, nenhum dos outros limiares no root node tem um Gain maior. E sempre selecionamos o maior Gain
 
 Depois a gente faz o mesmo processo, nos residuos do leaf node esquerdo. 
 Ver imagem:(Leaf node esquerdo arvore clasfficacao)
 
 A gente para ae porque limitamos, o numero de niveis de leaf nodes em 2.
 
-No entanto, XGboost tambem tem um numero minimo residuos que pode ter dentro de cada leaf node.
+No entanto  vale ressaltar que, XGboost tambem tem  outro tipo de limite que e definido pelo o numero minimo de residuos que pode ter dentro de cada leaf node.
 Esse numero e definido por algo chamado Cover.
+
+O Cover nao e nada mais, que o denominador da funcao de Similarity Score retirando o lambda, dependendo da arvore ela muda, se for classificacao.A formula e:
+
+Cover=Somatoria[Probabilidade anteriori*(1-Probabilidade anteriori)]
+
+Agora se for regressao a formula e:
+
+Cover=Numero de residuos
+
+Por default, o valor minimo de Cover e 1.Isso significa que em arvores Xgboost de regressao, Cover tem nenhum impacto na definicao do numero limites de leaf nodes. Porque ele sempre, sera newsflash 1.
+
+No entanto, em classificao ele depende das probabilidades preditas anteriores de cada residuo nos leafs, o que uma bela dor de cabeca. Porque no exemplo caso ele seja definido como 1, ele vai cortar todos os nosso leaf nodes. O que e um nono, afinal Xgboost requer que a arvore formada seja mais larga que o root node. Por isso vamos igualar a 0 nesse exemplo.
+
+Agora podemos falar de como prunar(cortar) a arvore, bom e feito do mesmo jeito que na regressao.
+
+Gain-Gamma= Se for negativo, corta, senao nao corta.
+No exemplo, caso gamma seja = 3 cortariamos ate o root node, e nossa predicao seria somente a predicao inicial 0.5.
+
+Lembra que lambda, diminuia o nosso Similarity Score o que consequentemente resultava na diminuicao do Gain o que acabava gerando a prunada de mais leaf nodes por gamma.Entao isso basicamente significa que, valores de lambda>0 reduzem a sensibilidade da arvore para datapoint individuais(Acrescenta bias).
+
+Agora vamos determinar o valor de output, em arvores xgboost de classificao.
+
+Valor de output= Soma de residuos//Somatoria[Probabilidade anteriori*(1-Probabilidade anteriori)+lambda]
+
+Ver imagen:(Resolvendo valor de output para o primeiro leaf node de xgboost)
+
+E repete esse processo para todos leaf nodes.
+Ver imagen:(Valor de output de todos leaf nodes da arvore xgboost de classificacao 1)
+
+Lambda nesse caso, tambem atua como um limitante do impacto que predicoes de datapoints individuais, terao na predicao final.
+
+Exatamente como em gradiente boost nao extremo para classificacao, a gente precisa converter a probabilidade inicial(0.5) em log(odds).
+Lembrete formula de conversao probabilidade odds.
+log(p/1-p)=log(odds)
+No nosso exemplo, nosso log(odds) da predicao inicial e 0.
+
+Agora adicionamos o log(odds) dada pela arvore* o learning rate.
+Esse log(odds) e obtido ao passarmos um dos datapoints pela arvore feita, esse ponto depois de passar pela arvore, vai ter o seu valor de output individual. Que seria, o valor que sera multiplicado pelo learning rate, ou a predicao log(odds). Ver imagen:(Valor da predicao log(odds) do primeiro datapoint)
+Agora convertemos, o valor de predicao log(odds) em probabilidade. Usando a funcao logistica.
+Lembrete:Funcao logistica= 
+Probabilidade=e**(log(odds))//1+e**(log(odds))
+
+E pronto obtemos a probabilidade predita, ou melhor, a predicao de cada datapoint. Depois de passar por cada arvore
+Ver imagen:(Notando a diminuicao do residuo depois de preditar os valores de cada arvores)
+
+Como voce pode ver na imagen, o residuo diminuiu, com esse residuo menor podemos montar uma nova arvore xgboost de classificacao. Eu mencionei anteriormente, que o calcula da probabilidade anterior no Similarity Score, nao seria tao facil quanto o da primeira arvore, afinal cada datapoint vai ter sua propria probabilidade predita anterior. So por desencargo segue imagen, do Similarity Score do root node da arvore 2 de xgboost para classificacao.
+Ver imagen:(Calculo do similarity score na arvore 2 do xgboost de classificacao)
+Essa bolonha de probabilidade anterior, tambem acontecera no calculo do valor de output.
+
+E pronto vamos, fazendo esse processo de contrucao de arvore, obtencao de probabilidade predita, obtencao de residuos menores,nova arvore,nova probabilidade predita,novos residuos, nova arvore.... Ate chegarmos, no numero maximo de arvores, ou ate os residuos ficarem super pequenos.
+
+Resumindo:
+Ao construirmos uma arvore de xgboost para classificacao.
+Obtemos os residuos dado pela predicao inicial.
+Calculamos os Similarity Scores dos galhos e root node.
+Os Gains logo em seguida.
+Selecionamos o limiar com o maior dos Gains
+Cortamos, os galhos atraves de Gain-Gamma
+Calculamos o valor de output
+E pronto construimos a arvore.
+Se quisermos continuar.
+Obtemos a probabilidade predita de cada datapoint.
+Obtemos novos residuos, e repetimos a construcao.
+
+A e nao vamos esquecer que lambda e um regularizador, porque ele diminui os Similarity Scores e valores de output.
+
+E o Cover, controla o quanto e o numero minimo de residuos que pode se ter nos leaf nodes finais.
+
+
+
+
 
