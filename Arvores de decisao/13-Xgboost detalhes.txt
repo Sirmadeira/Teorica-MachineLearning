@@ -26,7 +26,7 @@ Lembrete: Na classificao y tem valores entre 1 e 0 porque ela e classificacao, n
 
 Xgboost se utiliza dessas loss functions demonstradas, para construir arvores, que tem como objetivo, minimizar a seguinte equacao. Atraves dos valores de output.
 
-Ver imagen:(Funcao de construcao de arvores)
+Ver imagen:(Equacao de construcao de arvores)
 
 Nota: Esse y estranho com o T no meio da somacao, vai ser desconsiderado.
 Porque ele representa, o estimulo do processo de pruning. Atraves do numero de leaf nodes finais (terminal nodes)(T) e  y estranho(gamma). Estimulo, porque ele corta mesma com valor 0 que nem exposto na aula de classificacao e regressao. Retirei, porque pruning e so no finalzinho e nao serve para nada no processo de derivacao, do Valor Optimal de Output e Similarity Scores. Logo nao e util para a demonstracao de diferenca entre classificao e regressao.
@@ -36,7 +36,7 @@ A primeira parte da equacao (da somatoria), nao e nada mais do que a loss functi
 O O**2, seria o valor de output ao quadrado. O objetivo, dessa equacao e exatamente achar um valor de output do leaf node, que minimize a equacao por completo.O simbolo estranho e o lambda.Mais tarde demonstrarei, como ele minimiza o valor otimal de output(importante).
 
 No exemplo, iremos otimizar o valor de output  para a primeira arvore. Logo pi = 0,5(Predicao inicial)+O(valor de output da primeira arvore depois do datapoint passar por ela, no primeiro exemplo=0)
-Ver exemplo:(Funcao da primeira arvore)
+Ver exemplo:(Equacao da primeira arvore)
 
 No exemplo, lambda=0. Logo todo aquela parte de regulurizacao some.
 A loss function,com tudo isso em vista = 104.4, quando o valor de output da primeira arvore = 0.
@@ -92,6 +92,36 @@ Depois de fazermos tudo isso, chegamos nisso daki. Ver imagen(Valor de ouput min
 E agora finalmente, chegamos no valor de output ideal para o leaf node.
 
 Agora, temos que plugar os gradientes(g), e os hessians(h) das loss function.
+
+Fazemos isso atraves da seguinte, loss function.Ver imagen:(Loss function de gradiente nao extremo)
+
+Essa loss function, nos possibilita a achar facilmente o resultado final da primeira derivada(g) e da segunda(h).
+
+No caso do g a primera derivada nao sera, nada mais do que a diferenca entre dado observado-dado predito so que negativada. E boom substituimos, dentro da funcao da imagen(Valor de ouput minimizador). Ver imagen:(Plugando o g).
+
+Depois de arrendormos um pouco a formula exposta no plugando o g, notamos que a primeira parte nao e nada mais que a Soma dos residuos, da funcao da imagen(Valor de output minimizador).
+
+Agora fazemos o mesmo esquema com h, pegamos a segunda derivada em relacao a loss function de gradiente nao extremo. E boom obtemos o numero 1. Ver imagen:(Hessian sendo plugada)
+Lembrete: Nao se esqueca do lambda no denominador.
+
+No final notamos, que a formula do output ideal de um leaf node,chega na formula de valor de ouput de regressao
+
+Valor de output= Soma dos residuos/Numero de residuos+ lambda
+
+
+Para resumir o que a gente fez ate agora:
+
+1-Pegamos um databank
+
+2-Fizemos uma predicao inicial qualquer.
+
+3-Ae perguntamos qual deveria ser o valor de output dessa folha? Tendo em consideracao a loss function e a regularizacao(equacao de construcao de arvores).
+
+4-Depois fizemos um grafico, que seria a equacao de construcao de arvore montada como uma funcao do valor de output. E resolvemos onde a derivada=0. E obtemos, a fomula de valor de output ja exposta na aula de regressao.
+
+
+
+
 
 
 
