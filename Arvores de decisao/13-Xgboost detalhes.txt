@@ -1,9 +1,10 @@
 Nas ultimas duas aulas, demonstrei como fazer xgboost para classificacao e regressao.
 
-Nessa aula, eu vou demonstrar como a unica diferenca entre esse dois tipos de arvore e a funcao de perda(loss function).
-O dataset utilizado sera esse. Ver imagen:(Dataset de explicacao xgboost passo a passo)
+Nessa aula, eu vou demonstrar como a unica diferenca entre esse dois tipos de arvore ,matematicamente falando, e a funcao de perda(loss function).
 
 Algo que vou demonstrar, comparando a derivada da funcao Similarity Score e a de Valor de output, das arvores de regressao com as das arvores de classificacao
+
+O dataset utilizado para explicacao inicial sera esse. Ver imagen:(Dataset de explicacao xgboost passo a passo)
 
 Como no gradient boost nao extremo, a loss function e utilizada para descobrir o quao bom nossa predicao e. 
 Na regressao, essa funcao seria:
@@ -13,33 +14,96 @@ Ver imagen:(Funcao de loss regressao)
 Lembrete: yi= Seria o valor y de um ponto observado, selecionado. No dataset, da imagen:(Dataset de explicacao xgboost passo a passo), o ponto y1 teria o valor de -10. pi seria o valor da predicao final para um ponto especifico.p1, seria a predicao final para o ponto do datapoint 1.
 
 Para melhor entendimento veja a resulucao da loss function, quando a nossa predicao final = a predicao inicial.Ver imagen:(Formula com pi = a predicao inicial).
+
 A gente, no futuro pode se utilizar dessa loss function, para verificar se as predicoes sucedentes dado o avanco da construcao das arvores xgboost, estao melhorando.
  
 A loss function para classificacao e:
 
 Ver imagen:(Funcao de loss classificacao)
 
-Lembrete: Classificacao e feita atraves de 1 e 0, no nossa dataset 1 e eficaz 0 e nao eficaz. Logo nao estranhe se o valor de, yi(tanto faz o datapoint) tiver esses valores.
+Lembrete: Na classificao y tem valores entre 1 e 0 porque ela e classificacao, no nossa dataset 1 e eficaz 0 e nao eficaz. Logo nao estranhe se o valor de, yi(tanto faz o datapoint) tiver esses valores.
 
 
-Xgboost se utiliza dessas loss functions, para construir arvores, que tem como objetivo, minimizar a seguinte equacao.
+Xgboost se utiliza dessas loss functions demonstradas, para construir arvores, que tem como objetivo, minimizar a seguinte equacao. Atraves dos valores de output.
 
 Ver imagen:(Funcao de construcao de arvores)
 
 Nota: Esse y estranho com o T no meio da somacao, vai ser desconsiderado.
-Porque ele representa, o estimulo do processo de pruning. Atraves do numero de leaf nodes finais (terminal nodes)(T) e  y estranho(gamma). Estimulo, porque ele corta mesma com valor 0 que nem exposto na aula de classificacao e regressao. Retirei, porque pruning e so no finalzinho e nao serve para nada no processo de derivacao, do Valor Optimal de Output e Similarity Scores.
+Porque ele representa, o estimulo do processo de pruning. Atraves do numero de leaf nodes finais (terminal nodes)(T) e  y estranho(gamma). Estimulo, porque ele corta mesma com valor 0 que nem exposto na aula de classificacao e regressao. Retirei, porque pruning e so no finalzinho e nao serve para nada no processo de derivacao, do Valor Optimal de Output e Similarity Scores. Logo nao e util para a demonstracao de diferenca entre classificao e regressao.
 
 A primeira parte da equacao (da somatoria), nao e nada mais do que a loss function apresentada. A segunda parte refere-se, aos termos de regularizacao.
 
-O O**2, seria o valor de output ao quadrado. O objetivo, dessa equacao e exatamente achar um valor do leaf node, que minimize a equacao por completo.O simbolo estranho e o lambda.Mais tarde demonstrarei, como ele minimiza o valor de output.
+O O**2, seria o valor de output ao quadrado. O objetivo, dessa equacao e exatamente achar um valor de output do leaf node, que minimize a equacao por completo.O simbolo estranho e o lambda.Mais tarde demonstrarei, como ele minimiza o valor otimal de output(importante).
 
-No exemplo, iremos otimizar o valor de output  para a primeira arvore. Logo pi = 0,5, predicao inicial, + o valor de output (da primeira arvore depois do datapoint passar por ela)
-
+No exemplo, iremos otimizar o valor de output  para a primeira arvore. Logo pi = 0,5(Predicao inicial)+O(valor de output da primeira arvore depois do datapoint passar por ela, no primeiro exemplo=0)
 Ver exemplo:(Funcao da primeira arvore)
 
-No exemplo, lambda =0. Logo todo aquela parte de regulurizacao some.
-A loss function, da predicao inicial e = 104.4
-O valor de output e = 0. 
+No exemplo, lambda=0. Logo todo aquela parte de regulurizacao some.
+A loss function,com tudo isso em vista = 104.4, quando o valor de output da primeira arvore = 0.
+
+Vamos montar um grafico para notar a associacao que existe, entre a loss function total(eixo y) e os valores de output(eixo x). Ver imagen:(Funcao de associacao entre output e loss function)
+
+Nesse grafico, existe dois pontos o ponto primario quando o nosso output =0, e a nossa loss function = 104.4, e o segundo que e o resultado de nossa loss function quando o valor de output da arvore =-1(a gente so pois esse valor).Vamos notar, que a loss function subiu logo o output -1 e um merda. Agora se o O fosse = 1, nossa loss function diminuiria de valor o que e uma delicia.
+
+Se fizermos multiplos pontos iremos, obter a seguinte funcao.
+Ver imagen:(Funcao de multiplos pontos, com loss function e output)
+Nota-se que o ponto otimal de output(ponto com menor loss function), seria onde a derivada=0.
+No entanto, lembre-se que essa funcao ocorre somente quando lambda=0.
+
+Se lembra que eu disse, que ia demonstrar como o lambda quando aumentado, diminui o valor otimal de output, entao a imagen sucedente ira demonstra como a medida que eu aumento lambda, o ponto minimo da parabola(valor otimal de output, derivada=0) da funcao de loss function, fica cada vez mais perto de 0. O que e exatamente, o que uma penalidade de regularizacao(lambda) deve fazer.
+Ver imagen:(Valor otimal afetado por lambda)
+
+Agora so uma coisinha, a mais antes de acharmos o valor otimal de output.
+
+Voce se lembra la no boost de gradiente nao extremo, existia duas tecnicas matematica para resolver a equacao da imagen. Ver imagem:(Funcao de construcao de arvores, so que sem a parte de T e Gamma). 
+Uma para regressao, outra para classificacao. Porque na regressao a matematica para resulucao dessa equacao era suave, agora na classificacao a matematica era um cu.
+
+Especificamente, para classificacao o gradiente de boost nao extremo usava de uma aproximacao de tayler de segunda ordem(nao adianta procurar nao escrevi porque muito trampo). Para simplificar a matematica, quando resolvendo a funcao da imagen acima, para achar valor de output otimal. Naquela funcao
+
+Entao, no XGBOOST a gente usa a aproximacao de segunda ordem de tayler, no dois eventos :).
+
+Infelizmente, eu sou muito burro entao. So vou explica basicamente o que e cada parte dessa infeliz equacao. Ver imagen:(Aproximacao de segunda ordem de tayler apropriada para a loss function o valor de outputs)
+
+Primeiro, a parte inicial antes do sinal de aproximado(~~ so que um embaixo do outro). Se refere a loss function, que inclui o valor de output. 
+
+Essa mesma, pode ser aproximada a aquela porrada de derivadas e somatorias. Essa e a magia, de tayler ela divide em um monte de partes simples.
+
+A primeira parte dessa porrada de derivada, (L(y,pi)) seria a loss function da predicao passada. A parte sucente([d/dpiL(y,pi)]), e a primeira derivada daquela loss function. A terceira parte,([d**2/dpi**2L(y,pi)]), e a segunda derivada.
+
+Nota:Ja que a derivada de uma funcao, esta relacionada a algo chamado Gradiente. XGBOOST, usa g para representar as derivadas da loss function. Entao essa parte([d/dpiL(y,pi)]), sera trocada por um g. E ja que a segunda derivada de uma funcao e chamada de Hessian, a gente troca isso daki([d**2/dpi**2L(y,pi)]) por h.
+
+VAMOS EXPANDIR a somotoria e somar a regularizacao. Ver imagen:(Expansao da somatoria + regularizacao)
+
+Vamos substituir L(y1,p1+Ovalue)(loss function que inclui o valor de output), pela aproximacao de segunda ordem de tayler para a loss function de cada ponto, ja simplificada(g e h incluidos). 
+Ver imagen:(Segunda ordem de tayler, substiuindo a loss function com relacao ao valor de output)
+
+Antes de continuarmos, lembremos que o que estamos tentando encontrar e um valor de output que minimize a loss function com a regularizacao incluida. Por isso esse calculo todo.
+E tudo que a gente fez ate agora, foi pegar a funcao de construcao de arvores, so que sem a parte de T e Gamma, que e o que a gente ta tentando minimizar  e aproximamos, ela a uma segunda ordem de tayler. Ver imagen:(Resuminho honhon)
+
+Voltando ao assunto, os temos que nao tem valor de output, vao ser jogados fora. Por que eles nao tem nenhum efeito, na procura pelo valor otimal. Logo podemos omiti-los da optimizacao,
+Ver imagen:(Jogando fora termos nao relacionados)
+
+Agora vamos combinar multiplicados por O com os outros termos tambem multiplicados por O, e os termos multiplicados por O**2 com os multiplicados por O**2. (Fatoracao). Ver imagen:(Fatoracao dos termos multiplicados)
+
+Agora vamos fazer algo que geralmente fazemos quando queremos um valor que minimiza uma funcao, primeiro pegar a derivada com respeito ao valor de output(variavel minimizadora), 2 iguale a derivada a 0, 3 resolva o valor de output. Ver imagen:(Minimizando a loss function)
+
+Depois de fazermos tudo isso, chegamos nisso daki. Ver imagen(Valor de ouput minimizador).
+
+E agora finalmente, chegamos no valor de output ideal para o leaf node.
+
+Agora, temos que plugar os gradientes(g), e os hessians(h) das loss function.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
