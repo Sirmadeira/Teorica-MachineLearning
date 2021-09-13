@@ -38,8 +38,8 @@ No exemplo, iremos otimizar o valor de output  para a primeira arvore. Logo pi =
 Ver exemplo:(Funcao da primeira arvore)
 
 No exemplo, lambda =0. Logo todo aquela parte de regulurizacao some.
-
 A loss function, da predicao inicial e = 104.4
+O valor de output e = 0. 
 
 
 
