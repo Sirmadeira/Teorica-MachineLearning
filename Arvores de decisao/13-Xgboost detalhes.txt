@@ -1,0 +1,51 @@
+Nas ultimas duas aulas, demonstrei como fazer xgboost para classificacao e regressao.
+
+Nessa aula, eu vou demonstrar como a unica diferenca entre esse dois tipos de arvore e a funcao de perda(loss function).
+O dataset utilizado sera esse. Ver imagen:(Dataset de explicacao xgboost passo a passo)
+
+Algo que vou demonstrar, comparando a derivada da funcao Similarity Score e a de Valor de output, das arvores de regressao com as das arvores de classificacao
+
+Como no gradient boost nao extremo, a loss function e utilizada para descobrir o quao bom nossa predicao e. 
+Na regressao, essa funcao seria:
+
+Ver imagen:(Funcao de loss regressao)
+
+Lembrete: yi= Seria o valor y de um ponto observado, selecionado. No dataset, da imagen:(Dataset de explicacao xgboost passo a passo), o ponto y1 teria o valor de -10. pi seria o valor da predicao final para um ponto especifico.p1, seria a predicao final para o ponto do datapoint 1.
+
+Para melhor entendimento veja a resulucao da loss function, quando a nossa predicao final = a predicao inicial.Ver imagen:(Formula com pi = a predicao inicial).
+A gente, no futuro pode se utilizar dessa loss function, para verificar se as predicoes sucedentes dado o avanco da construcao das arvores xgboost, estao melhorando.
+ 
+A loss function para classificacao e:
+
+Ver imagen:(Funcao de loss classificacao)
+
+Lembrete: Classificacao e feita atraves de 1 e 0, no nossa dataset 1 e eficaz 0 e nao eficaz. Logo nao estranhe se o valor de, yi(tanto faz o datapoint) tiver esses valores.
+
+
+Xgboost se utiliza dessas loss functions, para construir arvores, que tem como objetivo, minimizar a seguinte equacao.
+
+Ver imagen:(Funcao de construcao de arvores)
+
+Nota: Esse y estranho com o T no meio da somacao, vai ser desconsiderado.
+Porque ele representa, o estimulo do processo de pruning. Atraves do numero de leaf nodes finais (terminal nodes)(T) e  y estranho(gamma). Estimulo, porque ele corta mesma com valor 0 que nem exposto na aula de classificacao e regressao. Retirei, porque pruning e so no finalzinho e nao serve para nada no processo de derivacao, do Valor Optimal de Output e Similarity Scores.
+
+A primeira parte da equacao (da somatoria), nao e nada mais do que a loss function apresentada. A segunda parte refere-se, aos termos de regularizacao.
+
+O O**2, seria o valor de output ao quadrado. O objetivo, dessa equacao e exatamente achar um valor do leaf node, que minimize a equacao por completo.O simbolo estranho e o lambda.Mais tarde demonstrarei, como ele minimiza o valor de output.
+
+No exemplo, iremos otimizar o valor de output  para a primeira arvore. Logo pi = 0,5, predicao inicial, + o valor de output (da primeira arvore depois do datapoint passar por ela)
+
+Ver exemplo:(Funcao da primeira arvore)
+
+No exemplo, lambda =0. Logo todo aquela parte de regulurizacao some.
+
+A loss function, da predicao inicial e = 104.4
+
+
+
+
+
+
+
+
+
