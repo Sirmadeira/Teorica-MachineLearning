@@ -58,15 +58,15 @@ Agora so uma coisinha, a mais antes de acharmos o valor otimal de output.
 Voce se lembra la no boost de gradiente nao extremo, existia duas tecnicas matematica para resolver a equacao da imagen. Ver imagem:(Funcao de construcao de arvores, so que sem a parte de T e Gamma). 
 Uma para regressao, outra para classificacao. Porque na regressao a matematica para resulucao dessa equacao era suave, agora na classificacao a matematica era um cu.
 
-Especificamente, para classificacao o gradiente de boost nao extremo usava de uma aproximacao de tayler de segunda ordem(nao adianta procurar nao escrevi porque muito trampo). Para simplificar a matematica, quando resolvendo a funcao da imagen acima, para achar valor de output otimal. Naquela funcao
+Especificamente, para classificacao o gradiente de boost nao extremo usava de uma aproximacao de taylor de segunda ordem. Para simplificar a matematica, quando resolvendo a funcao da imagen acima, para achar valor de output otimal. Naquela funcao
 
-Entao, no XGBOOST a gente usa a aproximacao de segunda ordem de tayler, no dois eventos :).
+Entao, no XGBOOST a gente usa a aproximacao de segunda ordem de taylor, no dois eventos :).
 
-Infelizmente, eu sou muito burro entao. So vou explica basicamente o que e cada parte dessa infeliz equacao. Ver imagen:(Aproximacao de segunda ordem de tayler apropriada para a loss function o valor de outputs)
+Infelizmente, eu sou muito burro entao. So vou explica basicamente o que e cada parte dessa infeliz equacao. Ver imagen:(Aproximacao de segunda ordem de taylor apropriada para a loss function o valor de outputs)
 
 Primeiro, a parte inicial antes do sinal de aproximado(~~ so que um embaixo do outro). Se refere a loss function, que inclui o valor de output. 
 
-Essa mesma, pode ser aproximada a aquela porrada de derivadas e somatorias. Essa e a magia, de tayler ela divide em um monte de partes simples.
+Essa mesma, pode ser aproximada a aquela porrada de derivadas e somatorias. Essa e a magia, de taylor ela divide em um monte de partes simples.
 
 A primeira parte dessa porrada de derivada, (L(y,pi)) seria a loss function da predicao passada. A parte sucente([d/dpiL(y,pi)]), e a primeira derivada daquela loss function. A terceira parte,([d**2/dpi**2L(y,pi)]), e a segunda derivada.
 
@@ -74,11 +74,11 @@ Nota:Ja que a derivada de uma funcao, esta relacionada a algo chamado Gradiente.
 
 VAMOS EXPANDIR a somotoria e somar a regularizacao. Ver imagen:(Expansao da somatoria + regularizacao)
 
-Vamos substituir L(y1,p1+Ovalue)(loss function que inclui o valor de output), pela aproximacao de segunda ordem de tayler para a loss function de cada ponto, ja simplificada(g e h incluidos). 
-Ver imagen:(Segunda ordem de tayler, substiuindo a loss function com relacao ao valor de output)
+Vamos substituir L(y1,p1+Ovalue)(loss function que inclui o valor de output), pela aproximacao de segunda ordem de taylor para a loss function de cada ponto, ja simplificada(g e h incluidos). 
+Ver imagen:(Segunda ordem de taylor, substiuindo a loss function com relacao ao valor de output)
 
 Antes de continuarmos, lembremos que o que estamos tentando encontrar e um valor de output que minimize a loss function com a regularizacao incluida. Por isso esse calculo todo.
-E tudo que a gente fez ate agora, foi pegar a funcao de construcao de arvores, so que sem a parte de T e Gamma, que e o que a gente ta tentando minimizar  e aproximamos, ela a uma segunda ordem de tayler. Ver imagen:(Resuminho honhon)
+E tudo que a gente fez ate agora, foi pegar a funcao de construcao de arvores, so que sem a parte de T e Gamma, que e o que a gente ta tentando minimizar  e aproximamos, ela a uma segunda ordem de taylor. Ver imagen:(Resuminho honhon)
 
 Voltando ao assunto, os temos que nao tem valor de output, vao ser jogados fora. Por que eles nao tem nenhum efeito, na procura pelo valor otimal. Logo podemos omiti-los da optimizacao,
 Ver imagen:(Jogando fora termos nao relacionados)
@@ -117,7 +117,79 @@ Para resumir o que a gente fez ate agora:
 
 3-Ae perguntamos qual deveria ser o valor de output dessa folha? Tendo em consideracao a loss function e a regularizacao(equacao de construcao de arvores).
 
-4-Depois fizemos um grafico, que seria a equacao de construcao de arvore montada como uma funcao do valor de output. E resolvemos onde a derivada=0. E obtemos, a fomula de valor de output ja exposta na aula de regressao.
+4-Depois fizemos um grafico, que seria a equacao de construcao de arvore montada como uma funcao do valor de output(Aquela parabola). E resolvemos onde a derivada=0. E obtemos, a fomula de valor de output ja exposta na aula de regressao.
+
+
+
+Agora vamos para classificacao
+
+A loss function usado para classificacao com arvores xgboost e a seguinte. Ver imagen:(Funcao de loss classificacao)
+
+Calcular a primeira e a segunda derivada dessa funcao, demora um belo de um tempinho porque o valor dos outputs esta no termo log(odds). Os calculos para achar as derivadas dessa funcao foram feitos na aula de Boost de gradiente- passo a passo para classificacao. Logo nao vou refaze-los mas so para lembrete.Segue o gradiente e o hessian da funcao.
+Ver imagen:(Gi e Hi de classificacao)
+
+Depois disso repetimos o processo de substituicao de Gs e Hs dentro da derivada da equacao de construcoes da arvore feita para achar o valor minimo do output(ideal).
+Isso vai acabar resultando na mesma formula de valor de output para classificacao tambem achada na aula de xgboost para classificacao.
+
+
+Valor de output= Soma de residuos//Somatoria[Probabilidade anteriori*(1-Probabilidade anteriori)+lambda]
+
+Lembrete: E PROBABILIDADE PREDITA NAO PROBABILIDADE LOG(ODDS) TEM QUE CONVERTER.
+
+E pronto chegamos na formula de valor de output para xgboost.
+
+Aviso:Isso sao as loss function mais utilizadas, tudo que eu  fiz foi obter as derivadas das loss functions e plugar elas na forma do valor de output ideal pela imagen:(Valor de output minimizador)
+
+Agora precisamos derivar as equacoes para os Similarity Scores, para que a gente possa crescer as arvores.
+
+Xgboost se utiliza da seguinte equacao para determinar o Similarity Score. Ver imagen:(Formula para obter similarity score em xgboost)
+
+
+A primeira coisa que o xgboost faz e multiplicar essa formula inteira por -1.
+
+Agora a parabola que e utilizada para obter o ponto ideal do output, e invertida.Ver imagen:(Inversao da parabola)
+
+Interessantemente quando ouver essa inversao, a gente vai notar que O valor otimal de output e representando pelo eixo x do maior ponto da parabola. E o eixo y, do maior ponto da parabola, e o Similarity Score.
+Pelo menos o dado peloa manuscrito. No entanto, o utilizado na pratico e duas vezes esse eixo y. O porque a gente vai entender ao fazermos a algebra.
+
+Agora vamos obter a formula dos similarity score, que a gente viu na aulas anteriores.
+
+A primeira coisa que a gente faz e plugar o Ovalue(Imagen:Valor de output minimizador) na funcao dada pela (Imagen:Formula para obter similarity score em xgboost). Ver imagen:(Passo 3 para obter similarity score)
+
+E depois de resolvermos a matematica algebraica chegamos nisso. Ver imagen:(Formula do similarity score nao formatada)
+
+No entanto, 1/2 e omitido porque o Similarity Score e um valor de medicao relativo. E contanto que qualquer Similarity Score seja escalado(multiplicado) pelo mesmo valor os resultados vao ser iguais. Isso e um exemplo, do como Xgboost vai fazer de tudo para diminuir a computacao.
+
+Agora se estivermos utilizando a loss function de regressao. E plugarmos o gradiente e o hessian dela na (Imagen:Formula do similarity score nao formatada) sem o 1/2. Vamos obter exatamente a formula expressa do Similarity Score na aula Xgboost para regressao.
+
+Similarity score = (Soma dos residuos) ao quadrado/Numero de residuos+ Lambda) 
+
+
+Agora se substituirmos, pela loss function de classificacao derivarmos e plugarmos os g e hs na(Imagen:Formula do similarity score nao formatada) sem o 1/2, obtermos  a mesma formula de Similarity Score dado na aula Xgboost para classificacao.
+
+Similiraty Score= (Soma dos residuos) ao quadrado//
+Soma[Probabilidade anteriori*(1-Probabilidade anteriori)]+lambda
+
+Agora so um detalhe irritante, o COVER. O cover nao e nada mais do que a somatoria dos hessians dentro da (Imagen:Formula do similarity score nao formatada), tendo isso em visto notamos que ele  e o numero de residuos em uma folha na regressao. 
+So que em classificao ele e igual a.
+
+Soma[Probabilidade anteriori*(1-Probabilidade anteriori)]
+
+
+Conclusao final:
+
+XGBOOST CONSTRUI UMA ARVORE BASEADA NISSO DAKI (IMAGEN:Funcao de construcao de arvores, so que sem a parte de T e Gamma)
+
+A equacao consiste de uma loss function, e uma regularizacao.
+
+E a gente resolve para acharmos o valor de output ideal, para cada leaf node. 
+
+E depois de obtermos-o a gente pluga ele na (Imagen:Formula para obter similarity score em xgboost)
+
+
+Depois configuramos, de acordo com a loss function utilizada para regressao e classificacao. Plugando os gradiente(primeira derivada) e hessians(segunda derivada), da loss function trabalhada.
+
+
 
 
 
