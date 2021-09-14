@@ -1,0 +1,19 @@
+Imagine um dataset com 100 datapoints.
+
+Se a gente fazer a mediana desses datapoints, iremos descobrir um tipo de quantile. Porque ela divide a data em dois grupos iguais.Isso que faz de algo um quantile.
+A mediana e geralmente chamada de um quantile 0.5 ou 50%
+
+Agora vamos acrescentar mais duas linhas, cortando a data em 4 partes iguais. Essas novas linhas 3 para ser exato, tambem vao ser quantiles por que elas novamente dividem os dados em partes iguais. Os novos quantiles serao os numeros 0.25 e 0.75.
+
+Se a gente dividir esses dados 100 vezes. 
+Eu vou obter percentiles isso significa que percentiles sao quantiles que dividem a data em 100 tipos de grupos.
+
+Em pratica, o termo percentile e utilizado. 
+Quando dividimos cada datapoint no seu proprio grupo.
+Ou seja, se dividirmo um dataset com 100 ponto em 100, vamos nomear tudo de primeiro percentile, segundo ... etc.
+
+Agora se os dados nao tiverem o seu grupo individual, a gente nomeia de quantile.	
+
+
+
+
