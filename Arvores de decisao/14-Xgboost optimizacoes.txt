@@ -20,7 +20,16 @@ Em outras palavras ele construi arvores rapidamente.
 
 No entanto, mesmo com um algoritmo greedy, ele ainda teria que avaliar se todas as possibilidades das variaveis(colunas) dos datapoints sao validas o que ainda demoraria muito.
 
-E ae que vem a ideia de aproximado.
+E ae que vem a ideia de aproximado.	Ao inves de nos utilizarmos da dataset por completo a gente dividiria ele e so avaliaria os quantiles. Como limiares candidatos. Ver imagen:(Dataset dividido em quantiles)
+
+Se a gente somente tivesse 1 quantiles, treinariamos muito rapido(porque nao precisaria calcular Gain e Similiraty). So que nosso root node seria somente ele(porque ele seria o unico limiar de formacao disponivel). O que daria um modelo de precisao muito baixa.
+Se tivessemos mais, teriamos mais limiares para ser testados e selecionados so que demoraria mais tempo. E um famos tradeoff.
+
+Resumidamente, o Approximate significa que ao inves de testarmos todos os threshholds possiveis a gente so testa os quantiles. Geralmente, em pratica ele se utiliza em torno(importante) de 33 quantiles de avaliacao. Esse em torno e importante, por que nao nos utilizamos de exatamente 33 quantiles.
+
+Para respondermos isso temos que avaliar os passos seguintes, especificamente Parallel learning e Weighted Quantile Sketch.
+
+
 
 
 
