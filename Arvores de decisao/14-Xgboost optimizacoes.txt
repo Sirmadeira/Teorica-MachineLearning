@@ -1,0 +1,26 @@
+Se lembra que no inicio de tudo(Aula 11), eu falei que xgboost era um algoritmo grande com multiplos passos entao. Tudo que desenvolvemos ate agora era o passo a passo da construcao da arvore especial de xgboost, e seus detalhes matematicos.
+
+Agora vamos para os outros passos.Especialmente os que sucedem, o passo 3 (de construcao da arvore unica). Ver imagen:(Passos de xgboost)
+
+Esses passos sucedentes, sao o que fazem do xgboost relativamente eficaz. Com datasets grandes.Logo eles sao passos optimizadores.
+
+Os passos anteriores, ja erao mais enfocados para dar uma ideia do como xgboost e treinado em datasets e como ele faz predicoes.
+
+Vamos comecar pelo Aproximate Greedy Algorithm.
+
+Se lembra quando a gente construi a primeira arvore de xgboost, e a nossa selecao dos galhos e baseado no nosso Gain. Especificamente, seleciona-se o limiar(threshhold) residual, com o maior Gain.
+
+Entao, essa decisao nao leva em consideracao. Se os nossos leaf nodes, vao ser cortados(prunados) posteriormente.Tanto que o passo e feito antes mesmo do processo de pruning por Gamma.(Gain de um galho-Gamma)
+
+Ele tambem nao leva em consideracao, se os galhos sucedentes vao ter limiares que seriam melhores no longo prazo.
+
+Isso significa que Xgboost se utiliza de um Greedy algorithm, para construir a sua arvore. Ele faz uma decisao sem saber se ela e exatamente a melhor decisao possivel.
+
+Em outras palavras ele construi arvores rapidamente.
+
+No entanto, mesmo com um algoritmo greedy, ele ainda teria que avaliar se todas as possibilidades das variaveis(colunas) dos datapoints sao validas o que ainda demoraria muito.
+
+E ae que vem a ideia de aproximado.
+
+
+

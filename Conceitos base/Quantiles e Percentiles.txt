@@ -14,6 +14,8 @@ Ou seja, se dividirmo um dataset com 100 ponto em 100, vamos nomear tudo de prim
 
 Agora se os dados nao tiverem o seu grupo individual, a gente nomeia de quantile.	
 
+Isso so e uma maneira de calcular quantiles and percentiles existe multiplas outras.
+
 
 
 
