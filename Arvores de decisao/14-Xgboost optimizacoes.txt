@@ -29,6 +29,101 @@ Resumidamente, o Approximate significa que ao inves de testarmos todos os thresh
 
 Para respondermos isso temos que avaliar os passos seguintes, especificamente Parallel learning e Weighted Quantile Sketch.
 
+Imagine que a gente tem um dataset tao grande mas tao grande, que a memoria inteira de um computador nao e capaz de lidar com eles. Coisa simples como, filtrar uma lista ou achar quantiles se torna bem lenta.
+
+Para fugir desse problema, uma classse de algoritmos chamados Sketches podem rapidamente criar solucoes aproximados.Nao vou explicar os Algoritmos de Sketches a fundo.
+
+Mas vou dar uma nocao geral de como eles funcionam, atraves de um exemplo.Ver imagen:(Dataset para conceitos base de sketches)
+
+Imagine que pegamos o dataset da imagen:(Dataset para conceitos base de sketches), e dividimos ele em multiplos mini datasets e pomos eles em multiplos computadores. 
+
+O Quantile Sketch Algorythm, combina os valores de cada computador para fazer um histograma aproximado.
+
+Depois, o histograma aproximado e usado para calcular os quantiles aproximados e depois o Approximate Greedy Algorythm, usa dos quantiles aproximados. Ver imagen:(Desenvolvimento algoritmo de sketches)
+
+No entanto, voce viu que eu descrevi o Quantile Sketch Algorythm, nao o Weighted Quantile Sketch Algorythm.
+
+No Weighted Quantile Sketch Algorythm, os quantiles nao sao quantiles normais. Ao inves disso, eles sao quantiles com pesos.
+
+Qual a diferenca entre os dois? Os quantiles normais, sao conhecidos por dividir a data em partes iguais, ou seja, se tiver 50 datapoints. E eu fizer um quantile, cada lado vai ter 25 datapoints. Agora nos quantiles com pesos, cada datapoint, tem um peso correspondente e se define eles atraves da soma dos pesos que tem que ser igual. 
+
+Ou seja, o quantile 1 vai ter a mesma soma dos pesos dos datapoints, do que o quantile 2. Mas nao necessariamente, a mesma quantidade de datapoints. Na regressao ainda e igual o motivo porque segue.
+
+Os pesos de cada datapoint, sao  definidos pelo Cover. Discutidos nas aulas anteriores. Especificamente, o peso para cada observacao e a segunda derivada da loss function.(famoso hessian). Isso significa, que para regressao os pesos sao todos iguais a 1. O que resulta, com que cada quantile mesmo com peso tenha o mesmo numero de observacoes.
+
+No entanto, em classificacao os pesos vao ser.
+
+Peso = Probabilidade anteriori*(1-Probabilidade anteriori)
+
+Vamos ver como a equacao para os pesos, afeta os quantiles em classificacao. E faremos isso atraves do seguinte dataset. Ver imagen:(Dataset pos treino). Esse dataset, seria o dataset com alguma arvores ja formuladas, e com residuos menores.
+
+Isso informacao e importante, porque os pesos como a formula ja demonstra sao diretamente associados, as probabilidade anteriores. E ao calcularmos as probabilidades anteriores, de datapoints que estao bem treinados(baixo residuos, proximos do dado observado, e com probabilidade anteriores alta). Notamos que o peso deles, e menor. 
+Enquanto datapoints mau treinados(probabilidade anterioress baixas, longe de dados observados, baixos residuos) tem peso grandes. Ver imagem:(Peso dos datapoints de classificacao.)
+
+Interessantemente, tambem somos capazes de notar que caso dividissemos igualmente os quantiles na classificacao. Os datapoints com pesos grandes e residuos semelhantes, na formula do valor de output iriam cair no mesmo leaf node e se cancelar. O que impossibilita e ate desacelera, o treinamento. Por isso, a divisao por soma dos pesos e mais promissora. Por que, conseguimos quantiles menores quando precisamos deles.
+
+
+Resumindo:
+
+Aproximate Greedy Algorithm, seria a definicao do limiar divisor residual na formacao de galhos. Antes de prunar, a arvore.
+
+Parallel learning, seria a divisao dos datasets em datasets menores. E seu treino, em computadores separados.
+
+Weighted Quantile Sketch, combina os dados num histograma aproximado. E esse histograma, e dividido em quantiles que poim as observacoes(datapoints) de baixa confianca(probabilidade anterior baixa) em quantile com menos observacoes. Para assim, melhor treina-los. 
+
+Nota: Ele so usa os 3 quando o dataset e enorme. Quando e pequeno, so usa o greedy.
+
+Vamos falar Sparsity Aware Split Finding.
+
+Imagine um dataset com dados vazios.Mesmo com dados vazios ainda, somos capazes de calcular os residuos dos dados perdidos. Com a predicao inicial(0.5). Ver imagen:(Dataset sparsity)
+
+E exatamente como antes, podemos comecar a construcao de nossa arvore com pondo esses residuos no root node.
+
+Agora, precisamos determinar qual dos quantiles de residuos sera escolhido para a divisao dos novos leaf nodes(Selecao atraves de gain). E isso, necessariamente obriga que a gente alinhe os dados de baixo para cima. O que e impossivel, porque dados Nan(Nao disponiveis) nao sao filtraveis.
+
+Para evitar isso, separamos os dataset entre que tem dados e quem nao tem.E logo em seguida, refazemos o processo de selecao dos limiares residuais. Ver imagen:(Formacao arvore de xgboost sem dados).
+
+No entanto, ao calcularmos o Gain o Similarity Score. A gente encaixa todos os dados do dataset vazio dentro do leaf node que esta tendo seu dado calculado . Ver imagen:(Calculos dos Gains em xgboost parametrizado). E no final, selecionamos o leaf node que teve o maior dos Gain. E esse sera aquele, que os residuos dos dados vazios vao estar.
+
+Se eu tivesse um dado totalmente vazio, que eu devesse fazer a predicao de, eu assumiria que esse dado ao passar por minha arvore, iria ter o seu valor de output como o do leaf node que tem os dados vazios(ele cai naquele leaf).
+
+Isso e o que Sparsity Aware Split Finding, seria a maneira como tratamos os nossos dados vazios.
+
+Vamos para Cache Aware Access
+
+A ideia basica do Cache Aware Acess, comeca com um computador e seu CPU. O CPU tem uma parte chamada Cache memory o CPU pode se utilizar dessa memoria mais rapido que qualquer outra memoria no computador. Essa CPU, esta tambem atracada a uma quantidade maior de memoria chamada Main memory, ela e maior so que demora mais para usar. E por fim tem o Hard Drive mais lento de todos.
+
+O xgboost, pega o Cache Aware Acess, e poim os Hessians e Gradientes nele para calcular os Similarity Scores e Output mais rapidamente.
+
+Por fim, vamos Block for out of core computation.
+
+Quando o dataset e muito grande para Main memory, e o Cache memory temos que por um poucado no hard drive. No entanto ele e super lento. Entao o xgboost, minimiza essas acoes comprimindo os dados que vao para o HD(hard drive). E mesmo, que ele precise descomprimir a data do HD ele pode fazer isso mais rapido.
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
 
 
