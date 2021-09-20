@@ -97,7 +97,19 @@ O xgboost, pega o Cache Aware Acess, e poim os Hessians e Gradientes nele para c
 
 Por fim, vamos Block for out of core computation.
 
-Quando o dataset e muito grande para Main memory, e o Cache memory temos que por um poucado no hard drive. No entanto ele e super lento. Entao o xgboost, minimiza essas acoes comprimindo os dados que vao para o HD(hard drive). E mesmo, que ele precise descomprimir a data do HD ele pode fazer isso mais rapido.
+Quando o dataset e muito grande para Main memory, e o Cache memory temos que por um poucado no hard drive. No entanto ele e super lento. Entao o xgboost, minimiza essas acoes comprimindo os dados que vao para o HD(hard drive). E mesmo, que ele precise descomprimir a data que vem do HD ele pode fazer isso mais rapido. 
+
+Alem do mais, quando se tem mais de um Hd Xgboost se utiliza de uma tecnica chamada sharding para acelerar o acesso ao disco.
+
+Sharding e quanto voce divide os datasets, para que cada drive possa ler os dados de uma vez so.
+
+No final, Cache Aware Acess e Blocks for out of core Computation sao optimizadores de hardware.
+
+Xgboost tambem acelera, ao selecionar substes randomicos de dados. Ao decider como dividir eles.
+
+Conclusao final:
+
+Xgboost e rapido pra caraio.
 
 
 
