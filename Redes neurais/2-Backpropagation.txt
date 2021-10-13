@@ -1,0 +1,82 @@
+Backpropagation e um dos processos que achos, os valores dos parametros pesos e bias.
+Lembrete: Funcoes de ativacao em um layer(camada) sao sempre iguais
+
+Nessa aula, vamos falos sobre as ideias principais de backpropagation
+
+1-Usando a chain rule, para calcular as derivadas.
+
+2-Plugando as derivadas, num gradiente descente para optimizar os parametros.(Bias e pesos)
+
+No conceito, backpropagation sempre comeca do final ou ultimo bias. No entanto, neste caso vamo pegar um exemplo que os parametros anteriores ja estejam no seu valor otimal,menos o bias final. So para explicacao. Ver imagem:(Rede neural para backpropagation)
+
+Agora imagine, que pegamo uns datapoints dos mesmos dados farmaceuticos da aula anterior.Ver imagem:(Dados redes neurais 1)
+
+
+E passamos, eles por toda a rede neural. Fazendo o processo de passagem pelos pesos e bias, ate chegarmos ao bias final. Vamos chegar naquela equacao ja ajeitadinha. No entanto, sem o reajuste do bias final. Ver imagem:(Funcao dos eixo y dos datapoints, para exemplo de backpropagation)
+
+Entao, para podermos achar ele temos que pelo menos disponibilizar um valor inicial como 0, que e o mais comum na pratica. E para podermos, optimiza-lo vamos nos utilizar de Soma dos residuos quadrados ou SR**2. Obtendo o residuo,atraves  do dado predito dado pela funcao de multiplos datapoints pos passagem pela rede neural. (A verde na imagem,Funcao dos eixo y dos datapoints, para exemplo de backpropagation)
+
+Lembrete: Residuo=Dado observado-Dado predito
+
+E teremos a soma dos residuos ao quadrado, de quando o bias final = 0. Ver imagem:(Residuos ao quadrado, de bias final igual a 0)
+
+Agora vamos aumentar o valor do parametro bias final, multiplas vezes. Vamos notar que a medida, que o aumentamos diminuimos a nossa loss function SR**2. Por exemplo, se ele fosse 1 a funcao verde sobe um pouco no seu grafico.
+
+Interessantemente, se pegarmos os valores de residuos ao quadrado e pormos na funcao que tem como eixo x o bias final. Vamos notar a modelacao de uma funcao. Ver imagem:(Testando multiplos valores para bias final e montando sua funcao associada soma dos residuos ao quadrado)
+
+Tecnicamente, poderiamos achar o ponto optimizado do bias final se pegassemos o valor minimo dessa funcao. So que, para acharmos o ponto mais rapidamente e com menos computacao fazemos do processo de gradiente descente. E isso significa, que temos que montar a derivado da soma dos residuos ao quadrado com respeito ao bias final, tambem aplicaremos da chain rule para sermos capazes de optimizar outros parametros ao mesmo tempo.
+
+Para entendermos melhor, vamos ver a imagem(Funcao de soma dos residuos ao quadrado de nosso exemplo)
+
+Se pegarmos, o valor predicted(ou dado predito) da imagem. Somos capazes de notar que cada valor predito origina-se da funcao verde/ funcao de multiplos datapoints pos passagem pela rede neural. E tecnicamente, esse valor predito tambem seria originado pela soma, das funcao de eixo ys  que montaram a funcao verde mais o bias final. Ver imagem:(Associacao entre os dados preditos e as funcaos oriundas)
+
+Lembre-se queriamos fazer a derivada da soma dos residuos ao quadrado com respeito ao bias final, e agora que notamos uma associacao entre a funcao da nossa loss function ao bias final, atraves dos dados preditos.Somos capazes de fazer a chain rule. 
+Que seria a seguinte. Ver imagem:(Chain rule, feita atraves do dado predito)
+
+Em relacao, a parte derivada do soma dos residuos ao quadrado com respeito a derivado do dado predito. Podemos utilizar de uma pequena simplificacao matematica(chain rule com multiplicacao por -1), para torna-la mais humana. O que origina a derivada. Somatoria -2*(Dado observado-Predito)
+
+Em relacao, a parte derivada do dados preditos com respeito ao bias finals. Lembremos, que os dados preditos nao sao nada mais que a funcao verde. Que como a associacao acima, demonstra e a soma das funcao de eixo ys + bias. Isso simplifica a matematica que obtemos a derivada. 1.Ver imagem:(Resulacao de derivada dos preditos, com respeito ao bias final)
+
+Depois de tudo isso obtemos a derivada da soma dos residuos ao quadrado, com respeito ao bias final. O que significa que finalmente, podemos fazer o gradiente descente.
+Ver imagem:(Derivada da soma dos residuos ao quadrado com respeito ao bias final resolvida)
+
+Agora vamos entender como por gradiente descente, primeiro expandimos a somataria da imagem:(Derivada da soma dos residuos ao quadrado com respeito ao bias final resolvida). E substituimos o valores. Ver imagem:(Gradiente descente passos iniciais)
+
+Lembrete: Para acharmos os valores de dados preditos temos que passar os datapoints, pela rede neural com o valor inicial do bias final(0) para acharmos a primeira inclinacao.
+
+E agora, que temos o valor da inclinacao inicial. Podemos calcular o Step size.
+
+Lembrete: Step size= Inclinacao * Learning rate(0.1 porque que decide e nos).
+Ver imagem:(Inclinacao para bias =0)
+
+E com esse step size, calculamos o novo bias final.
+
+Bias final= Velho bias(0 nesse caso)- Step size
+Ver imagem:(Achando o bias final, mais ainda nao full optimizado)
+
+Interessantemente, vamos notar que com esse novo bias a funcao verde. Vai ter residuos menores.
+
+Agora repetimos o processo, achamos os valores dos dados preditos dessa nova funcao verde(Formada pelos eixo ys dos datapoints que passaram pela rede neural com o novo bias). Calculamos a derivada da soma dos residuos ao quadrado com respeito ao bias final.Achamos a inclinacao, calculamos o step size, calculamos o novo bias. E achamos um bias, mais optimal e assim vai. Ate a chegarmos num Step Size com valor proximo de 0, ou chegarmos no numero limite de step sizes. Achando o melhor valor optimal.
+
+Conclusoes finais:
+
+1-Quando um parametro e desconhecido.
+
+2-Nos utilizamos da chain rule, para sermos capazes de calcular a derivada da soma do residuos ao quadrado com respeito a esse parametro.
+
+3-Depois inicializamos esse parametro com um valor qualquer(0 no nosso exemplo)
+
+4-E passamos os dados preditos pela rede neural. Pondo seus valores, na derivada da soma dos residuos ao quadrado com respeito ao prametro desconhecido
+
+5-Obtem-se a inclinacao(derivada da soma dos residuos ao quadrado com respeito).
+
+6- Calcula-se o step size
+
+7- Calcula-se o novo valor para o parametro.
+
+8- E assim vai ate termos retornos minimos ou chegarmos no limite de step sizes
+
+
+
+
+
