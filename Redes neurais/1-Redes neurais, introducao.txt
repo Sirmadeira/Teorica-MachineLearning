@@ -1,0 +1,48 @@
+Imagine um dataset dividido em 3 partes, a divisao seria feita por quais pessoas
+Tem ingerido baixa, media e alta dosagem de uma droga especifica.
+Interessantemente, se voce tentar encaixar um modelo linear nesse dataset voce vai ter serios problemas. Porque, de acordo com os dados observados, somente a dosagem media foi eficaz, e tendo em visto que a funcao linear nao tem curva. Se aplicarmos um modelo linear, teriamos um resultado bem ruim. Afinal de contas, uma parcela dos dados observados seriam ignorados.
+Ver imagen:(Dados redes neurais 1)
+Agora redes neurais, facilmente encaixariam-se nesse dataset, mesmo que tivesse multiplas divisoes de dosagem. Porque a funcao, formada nao e linear. Ela e uma squiggle.
+
+Agora sobre redes.
+
+Uma rede neural, e dividida em 3 partes.
+1-Nodes - Basicamente, seria o valor do datapoint(input) valor de output e as funcoes de ativacao(sigmoide relu etc). Que vai passar, por conexoes.
+2-Conexoes, que seriam os pesos e os bias. Basicamente, os valores que multiplicam e somam-se ao valor do node. No nosso exemplo, seria a dosage.
+3-Layers, seria. Basicamente, as divisoes dentro da rede neural. Existe a camada de input, camada de output, as camadas de nodes internos(funcoes de ativacao).
+Ver imagem:(Exemplo de rede neural treinado)
+
+A rede neural normal geralmente define os parametros de conexao(pesos e bias) atraves de um processo como backpropagation(Aula seguinte).
+
+Por enquanto, vamos assumir que a rede neural de nossa exemplo ja tem os parametros treinados.
+
+Essa funcoes, destacadas na imagem(Exemplo de rede neural treinado), seria como os blocos de construcao. Como mostrada, na imagem o valor de dosagem passa por duas conexoes diferentes com valores diferentes isso significa que vamos formatar duas funcoes diferentes. Que interessantemente, vao ser somadas para nos dar a funcao de output(classificacao). No exemplo, as funcoes de construcao seria a softplus, existe outras como a Sigmoid a Relu. Elas sao mais conhecidas, como funcao de ativacao.
+A mais utilizada e pratica Relu e a Softplus.
+
+A rede neural, exemplo e a mais simples que existe. Exemplos complexos, evolvem mais layers, mais inputs, e mais outputs.
+
+Hidden layers, seria simplesmente as camadas/nodes que estao entre o  valor de input e o valor de output.
+
+Agora vamos para o exemplo. Ver imagen:(Exemplo de um datapoint passando pela rede)
+
+Basicamente, nos passos iniciais estamos formando um eixo x. Nesse exemplo, estamos multiplicando a dosagem 0 por 34.4, depois somamos a 2.14. Isso resulta, num valor de eixo x que entra,na funcao de ativacao, esse 2.14 para ser exato. Depois disso, somos capazes de tambem obter o eixo y desse eixo x(2.14) atraves da equacao da funcao de ativacao.(Softplus). Que seria, 2.25. Aviso: Log nas funcao de ativacao sao ln base e.
+
+Agora passa-se multiplos pontos, pela conexao.  Obtendo-se uma funcao. Ver imagem:(Construcao da funcao de eixo y, dos datapoints)
+
+Agora a gente, vai pegar esse valor do eixo y(feito pelo nosso eixo x), e multiplicalaremos-o pelo peso sucedente, no exemplo -1.30. O que resulta, em -2.925.
+Faz isso para, todos os datapoints, obtendo-se uma funcao novo de eixos y. Ver imagem:(Exemplo depois de passar, pelo node e multiplicar-se pelo parametro de conexao)
+
+Esse processo, tambem acontece na conexao 2 originando outra funcao, de eixo ys multiplicado pelo parametros de conexao, sucedente a funcao de ativacao.
+Obtendo, um outro valor de eixo y para a dosagem 0. Ver imagem:(Processo ate chegar ao peso 2, da segunda conexao).
+
+Agora a gente, pega essa duas funcao feitas por eixo ys, multiplicados. E soma, os eixos y(originadas pelas dosagens dos datapoints), de cada uma entre si. E depois subtrai-se um pequeno valor. Ver imagen:(Funcao final, de eixos y)
+
+Agora com essa funcao, se a gente pegar um valor de dosagem qualquer. E considera-lo como eixo x, passarmos ela pela nossa rede neural. Seriamos, capazes de dar um valor de classificacao para ela.
+
+Por fim, uma rede neural e chamada de rede neural, porque as conexoes e os node vagamente lembra um cerebro.
+
+Os parametros de multiplicacao, nas conexoes sao chamados de pesos(weights) or sucedentes sao chamados de bias.(importante)
+
+
+
+
