@@ -1,0 +1,16 @@
+Nessa aula, ao inves de tentarmos somente optimizar o bias finals e termos todos os pesos e bias definidos, nao teremos os ultimos pesos e o ultima bias optimizado.
+Para entender melhor, so ver o exemplo abaixo.
+Ver imagem:(Backpropagation rede neural e parametros a serem optmizados)
+
+Entao vamos la, por enquanto a gente nao sabe o valor dos pesos finais e do bias final.Os outro parametros(pesos e bias) estao optimizados.
+Para podermos sermos capazes de definir os parametros nao optimizados, temos que dar um valor inicial para eles. Nesse caso, iremos pegar valores entre -1 e 1 para os pesos(w3 e w4), agora para o bias final(b3) daremos o valor 0.
+
+Depois disso, iremos pegar dosagens ou inputs e passaremos eles pelo parte rede neural que esta optimizada. Ate chegarmos a nossa bias final, ou melhor dito ate montarmos a funcao verde(funcao dos eixos y de multiplos datapoints que passaram pela a nossa rede neural). Ver imagem:(Funcao verde detalhes backpropagation)
+
+Agora exatamente como na aula passada iremos nos utilizar, de soma dos residuos ao quadrado(SR**2), para verificarmos a qualidade da funcao verde. E tambem  para sermos capazes de optimizar os parametros.
+
+E como no processo da aula passada, vamos dar multiplos valores para o bias final(b3), para sermos capazes de montar a funcao entre SSR e bias final. Ver imagem:(Fazendo a funcao de SSR por bias final backpropagation detalhes).
+
+E como na aula passada, iremos achar o valor optimizado de bias finals. Ao fazermos gradiente descente. E como da ultima vez iremos associar a derivada da SR**2 com respeito ao bias final. Atraves da chain rule e seu fator comum que seria o dado predito. E as funcoes laranja e azul(eixos y de datapoints que passaram pelo rede neural de cada conexao mas antes da somatoria que ao serem somados originam a funcao verde)
+
+Tornando possivel a seguninte funcao. Ver imagem:(Derivada da soma dos residuos ao quadrado com respeito ao bias final resolvida)
