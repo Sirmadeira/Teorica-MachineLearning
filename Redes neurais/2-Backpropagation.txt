@@ -33,7 +33,7 @@ Se pegarmos, o valor predicted(ou dado predito) da imagem. Somos capazes de nota
 Lembre-se queriamos fazer a derivada da soma dos residuos ao quadrado com respeito ao bias final, e agora que notamos uma associacao entre a funcao da nossa loss function ao bias final, atraves dos dados preditos.Somos capazes de fazer a chain rule. 
 Que seria a seguinte. Ver imagem:(Chain rule, feita atraves do dado predito)
 
-Em relacao, a parte derivada do soma dos residuos ao quadrado com respeito a derivado do dado predito. Podemos utilizar de uma pequena simplificacao matematica(chain rule com multiplicacao por -1), para torna-la mais humana. O que origina a derivada. Somatoria -2*(Dado observado-Predito)
+Em relacao, a parte derivada do soma dos residuos ao quadrado com respeito a derivado do dado predito. Podemos utilizar de uma pequena simplificacao matematica(chain rule com multiplicacao por -1), para torna-la mais humana. O que origina a derivada. Ver imagem:(Derivada da somos dos residuos ao quadrado com respeito ao dado predito)
 
 Em relacao, a parte derivada do dados preditos com respeito ao bias finals. Lembremos, que os dados preditos nao sao nada mais que a funcao verde. Que como a associacao acima, demonstra e a soma das funcao de eixo ys + bias. Isso simplifica a matematica que obtemos a derivada. 1.Ver imagem:(Resulacao de derivada dos preditos, com respeito ao bias final)
 

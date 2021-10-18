@@ -14,3 +14,53 @@ E como no processo da aula passada, vamos dar multiplos valores para o bias fina
 E como na aula passada, iremos achar o valor optimizado de bias finals. Ao fazermos gradiente descente. E como da ultima vez iremos associar a derivada da SR**2 com respeito ao bias final. Atraves da chain rule e seu fator comum que seria o dado predito. E as funcoes laranja e azul(eixos y de datapoints que passaram pelo rede neural de cada conexao mas antes da somatoria que ao serem somados originam a funcao verde)
 
 Tornando possivel a seguninte funcao. Ver imagem:(Derivada da soma dos residuos ao quadrado com respeito ao bias final resolvida)
+
+O ponto de tudo isso, e notar que as derivadas que calculamos na aula passada nao se alteram. O que significa que ainda e possivel optimizar o bias final, mesmo com os seus parametros antecessores nao optimizados.
+
+Lembrete: O i na formula expressa na imagem (Derivada da soma dos residuos ao quadrado com respeito ao bias final resolvida) significa index, que seria um parametro que nos ajudar a identificar qual dos dados observados estamos em. E tambem nos ajudar a identificar conexao. Por exemplo, X 1,1= Significa conexao 1 para o dado 1, X1,2=Signfica conexao 1 para dado 2. E o X2,1= Significa conexao 2 para o dado 1. O X1,i= Seria todos os dados observados, que estao passando pela conexao 1.
+
+Lembrete: Tambem existe indexes, para os ys. Logo y1,1= Seria o y do dado observado(x, depois de passar pela funcao de ativacao), da conexao 1. O y2,1= Seria o y do primeiro dado observado, so que na conexao 2. O y1,2= Seria o y do segunda dado observado, que passa pela conexao 1.  O y 1,i= Seria o ys de todos os dados observado que estao passando pela conexao 1. 
+
+
+Agora a gente termino essa fancy notation podemos calcular, a derivada da SR**2 com respeito aos pesos optimizados. No exemplo, w3 e w4.
+
+Imagine a funcao azul nao multiplicada, que seria o y1,i.Que seria o ys de todos os dados observados pos passagem de funcao de ativacao, mas antes de multiplicar pelo peso que vem logo em seguida da funcao de ativacao, da conexao 1. Ver imagem:(Y 1,i)
+
+Se a gente multiplicar a funcao azul, pelo peso obtemos a mesma funcao azul da associacao e se a gente substituir na  funcao de associacao. Teremos o mesmo representante. Ver imagem:(Funcao azul comprovando a associacao)
+
+O mesmo pode ser feito, na parte correspondente a funcao laranja(funcao feita pelos y2,i). Se somarmos a funcao azul a funcao laranja e acrescentarmos o bias chegamos na funcao final de predicao. A funcao verde. Ver imagem:(Chegando na funcao final verde)
+
+E ja que essa funcao e aquela que nos da as predicoes, que a gente avalia com a SR**2, logo a SR**2 esta ligada aos pesos(w3 e w4). O que significa que podemos aplicar the chain rule. Ver imagem:(Associacao que possibilita a chain rule para os parametros de peso)
+
+De acordo, com a chain rule. A derivada da SR**2 com respeito ao peso 3 no exemplo = derivada SR**2 com respeito ao dado predito * derivada do dado predito com respeito ao peso 3. A mesma coisa, para o peso 4. So alterar o peso 3 por peso 4.  Ver imagem:(Derivadas com respeito aos pesos)
+
+Lembrete: Nao importa quantos pesos voce tenha no final, a mesma ideia e aplicada. Para os pesos finais(pesos antes do bias final)
+
+Nota: Voce ve claramente que uma parcela da derivada da soma dos residuos ao quadrado com respeito ao peso final, ja foi feita antes. Esssa daki, derivada SR**2 com respeito ao dado predito(Isso significa menos computacao). Ver imagem:(Derivada da somos dos residuos ao quadrado com respeito ao dado predito)
+
+Agora para sermos capazes, de resolver a derivada do dado predito com respeito ao peso 3. So fazer a matematica. E notamos, que obtemos o y1,i. Como derivada. Ver imagem:(Derivada do dado predito com respeito ao peso 3)
+
+Interessantemente, se fizermos para o peso 4 obteremos, y2,i. Logo, a derivada do dado predito com respeito ao peso final, e influenciada pela conexao. Em que se encontra.
+
+E pronto resolvemos, as duas derivadas da soma dos residuos ao quadrado com respeitos aos pesos finais.
+Ver imagem:(Derivada da soma dos residuo ao quadrado com respeitos aos pesos resolvida)
+
+Agora que temos, as derivadas da somas dos residuos em relacao ao todos os parametro nao optimizados(bias final + pesos finais), podemos plugar no gradiente descente. E optimiza-los. 
+
+So para entendimento, o passo depois disso nao importa o parametro escolhido. Seria resolver a derivada da SR**2 com respeito ao parametro que esta sendo optimizado.
+
+Defini-la, como inclinacao. E encaixa-la na formula Step size
+Lembrete: Step size= Inclinacao(Derivada) * learning rate
+
+Depois encaixar na formula, novo valor de parametro.
+
+Lembrete: Novo valor do parametro = Parametro velho - Step size
+Ver imagem:(Optimizacao do peso 3)
+
+E vai repetindo, ate as predicoes nao melhorem muito ou chegarmos no maximo numero de passos.
+
+
+
+
+
+
