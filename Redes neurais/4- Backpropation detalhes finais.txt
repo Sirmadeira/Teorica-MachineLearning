@@ -1,0 +1,60 @@
+Na aula anterior vimos, como optimizar os parametros que vem depois da funcao de ativacao agora iremos aprender como optmizar os que vem antes.
+Ver imagem:(Derivadas finasi a serem achadas)
+
+Como voce pode ver na imagem, temos a derivada da soma dos residuos ao quadrado com respeito aos parametros a ser descoberto.
+
+Interessantemente, semelhantes ao parametros anteriores temos uma associacao da soma dos residuos ao quadrados aos peso iniciais(w1 e w2). Baseada exatamente nos dados preditos(igual ao bias final) e depois o yz,i(ys dos pontos depois de passar pela funcao de ativacao)(igual aos pesos finais), e por ultimo que e o caracteristico dos pesos inicias o Xz,i( Valores de inputs da funcao de ativacao).
+Ver imagem:(Associacao que possibilita a chain rule para os parametros inicias)
+
+O que nos possibilita aplicar a chain rule e achar a seguinte relacao.
+Ver imagem:(Derivada da soma dos residuos ao quadrado com respeito ao peso 1)
+
+Segue a resolucao ja feita nas partes anteriores da derivada da somos dos residuos ao quadrado com respeito ao dado predito. Ver imagem:(Derivada da somos dos residuos ao quadrado com respeito ao dado predito)
+
+Agora a derivada dos dados preditos com respeito a derivada do y1,i(y1 na imagem), e igual ao peso sucessor. No exemplo w3. Se fosse na camada 2(y2,i), seria o w4.
+
+Agora a derivada de y1,i com respeito ao X1,i. Depois de aplicar uma chain rule, para facilitar a matematica. Seria e**x/1+e**x. Aviso: Essa derivada depende da funcao de ativacao tendo em vista que e a dervada de y1,i. Logo esse valor euleriano nao importa tanto.
+Nota: Para os mais interessados, esse x na funcao resultado da derivada de y1,i com respeito ao X1,i. e**x/1+e**x, seria o valor individual dos datapoints depois de ir ate a funcao de ativacao(ou seja, a coordenada x ).
+
+Agora a derivada de  X1,i com respeito ao parametro pre funcao de ativacao. No exemplo, w1. E igual ao input. Ver imagem:(Derivadas feitas pela associacao resolucionadas)
+
+
+Agora iremos substituir as derivadas na equacao. Ver imagem:(Derivada da soma dos residuos ao quadrado com respeito ao peso 1). Pela resulucionadas. Ver imagem:(Derivada da soma dos residuos ao quadrado com respeito ao peso 1 resulocionado)
+
+
+Interessantemente, a unica diferenca da derivada exposta na imagem. Ver imagem:(Derivada da soma dos residuos ao quadrado com respeito ao peso 1), com aos dos outros parametros inciais por exemplo os bias iniciais(b1  b2) e a parte em que seria 'a respeito' do parametro a ser optimizado. Ver imagem:(Derivada da soma dos residuos ao quadrado  com respeito ao b1). A associacao tambem persiste a mesma.
+
+No entanto, na resulucao do bias a ultima derivada. Derivada do x1,i(na imagem x1) com respeito ao bias final. E que ao inves de resultar em input resulta em 1, ja que o input nao inclui o b1. Ele e excluido da equacao. Logo a derivada do x1,i com respeito ao bias final e igual a 1. 
+
+E pronto a derivada dos dois parametros iniciais da camada 1, foi feita. Ver imagem:(Derivadas dos parametros iniciais da camado 1 resolvidas)
+
+Para a camada 2 , a mesma logica de resulucao das derivadas acontece.
+Lembrete: Logica = A associacao da chain rule e formada, atraves do flow de dados.
+Fazer a matematica por tras das derivadas.
+Entender as constante logicas nas resulucoes.
+Substituir elas na equacao de associacao.
+Ver imagem:(Derivadas da segunda camada resolvidas)
+
+Agora para nao ter repeticao, do processo ja expresso do que acontece depois de achar a derivada da soma dos residuos ao quadrado com respeito ao parametros a ser otpimizado expresso nas aulas anteriores. So uma pequena retomada do que acontece.
+
+0-Inicialmente damos um valores inicias para todos os parametros nao optimizados, Para os pesos, damos valores entre 1 e -1. E para os bias igualamos a 0.
+
+1-Fazemos a derivada da soma dos residuos com respeito aos parametros a serems optimizados.( Nao importa a ordem de qual seja resolvida).Expandimos a somacao. Ver imagem:(Passo 1 depois de achar a  derivada)
+
+2- Substituimos os valores.
+
+3-Achamos o Step size=Derivada * learning rate
+
+4-Achamos o novo parametro= Velho parametro- Step size
+
+5- Volta para o passo 1. Ate termos retornos minimos, ou chegarmos ao limite de steps.
+
+
+
+
+
+
+
+
+
+

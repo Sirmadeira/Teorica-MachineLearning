@@ -1,0 +1,20 @@
+Nas aulas anteriores, vem se utilizando de funcoes de ativacao softmax agora a gente vai altera para funcao ReLu(Rectified linear unit), a funcao mais utilizada em deep learning e redes neurais convulucionais e deep learning.
+
+E dessa vez tambem vamos encaixar uma funcao de ativacao no finalzinho. Ver imagem:(Rede neural com Relu). 
+
+Na imagem, tambem aparece a funcao ReLu. Que seria a selecao do valor maximo, entre 0 e eixo x pos passagem pelos parametros iniciais.
+
+So para entendimento.De como fica, as funcoes dos eixos ys pos passagme relu, e o resultado da sua soma. Ver imagem:(Montando a funcao verde pre passagem do bias.)
+
+Importante, toda vez que um valor de datapoint. Entra numa funcao de ativacao ele entra como, coordenada X. Isso significa que caso, voce ja tenha passado por uma funcao de ativacao. E o seu ex valor de datapoint, tenha virado o eixo y dessa funcao. Na funcao sucedente, ele entra na funcao de ativacao e vira denovo um eixo x.
+
+
+Quando voce se utiliza de ReLus, voce geralmente poim uma Relu no final que nem a gente fez no modelo exposta pela imagem:(Rede neural com Relu), faz se isso porque ao passarmos os valores dos datapoints, por essa funcao e obtermos os eixo ys, dela ajeitamos perfeitamente, a nossa funcao de predicao.(Funcao verde).Ver imagem:(Funcao de ativacao final, ajeitando a funcao de predicao)
+
+
+Importante, na funcao Relu a derivada nao e definida oque significa que o processo que a gente se utiliza para optimizar os parametros conhecido como gradient descente, que optimiza pela derivada nao e aplicavel. Ja que nao se tem a derivada para todos os pontos. Mas isso nao importa, tanto na pratica. Pq a gente da um valor hipotetico para a derivada do ponto em que a funcao se 'curva'.
+
+
+
+
+
