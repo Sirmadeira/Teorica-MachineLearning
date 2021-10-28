@@ -1,0 +1,5 @@
+Basicamente, imagine uma distribuicao normal se ela estiver certinho ela vai estar dessa maneira. Ver imagem:(Distribuicao normal)
+
+Quando essa distribuicao esta desquilibrada/skewed, significa que ela esta distante da sua mediana. Ou seja, existe um acumula de datapoint em um certo lado. Quando ele esta atras da mediana, ele e skewed negativamente. Quando ele esta a frente ele e skewed positivamente. Ver imagem:(Skewed negativa skewed positiva)
+
+E e isso.

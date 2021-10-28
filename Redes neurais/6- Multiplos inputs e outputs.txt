@@ -1,0 +1,22 @@
+As redes neurais, que estamos nos utilizando ate agora sao simples. Elas nao se utilizam de multiplos input e outputs. Agora vamos entender, como funciona redes neurais com multiplos dados de entrados, e dados de saida.
+
+
+Primeiramente, vale lembrar que na nossa rede neural atual. Aquela de dosagem de drogas. Somente tinha um input e um output. Logo a nosso grafico, de resultado. So continha duas dimensoes(Dosagem e efetividade de drogas). Oque facilitava a visualizacao, do que acontecia com os dados a medida que eles passavam pela rede neural.Ver imagem:(Dados redes neurais)
+
+Lembrete: O numero de dimensoes, e formado pelo total de numero de inputs + total numero de outputs.
+
+Agora, vamos trabalhar com uma mais complexa.Onde os inputs, sao dois parametros de uma flor especificamente esses parametros sao a largura da petula, e a largura da sepala. E os outputs, sao as classificacoes das flores. Tendo isso em vista, tecnicamente teriamente um grafico de 5 dimensoes oque e impossivel, logo a visualizacao dos eventos fica mais dificil. Entao vamos simplificar um pouco, e manter somente um output por enquanto(3 dimensoes). Ver imagem:(Rede neural mais complexa). 
+
+
+Interessantemente, se passarmos os datapoints pela rede neural e juncionarmos as duas funcoes formadas pelas conexoes. Vamos notar a formacao de uma surficie, especifica que significa a nossa predicao. Para aquele output em especifico(Setosa).E legal, e ver isso porque notamos certas caracteristicas que definem aquela planta, como o fato da largura da setosa ter os menores valores.Ver imagem:(Funcao de predicao em grafico 3d setosa)
+
+O mesmo processo de formacao de superficies e feito, para os outros outputs.
+Lembrete: Esse processo, nao e nada mais do que a passagem dos dados pela rede neural. So que com um enfoco, de formar a funcao de predicao daquele output especifico. 
+
+Logo quando, pomos o dado para predicao ou classificacao nessa rede neural todo que se faz, e verificar com qual das superficies o dado de outputs do dado de predicao, mais corresponde com. Ver imagem:(Predicao de rede neural de multiplos inputs e outputs)
+
+Agora para quando realmente, a decisao ocorre nos utilizamos de softmax ou argmax assunto de proxima aula.
+
+
+
+

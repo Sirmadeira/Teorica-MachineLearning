@@ -1,0 +1,21 @@
+Como dito anteriormente, argmax e softmax. Sao funcoes que de certa maneira arredodam os raw outputs(valor dos outputs finais). Para que, a classificacao seja feita de maneira mais facil.
+Essa falta por assim dizer de classificacao ocorre, quando voce tem multiplos outputs. Porque cada um deles, vai estar um pouco associado ao datapoint. De maneira negativa ou positiva.
+Para arrendodar outputs quebrados nos utilizamos do argmax e softmax layer.
+Ver imagem:(Quando e aplicado argmax e softmax)
+
+Argmax e bem simples, simplesmente pegamos o raw output mais proximo de 1 e o consideramos como o classificado.Ver imagem:(Argmax sendo feito)
+
+So que existe um probleminha em argmax, os outputs finais(outputs pos passagem pelo layer) sao constantes. Isso significa que nao podemos fazer backpropagation. 
+
+Isso se torna facil de visualizar se pegarmos o segundo output(segundo valor mais proximo de 0) interessantemente. Esse ponto, seria a nossa base. Se estivermos atras desse valor ou formos igual a ele, somos classificados como 0. Se estivermos acima dele, somos classificados como 1. Isso significa, que as nossa funcoes de output, sao constante se analisarmos em grafico porque elas nao tem inclinacao. Logo elas quebram o ciclo de associacao, que torna possivel backpropagation. Ver imagem:(Porque backpropagation nao e aplicavel em argmax)
+
+
+Esse fator nos leva ao softmax layer. Que nao e nada mais, do que a funcao softmax.
+Ver imagem:(Funcao softmax no exemplo base de multiplos inputs e outputs)
+
+Essa funcao e realizada, individualmente para cada ponto de outputs. Logo executamos ela 3 vezes, uma para cada output. O unico numero que se altera, seria o numerador, em qual o euler**ao raw outputs que esta sendo passado pela softmax layer. Ver imagem:(Formula base de softmax)
+
+Interessantemente, depois de passarmos esse conjunto de outputs. Notamos que os valores de classficao sempre estao entre 1 e 0. Ver imagem:(Softmax em acao)
+
+E se somarmos, esses valores de output eles sempre vao dar 1. Isso significa, que elas sao probabilidade de predicao. Mas nao ponha muita fe, na precisao dessas probabilidades de predicao porque elas sao dependendentes dos bias e pesos definidos. Isso significa, que se voce tiver outro valores de bias e pesos(mesmo eles sendo tao bons quantos os outros para predicao) voce tera diferente valores de outpus pos passagem softmax.
+
