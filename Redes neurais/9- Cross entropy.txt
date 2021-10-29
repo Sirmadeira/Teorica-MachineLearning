@@ -1,0 +1,19 @@
+Aviso: Na aula de backpropagation se utilizamos da loss function SR**2, nessa daqui obviamente se utilizaremos da loss functions Cross Entropy. Utilizamos, dessa loss function geralmente quando temos um layer softmax. Para podermos fazer backpropagation.
+
+O dataset do exemplo utilizado o das flores. Ver imagem:(Dados cross entropy) 
+
+Agora vamos pegar esse dados e passar pela rede neural. Obtendo assim o output pos passagem softmax. A cross entropy, e -log com base euler do softmax output do momento(probabilidade de predicao). Ver imagem:(Cross entropy formula em exemplo)
+
+Se formar ver a formula de verdade, nao e exatamente essa a verdadeira seria essa daqui. Ver imagem:(Entropia cruzada formula). No entanto, a parte observada geralmente e ignorada. Porque os valores sera 1 para o output lido no momento e 0 para os que nao estao sendo considerados. Chegando na formula expressa an imagem:(Entropia cruzada formula)
+
+Vamos fazer cross entropy para todos os parametros do exemplo. Ver imagem:(Cross entropy feita de todos outputs). Se somarmos todos essas cross entropys a gente obtem o erro total. E podemos nos utilizar desse numero, semelhantemente como usamos a SR**2 para optimizar os nossos parametros (pesos e bias).
+
+Agora voce deve estar se perguntando pq so nao usar SR**2 bom irmao, e o seguinte. Primeiro, a softmax function so nos da valores entre 1 e 0. Logo se a predicao para o valor de output for muita boa ele estara perto de 1. Se for muito ruim ele vai ser 0. 
+
+Se pegarmos os valores da probabilidade predita(output pos passagem do softmax) entre 0 e 1 na funcao cross entropy. E plotarmos os outputs. Obtemos o seguinte grafico que tem como eixo y a loss function e eixo x a predicao. Ver imagem:(Funcao cross entropy)
+
+Agora se fizermos o mesmo para a SR**2 obtemos o seguinte grafico. Ver imagem:(Sr ao quadrado em softmax)
+
+Vemos que a loss function na cross entropy explode quando estarmo perto de 0 e mais encurvada no geral. Isso significa, que quando temos outputs entre 1 e 0 para realmente darmos grande step sizes(ja que eles sao dependentes da inclinacao), e logo treinarmos de maneira mais rapida e eficas o nosso modelo. Precisamos ter funcoes de loss mas por assim dizer encurvadas quando se diz respeito a valores minimo.Porque assim temos mais inclinacao, o  que acelera o processo de gradiente descente no geral.
+
+Proxima aula vamos ver como e aplicacao da backpropagation com a loss function cross entropy.

@@ -17,5 +17,12 @@ Essa funcao e realizada, individualmente para cada ponto de outputs. Logo execut
 
 Interessantemente, depois de passarmos esse conjunto de outputs. Notamos que os valores de classficao sempre estao entre 1 e 0. Ver imagem:(Softmax em acao)
 
-E se somarmos, esses valores de output eles sempre vao dar 1. Isso significa, que elas sao probabilidade de predicao. Mas nao ponha muita fe, na precisao dessas probabilidades de predicao porque elas sao dependendentes dos bias e pesos definidos. Isso significa, que se voce tiver outro valores de bias e pesos(mesmo eles sendo tao bons quantos os outros para predicao) voce tera diferente valores de outpus pos passagem softmax.
+E se somarmos, esses valores de output eles sempre vao dar 1. Isso significa, que elas sao probabilidade de predicao(valores que nao sao uma classificacao propriamente dita, mas que dao a probabilidade de ser aquilo). Mas nao ponha muita fe, na precisao dessas probabilidades de predicao porque elas sao dependendentes dos bias e pesos definidos. Isso significa, que se voce tiver outro valores de bias e pesos(mesmo eles sendo tao bons quantos os outros para predicao) voce tera diferente valores de outputs pos passagem softmax.
+
+Se fizermos, a derivada da predicao softmax de um output qualquer com respeito a derivada da predicao antes da softmax de um output qualquer. Notamos que elas tem valores nao nulos, isso significa que podemos fazer gradiente descente com softmax.
+
+No entanto, quando nos utilizamos de softmax nao podemos nos utilizar da loss function SR**2. Porque os valores de output pos passagem de softmax sao probabilidades de predicao entre 0 e 1. Por causa disso, a gente geralmente se utiliza de algo chamado cross entropy. Assunto para aulas sucedentes  
+
+
+
 

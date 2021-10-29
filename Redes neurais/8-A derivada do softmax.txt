@@ -1,0 +1,11 @@
+Na aula passada, verificamos como as redes neurais classificam os seus modelos. Com o softmax e argmax layers. Terminamos a aula, mas nao destacamos como se faz a derivada desse layer em especifico. Lembrete: Associacao, para poder fazer backpropagation temos que ser capazes de fazer a derivada a respeito de todos os layers. Logo entendemos porque backpropagation ainda e aplicavel em softmax.
+
+Entao vamos identificar a derivada de softmax. Que e essa. E pronto. Ver imagem:(Derivada de softmax com respeito a um dos outputs)
+
+Mas pera vamos justificar ne?
+Agora para fazer a derivada da probabilidade predita de um dos outputs com respeito ao valor de output pre passagem do softmax layer(raw output). Temos que nos utilizar de algo chamado lei do quociente. 
+
+Essa regra fala, que temos que pegar a (derivada do valor do numerador com respeito a derivada do raw output * o denominador)-(derivada do denominador com respeito a derivada do raw output * o numerador)/ tudo isso dividido por o denominador ao quadrado. Ver imagem:(Lei do quociente aplicada)
+Interessantemente, na imagem vimos que a derivada do valor do numerador com respeito a derivado do raw output, da o valor do numerador. A mesma coisa acontece com derivada do denominador com respeito a derivada do raw output  ela da o valor do numerador.
+
+Chegando assim na formula expressa na imagem:(Derivada de softmax com respeito a um dos outputs)

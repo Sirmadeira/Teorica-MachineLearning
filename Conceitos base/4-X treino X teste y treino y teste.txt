@@ -1,0 +1,8 @@
+X treino seria uma parcela das variaveis independentes(Que nao sao os datapoints de predicao ou classificacao).Que sao utilizadas para o treinamento do modelo. Um bom exemplo, desse tipo de dados independente. E exposto no dataset de regressao imobilizaria, as variaveis independentes seriam, exemplo: Area habitavel tamanho do banheiro essas coisas.A porcentagem de dataset pega aqui e em torno de 70 a 80 porcento.
+
+X teste sera a outra parcela, das variaveis independentes. Basicamente as que sobraram pos a retirada das variaveis de treino do dataset. E vao ser utilizadas, nao para treinar o modelo, mas sim para fazer predicoes para verificar sua precisao. Em torno de 20 a 30 porcento.
+
+
+Y treino seria somente a variaveis dependentes que precisam ser preditas pelo modelo. Como no exemplo imobiliario, o valor de venda. Elas serao utilizadas no treinamento desse. E precisamos especificar quais sao elas.
+
+Y teste, seria a outra parcela remanescente das variaveis dependentes que serao utilizadas para verificar se o modelo, tem uma boa precisao. Ao comparar, o dado predito com o dado do dataset. Caso acerte muitas boas precisao caso nao precisao ruim.
