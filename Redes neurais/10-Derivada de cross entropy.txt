@@ -1,0 +1,68 @@
+Essa aula ira verificar como a loss function de cross entropy e aplicada no processo de backpropagation
+
+Existe muitas  semelhancas com a backpropagation com a loss function SR**2. No entanto, umas diferencas que irao ser destacadas.
+
+
+No exemplo, que seguiremos tentaremos optimizar os bias final. De uma rede neural com multiplo inputs e a outputs. Com um softmax layer incluido.
+Ver imagem:(Rede neural aula cross entropy com derivada e backpropagation)
+
+Lembrete: O parametro em si nao importa, tanto porque a associacao que formata a chain rule e a mesma.
+
+Imagine, que pegamos um datapoint. E passamos por essa rede neural, e agora iremos avaliar o quao bom ela e. Para isso iremos plugar o valor de predicao final(pos passagem softmax layer) na equacao cross entropy. Ver imagem:(Funcao cross entropy)
+
+Lembrete: Esse log tem base euler.
+
+Semelhante, a backpropagation de soma dos residuos ao quadrado. Temos a associacao, de que o bias final+ a somatario das superficies/funcoes que antecedem  ela, resultam na superficie de predicao pre passagem do softmax layer.Como voce pode ver e em superficies ao inves de funcoes, devido a quantidade de inputs. O que possibilita o uso da chain rule. Ver imagem:(Associacao do bias final visivel para aplicacao da chain rule em cross entropy)
+
+Interessantemente, se mexermos no bias final. Alteraremos indiretamente, o valor da predicao final. Para todos os outputs. Possibilitando a chain rule
+
+IMPORTANTE:Alem do mais, devido a equacao do softmax layer e  tambem a formula de cross entropy. Teremos diferentes, derivadas de cross entropy com respeito ao bias final. O numero de derivadas sera definido pelo quantidade de outputs. Ver imagem:(Derivadas do cross entropy com respeito ao bias final, para cada output)
+
+No entanto, notamos que as derivadas sao muito semelhantes. Principalmente as duas ultimas do nosso exemplo que sao iguais, vamos descobrir o porque.
+
+Por isso vamos pegar a derivada do output setosa de cross entropy com respeito ao bias final e resolve-la. E em seguida, resolveremos somente uma das derivadas  dos outros outputs que tem valor final igual.
+
+Para entendermos como chegamos nesse resultado, pegamos a formula da cross entropy que se refere a predicao final do output setosa. E a formula que origina essa predificao final (funcao softmax) para demonstrarmos a chain rule. Ver imagem:(Associacao para o output setosa com o bias final que possibilita a derivada)
+
+Lembrete: Somente a superficie de predicao da rede neural pre passagem softmax do output setosa, e influenciada pelo o bias final dela,exemplo o b3.
+
+E como ja vimos anteriormente, bias final + a somatario das superficies/funcoes que antecedem  ele, resulta na superficie de predicao pre passagem do softmax layer. Outro fator que possibilita a chain rule.
+
+Logo conseguirmos obte o conjunto de derivadas, que nos da dara a derivada cross entropy do output setosa com respeito ao bias final. 
+Ver imagem:(Associacao que possibilita o descobrimento da derivada cross entropy com respeito ao bias final do output setosa)
+
+Feito essa associacao so resolver matematicamente. Para a derivada cross entropy do output setosa com respeito a predicao final setosa. Ver imagem:(Derivada cross entropy do output setosa com respeito a predicao final setosa resolvida)
+
+Para a derivada da predicao final do output setosa com respeito ao output raw( preidicao pre passagem do softmax), chegamos nesse valor. Ver imagem:(Derivada da predicao final do output setosa com respeito ao output raw(pre passagem), resolvida)
+
+Para a derivada da predicao dada pela rede neural (predicao pre passagem do softmax) com respeito ao bias final/b3.
+Ver imagem:(Derivada do output de predicao da rede neural com respeito ao bias final resolvida)
+
+Lembrete: A resulacao dessa ultima derivada e baseada na associacao bias final + a somatario das superficies/funcoes que antecedem  ele, resulta na superficie de predicao pre passagem do softmax layer.
+
+Depois de simplificarmos a equacao chegamos no valor final, predicao final(probabilidade predita pelo softmax)-1. Ver imagem:(Derivada cross entropy do output setosa com respeito ao bias final, resolvida)
+
+A mesma associacao e feita, para o segundo valor de output do exemplo. Quando resolvemos as derivadas, que possibilitam a descoberta da derivada cross entropy do output virginica com respeito ao bias final. Chegamos na seguinte formula. Ver imagem:(Derivada cross entropy do output virginica com respeito ao bias final, semi resolvida)
+
+Se simplificarmos essa equcao, chegamos que a derivada da cross entropy do output virginica com respeito ao bias final. E igual a predicao final(pos passagem softmax) setosa.
+
+
+Lembrete: O  bias final, desse exemplo e a probabilidade predita/predicao final setosa. Somente porque e o bias que antecede o valor de output setosa. Se fosse os outros bias, corresponderia ao valor de output que o sucede. Por exemplo, caso fosse b4. Os valores das derivadas da cross entropy dos outputs com respeito ao bias 4 teriam como seu ponto foco a versicolor(probabilidade predita versicolor-1, ). Ver imagem:(Derivadas cross entropy dos outputs com respeito a b4)
+
+
+Agora vamos aplicar o processo de backpropagation e entender como ele funciona. Primeiramente, vamos pegar o total cross entropy do exemplo. Ver imagem:(Cross entropy total setosa)
+
+
+Depois vamos alterar, o valor do parametro b3 multiplas vezes e montar a sua funcao  de relacao com o total de loss function. Ver imagem:(Funcao total loss function para o parametro b3).
+
+Depois vamos nos utilizar da derivada cross entropy de todos os outputs com respeito ao bias 3. Para definir a inclinacao. Ver imagem:(Derivada cross entropy dos outputs com respeito ao b3, resolvida)
+
+Nota-se que pegamos 3 datapoints diferentes. E temos, que pegar a derivada dos 3 outputs para cada um deles. O setosa, so atua como o ponto de centro(defini que as probabilidade preditas tem que ser referentes a chance de ser setosa de cada datapoint) para o b3. Tambem notase que a probabilidade predita do datapoint1 sera aquela que tera -1 retirado dela. Ver imagem:(Processo de definicao da derivada do b3)
+
+Depois disso, faz o processo de achar step size. E o novo valor b3. E repete processo ate termos nenhum retorno, ou chegarmos no limite.
+
+
+
+
+
+

@@ -1,0 +1,58 @@
+Redes neurais convulucionais, utilizamos desse estilo de rede neural na analise de imagem. No exemplo, dado seria um jogo da velha. Onde temos que identificar se o que ele escreveu e um X ou uma O.
+
+Tendo em  vista que essas imagens, estao exposta no computador. Podemos dar um zoom nelas. E quando damos zoom vemos um monte de quadradinhos(pixels). Esses pixels, sao definido pelo o seu codigo byte.  Interessantemente, a cor branco e 1 e a cor preta e 0.
+
+Interessantemente, se pegarmos uma imagem pequena 6x6 essa imagen tera um input de 36 dados. O que e uma quantidade consideravel de informacao, e se passasemos esses 36 dados por uma rede neural comum, gastariamos muito tempo na leitura porque teriamos que optimizar 36 pesos 36 bias. Se pegassemos uma imagen, na vida real onde as imagens contem uma quantidade de pixels muito maior do que essa, treinariamos para sempre a rede neural. Alem do mais, essa rede neural nao seria boa em avaliar imagens que foram 'giradas(basicamente alterno a posicao)' e tambem nao vai ser util em avaliar a correlacao que existe entre os pixels que estao proximos um do outro.
+
+
+Por isso, nos utilizamos de redes neurais convolucionais.Resumidamente, porque:
+1-Elas reduzem o numero de inputs
+2-Elas sao capazes de analisar a mesma imagen de posicoes diferentes, ou saindo pelo canto.
+3-Elas se aproveitams das proximidades dos pixels de mesma cor, basicamente se aproveitam da afinidade entre um e outro.
+
+Entao vamos aprender como elas funcionam. 
+
+Primeiramente, elas fazem um kernel que nao seria nada mais do que pegar uma parcela da imagem que tem dimensoes menores. Um pequeno filtro por assim dizer.
+
+Algo que vale ser mencionado, e que esse filtro pre treinamento e um monte de pixels random. Depois do treinamento, da rede neural ele se torna um monte de pixels mais utils, aplicaveis.
+
+Entao vamos para o processo em pratica de como usamos esse filtro.
+Primeiramente, sobrepomo o filtro sobre uma parte da imagem que temos. Ver imagem:(Impondo o filtro da rede neural convulucional ja treinado)
+
+Depois multiplicamos o valor cada pixel(0 branco 1 preto) que se sobrepoem e somamos as multiplicacoes. Ver imagem:(Obtendo a soma dos produtos da rede)
+
+O nome desse proceso, de multiplicacao e dot product. Ao fazermos, esse dot product podemos dizer que o filtro/kernel esta convuluido com o input, o que origina o nome da rede. E do processo que chamado de convuluicao.
+
+
+E depois disso passamo por um bias optimzado, basicamente somamos com o valor do parametro. E marcamos ele nama tabelinha chamado feature map. Ver imagem:(Valor do feature map 1 sendo definido)
+
+Depois disso, deslizamos o nosso filtro um pouquinho para o lado. O quanto deslizamos, e definido por voce se e 2 3 ou 4 pixels ou 20 voce que escolhe. E faz-se a mesma, coisa pega o dot product desse desvio de filtro passa por um bias e poim no feature map. 
+
+E repete. Ver imagem:(Feature map sendo montado)
+
+Depois disso passamos, o nossa feature map por uma relu funcao de ativacao. O que acaba, destruindo qualquer valor negativo. Ver imagem:(Passando pela a relu)
+
+A gente passa um novo filtro no nosso feature map. So que dessa vez selecionamo o valor maximo dos valores. Chamamos esse processo de maxpooling. Ver imagem:(Maxpooling sendo feito)
+
+Basicamente, ele serve para destacar o local onde a imagem filtro fez o seu melhor trabalho de similaridade, com a imagem de input.
+
+Existe outra metodologia, chamade average mean pooling. Que seria um max pooling so que fazendo a media, dos valores dentro do segundo filtro.
+
+Agora com esse pooled layer (layer resultante depois do processo de max pooling), coloacamo ele como input de uma rede neural. Ver imagem:(Pegando pooled layer e ponda na rede). Ja notamos como a quantidade de inputs diminui, consideralvemente.
+
+Depois de passar pela rede neural, ja somos capazes de classificar caso e uma O ou um X.
+
+Interessantemente, quando falamos que uma rede neural convulucional e capaz de analisar os pixels em conjunto. Tal facanha e concretizada quando fazemos o filtro que seria um conjunto de pixels.
+
+Ela continua funcionando, tambem quando temos pequenos shifts na imagem. Porque maths baby.
+
+
+
+
+
+
+
+
+
+
+
