@@ -36,7 +36,7 @@ query = """
 EXEMPLO DE FUNCOES MATEMATICAS NO SELECT
 3600 * SUM(NOME DE COLUNA) / SUM(NOME DE COLUNA) AS avg_mph
 
-WHERE
+WHERE  (CONDICAO)
 
 Condicao imposta, por exemplo: Selecionar do coluna alimentos, do dataset ifood, onde comida(uma dos colunas)='batata', importante STRING tem q estar entre aspas. DATAS tambem.
 

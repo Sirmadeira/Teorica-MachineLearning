@@ -1,0 +1,83 @@
+FUNCAO ANALITICA
+
+Na parte de canceitos iniciais existe agregatte functions. Order by, group by etc.
+
+Essa funcoes fazem calculos, baseado na quantidade de linhas. As funcoes analiticas tambem são assim. No entanto, elas sao capazes de ter informacoes diferenciadas para cada linha e tambem dividi-las(atraves de uma condicao) e equipara-las entre si.  Como expresso no exemplo da imagem a seguir. Que trata o tempo medio de corrida entre uma data e outra de treinamento. Ver imagem:(Exemplo fuincao analitica)
+
+Voce viu que a funcao analitica tem multiplas funcoes internas, vamos explicar a sintaxe.
+
+OVER()
+
+Define o numero de linhas que serao utilizadas no calculo. E o que torna o uso de agregadas possivel, entao se esquecer toma erro.
+
+
+PARTITION BY( Condicao)
+
+Divide as linhas em grupos, no exemplo os IDS.
+
+ORDER BY
+
+Mesma coisa, que o order by.
+
+WINDOW FRAME
+
+Window frame nao e nada mais do que, a definicao dos interperiodos que devem ser respeitado ao incluir a funcao  agregacao, ou navegacao , ou numericas entre as linhas. No exemplo seria o interperioda da linha anterior comparada com a linha atual.
+
+Existe a possibilidade de fazer infinitos window frames, mas para um maior entendimento segue exemplos.
+
+ROWS BEETWEN 1 PRECEDING AND CURRENT ROW
+
+Pega a linha anterior, e a linha atual. E faz, uma count, ou avg, ou sum, ou min, ou max funcao.
+
+ROWS BETWEEN 3 PRECEDING AND 2 FOLLOWING
+
+Pega as 3 linhas atras da linha atual, a linha atual e as duas a frente. E aplica uma das funcoes de agregacao, ou navegacao , ou numericas.
+
+
+ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+
+Todas as linhas.
+
+
+Existe 3 tipos de funcoes analiticas que sao definida, pela funcao que elas estao se utilizando de para organizar os dados.
+
+1- Funcao analitica de agregado
+Basicamente, se a funcao analitica tiver. Min(), Max(), SUM(), AVG(), COUNT()
+E uma de agregado
+
+2-Funcao analitica de navegacao
+
+Basicamente, se utiliza de funcoes de navegacao.
+Exemplo, firt_value, lead, lag
+
+FIRST_VALUE()
+
+Retorna o primeira input da funcao analitica(primeira linha inserida)(Valor lateral no excel)
+
+LAST_VALUE()
+
+Retorna o ultima input(ultima linha inserida)
+
+LEAD()
+
+Retorna o valor da linha sucedente do interperiodo.
+
+LAG()
+
+Retorna o valor da linha antecessora do interperiodo
+
+
+3-Funcao analiticas de numeracao
+
+ROW_NUMBER()- Retorna a ordem em que as linhas aparecem no input(valor lateral no excel)
+
+RANK()
+
+Estabelece uma posicao para aquela linha, caso ela seja uma das primeiras do input recebe um valor baixo. As sucedentes do interperido recebem um ranking maior
+
+  
+
+
+
+
+
