@@ -1,0 +1,167 @@
+SQL- Structured query language
+
+A metodologia de associacao entre os dados e feita da seguinte maneira
+
+O top dog seria: Projeto
+
+Depois do projeto: Banco de dados
+
+Depois das Banco de dados: Tabelas. 
+
+Depois dos banco de dados: Colunas e linhas
+
+CLIENTE
+No entanto, no Bigquery da google(Servico de treinamento).  
+Existe algo chamado  cliente(client), seria a metodolagia de conexao com nosso Bigquery Project. Basicamente o  API
+E depois dele, vem o projeto e assim vai. 
+
+TABLE SCHEMA
+Existe algo chamadoo table schema. Que a basicamente a estrutura(esquematica) da tabela que estamos trabalhando em. Ela define, coisas como se certa coluna pode ter null values, qual e o nome da coluna o datatype aceitos a  Descricao dela etc.
+
+
+SELECT, FROM
+
+Select seleciona a coluna que voce quer, from de qual dataset.
+
+Se voce quiser multiplas colunas so por uma virgula depois do primeira coluna do select
+query = """
+        SELECT nome de uma coluna,  nome de outra coluna
+        """
+
+Se voce quiser selecionar todas as colunas. Use-se de *
+query = """
+        SELECT *
+        """
+
+EXEMPLO DE FUNCOES MATEMATICAS NO SELECT
+3600 * SUM(NOME DE COLUNA) / SUM(NOME DE COLUNA) AS avg_mph
+
+WHERE
+
+Condicao imposta, por exemplo: Selecionar do coluna alimentos, do dataset ifood, onde comida(uma dos colunas)='batata', importante STRING tem q estar entre aspas. DATAS tambem.
+
+WHERE AND
+
+Inclui mais uma condicao
+
+WHERE LIKE
+
+Obtem algo, com uma condicao nao tao exata. Por exemplo: WHERE Name LIKE '%ipl%', obtem um nome que tem as letras ipl sucedidas uma da outra como ripley
+
+DISTINCT
+
+Seleciona, os valores mas se eles forems repetidos somente aparece uma vez.
+
+COUNT
+
+Conta o numero de vezes que certo valor de um query aparece, e uma funcao de agregacao logo requer, de outras funcoes que molde em grupos.
+
+COUNT(1)-Quando voce nao soubre o que por na count function, escreva isso que vai contar os grupos selectados, sem mencionar a coluna necessariamente.
+
+COUNT() as Nome qualquer- Isso daki vai dar um nome para a coluna count. Que foi formulada.
+COUNT(*)- Mesma coisa, conta o numero de valores no query. Mas considerando tambem os nulls.
+
+
+
+query = """
+        SELECT COUNT(Nome do coluna)
+        """
+
+GROUP BY
+
+Pega uma ou mais colunas, e ordena as linha que tem o mesmo valor em grupos. Muito utilizada em contar, o numero de aparencias de certo valor
+
+
+query = """
+        SELECT COUNT(Nome do coluna)
+        GROUP BY ANIMAL
+        """
+Resultado: [3, coelhos], [2,cachorros]
+
+Aviso: Se fosse distinct o resultado seria. [1, coelho], [1,cachorro]
+
+GROUP BY HAVING
+
+Mesma coisa, so que ao ordenar em grupos. Voce pode evitar que certas linhas que nao respeitam um criterio sejam postas
+
+
+ORDER BY
+
+Seria a metodologia que ordenamos por, geralmente e a ultima a ser posta.
+
+ORDER BY DESC, ASC
+
+Ordem por aquele de maior valor ou menor, se for string oque tem mais letras.Se for integer, vai ser ordenado pelo maior numero.
+
+DATE FROM (Nome da coluna)
+
+YYYY-[M]M-[D]D, basicamente metodologia de arquivamento de uma certa data.
+
+DATETIME
+
+Mesma coisa,so que com horas e minutos e segundos.
+
+
+EXTRACT
+
+Geralmente utilizado, com datasets. Extrai certa informacao de uma coluna
+
+query = """
+        SELECT Nome de uma coluna,EXTRACT(Dia de Data) As Day
+        """
+
+Esse query ira resulta em uma nova coluna chamada dia, que apresenta o dia em que cada nome de coluna foi inserido.
+
+
+AVG
+
+Pega a media de uma coluna
+
+AS (Nome de coluna queryada)
+
+Seria um comando, que renomeia uma coluna formulada em query. Por exemplo:Uma coluna, count. O nome desse processo e aliasing(deixar bonito) e certinho os queries.
+
+
+WITH (Nome de tabela que vai ser queryada) AS
+
+E uma funcao utilizada, para format uma common table expression(CTE). CTE nao e nada mais que a tabela que voce retirou com o seu query. Interessantemente voce pode nomear, essa tabela retirada e escrever outro query em cima dela. Ver imagem:(Exemplo with as)
+
+INNER JOIN ON dado de associacao da tabela 1= dado de associacao da tabela 2
+
+Seria metodologia mais famosa de se juntar tabelas, formata-se um query baseado em multiplas tabelas. Atraves da associacao que existe entre elas. No exemplo a seguir, se juncionou essa tabelas atraves da coluna ID, e Pet_id. E obteve-se um query baseado nessa associacao. Que basicamente, trazia o nome do dono e do animal dele. Ver imagem:(Exemplo join)
+No inner join esepcificamente, as linhas do query sucedente so aparece se o valor de associacao (id) aparece nas duas tabelas. Caso ele nao apareca, em um exemplo especifico ele nao aparecera.
+
+
+RIGHT JOIN
+
+Se lembra que eu disse, que na funcao inner join so aparece no query os dados(dependentes) que tem  o dado de associação. Então, agora com a right join mesmo que nao haja o dado de associacao, o query ira retornar os dados fazendo deles independentes, com um null value no valores que sao baseados na asociacao. Mas somente da tabela 2(lado direito).
+
+LEFT JOIN
+
+Mesma coisa, so que os dados independentes. Sao o da tabela 1(lado esquerdo)
+
+FULL JOIN
+
+Torna, todos os dados independentes nao importa a tabela base.
+Para entender melhor esses join. Ver imagem:(Exemplo parte 2 join) e imagem(Exemplo parte 3 join)
+
+
+UNION
+
+Union e semelhante ao join, so que seria verticalmente. Basicamente pega a coluna de uma tabela e poim em cima da coluna de outra tabela. Elas nao precisam ter o mesmo nome mas precisam ter o mesmo dtype. Ver imagem:(Exemplo union)
+
+UNION ALL
+
+Inclui dados duplicados de ambas as colunas
+
+UNION DISTINCT
+
+Dropa os dados duplicados. 
+
+MIN()
+
+Seleciona o menor valor.
+
+MAX()
+
+Seleciona o valor maximo. 
