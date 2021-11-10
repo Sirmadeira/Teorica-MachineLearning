@@ -131,6 +131,8 @@ INNER JOIN ON dado de associacao da tabela 1= dado de associacao da tabela 2
 Seria metodologia mais famosa de se juntar tabelas, formata-se um query baseado em multiplas tabelas. Atraves da associacao que existe entre elas. No exemplo a seguir, se juncionou essa tabelas atraves da coluna ID, e Pet_id. E obteve-se um query baseado nessa associacao. Que basicamente, trazia o nome do dono e do animal dele. Ver imagem:(Exemplo join)
 No inner join esepcificamente, as linhas do query sucedente so aparece se o valor de associacao (id) aparece nas duas tabelas. Caso ele nao apareca, em um exemplo especifico ele nao aparecera.
 
+AVISO: Join key seria os dados de associacao que possibilitam as juncoes das tabelas.
+
 
 RIGHT JOIN
 

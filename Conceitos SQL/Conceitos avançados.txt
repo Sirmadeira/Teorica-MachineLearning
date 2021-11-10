@@ -6,7 +6,7 @@ Essa funcoes fazem calculos, baseado na quantidade de linhas. As funcoes analiti
 
 Voce viu que a funcao analitica tem multiplas funcoes internas, vamos explicar a sintaxe.
 
-OVER()
+OVER()(Funcao que formula window frame)
 
 Define o numero de linhas que serao utilizadas no calculo. E o que torna o uso de agregadas possivel, entao se esquecer toma erro.
 
@@ -73,8 +73,25 @@ ROW_NUMBER()- Retorna a ordem em que as linhas aparecem no input(valor lateral n
 
 RANK()
 
-Estabelece uma posicao para aquela linha, caso ela seja uma das primeiras do input recebe um valor baixo. As sucedentes do interperido recebem um ranking maior
+Estabelece uma posicao para aquela linha, caso ela seja uma das primeiras do input recebe um valor baixo. As sucedentes do interperiodo recebem um ranking maior
 
+TIMESTAMP DIFF()
+
+Calcula a diferenca entre duas datas.
+
+NESTED DATA
+
+E quando voce tem mais de dois dados diferentes na mesma coluna. Ver imagem:(Exemplo nested data). No schema, geralmente tem-se como dtype record.
+
+Para dissociar esse tipo de dado tudo que voce tem que fazer é. Definir, o nome de cada elemento e dar select nele como no exemplo. Ver imagem:(Exemplo dissociaondo nested data)
+
+REPEATED DATA
+
+E quando um dado, tem mais de um elemento associado a ele. Horizantalmente falando, por exemplo: Um cachorro pode ter multiplos tipos de brinquedos. Ver imagem:(Exemplo repeated data). E chamado de repeated data
+
+Cada entry repetido horizantalmente, seria um array. No exemplo, o array tem 3 valores.
+
+Para dissociar esses valores voce so precisa se utilizar da funcao UNNEST, com o nome da coluna com as repeticoes. Ver imagem:(Exemplo unnest)
   
 
 
