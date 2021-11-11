@@ -91,8 +91,41 @@ E quando um dado, tem mais de um elemento associado a ele. Horizantalmente falan
 
 Cada entry repetido horizantalmente, seria um array. No exemplo, o array tem 3 valores.
 
-Para dissociar esses valores voce so precisa se utilizar da funcao UNNEST, com o nome da coluna com as repeticoes. Ver imagem:(Exemplo unnest)
-  
+Para dissociar esses valores voce so precisa se utilizar da funcao UNNEST, com o nome da coluna com as repeticoes(multipolos brinquedos). Ver imagem:(Exemplo unnest)
+
+UNNEST()
+
+Dissocia repeticoes na mesma linha, e formula novas linha com cada repeticao separada
+ 
+
+PARA TER UM MAIOR ENTENDIMENTO SEGUE UMA METODOLOGIA DE RESOLUCAO DE UM DATATYPE COM NESTED E REPEATED DATA
+
+AVISO: Nos utilizamos desse tipo de armazenagem para evitar join commands. Que sao bem pesados, e  tambem nao temos que nos importar com as join keys(dados que possibilitam as associacoes das tabelas)
+Ver imagem:(Exemplo nested data and repeated data sendo resolvido)
+
+COMO ESCREVER QUERIES DE MANEIRA EFICIENTE
+
+show_amount_of_data_scanned()
+
+Mostra a quantidade de dados escaneados.
+
+show_time_to_run()
+
+Mostra a quantidade de tempo para o rodar o query.
+
+
+limit()
+
+Limita o numero de dados do query
+
+1)Estrategia somente selecionar as colunas que voce precisa.
+
+2) Leia menos dados
+
+3) Evite joins.
+
+
+
 
 
 
