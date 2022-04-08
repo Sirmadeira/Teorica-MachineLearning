@@ -1,8 +1,7 @@
 # Teorica-MachineLearning
-* Isso daqui e um git repo de txt files que contem todo meu conhecimento teorico
-* Desde dos preceitos mais basicos aos mais dificeis
-* Ta tudo em portugues mas muito desse conhecimento veio de professores ingleses (shotout Joshie love u my man)
-* Contem imagens que ajudam muito a interpretacao
-* Aviso cuidado com a parte de regressoes, esta muito no principio e nao sabia muito, algumas dessas pastas irao ser deletadas ou reformuladas
-* As que estao fora das folders para ser especifico.
-* Existe muitas imagens, todas elas tem seu mencionamento em alguma parte. Garanto.
+* Basically, this is all the theoretical side of what envelops machine-learning that.
+* This notebook range from the most basic to the most complex, statistical algorithms. And mathematical theories.
+* So yeah it starts out with, thing like linear regression or what is a median, and it goes bonkers and goes to how deep neural networks function and so on
+* Also, i like to make a little note i am proud  how big it become as time passed
+* Unfortunately most of it is in portuguese (i did a lot of translation).
+* I hope those who see it enjopy it
