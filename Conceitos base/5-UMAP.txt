@@ -1,0 +1,74 @@
+A gente se utiliza de UMAP, por uma serie de motivos mas o principal e para visualizar
+O nossa dataframe, de maneira simples. Tal visualizacao facilitaria a nossa vida. Porque ele disponibilizaria a opcao de verificar outliers. E tambem identificar os cluster, de dados nao outliers. Outra ferramenta, utilizada e PCA(Principal component analysis. Fazer aula.)
+PCA - Nao e muito bom, com datasets complexos (muitos dados).
+
+UMAP - Uniform manifold Approximation and projection.
+
+UMAP, ele pega um dataset que tem um numero dimensional, grande 3 ou mais dimensoes. Ele vai la transforma num grafico com baixa dimensao.
+
+UMAP E POPULAR PQ E RAPIDO, e pq ele consegue clusterizar as amostras no output final. Entao ele ajuda identifical similaridades.
+
+Nossa exemplo: Sera baseado na imagem a seguir: (Exemplo UMAP, 2D PARA 1D)
+Basicamente, o UMAP vai converter o meu grafico de duas dimensoes para uma.
+
+O objetivo do nosso exemplo, sera: Pegar esse grafico de alto dimensao, e seus clusters. E conseguir manter eles, quando a gente for para o grafico 1.
+
+No processo inicial, geralmente todos os dados vao estar clusterizados juntinhos. Quando a gente converte para uma dimensao.
+Ver imagem: Como ficaria se so transfarmessemo sem UMAP
+
+
+O UMAP, mantem os clusters no grafico de uma dimensao, atraves de algo chamado similarity score.
+
+Para calcular o similarity scores, a gente calcula as distancias entre os pontos.
+Ver imagem: Calculando distancias entre os pontos
+
+
+E de acordo, com elas a gente vai pondo no grafico. Ver imagem :Grafico montado em passo.
+
+Agora a gente desenha uma curva, sobre a data para calcular o similarity score. O formato dessa curva depende da quantidade de ponto de alta dimensao. Que voce quer junto um do outro. Por isso, o grafico na imagem. Tem uma curvinha grandinha, na parte inicial. Um valor comum e 15, mas no exemplo sao 3. Para ficar, claro isso inclui o ponto inicial. 
+
+Agora vamo para um pouquinho de matematica, para entender como funciona a estipulacao do parametro nearest neighboor. Cara descrito acima.
+
+A primeira coisa, que a gente faz e pegar o 3 do exemplo. E por num log de base 2. O que resulta, em 1.6. Ver imagem :Estipulador da curva do similarity score. 
+
+Nessa parte da curva, a soma dos eixos y entre o ponto b e c vai ser 1.6. Oque vai ser o fator que define a  curvatara dela. No exemplo, a seguir verificamo que o B deu 1 e o C deu 0.6, no eixo y. O B, e maior pq no grafico ele esta mais perto e se pega a proporcao entre eles.
+Ver imagem:Como os eixos y sao definido no novo grafico.
+
+O eixo y do ponto b e 1 e  o eixo y do ponto c que e 0.6, seria o similarity score. Definido, em relacao ao ponto A. Ver imagem:Similarity scores relativo a A
+
+O mesmo e feito para todos os outros pontos, B  e C. Por enquanto, se ignora os ponto D,E,F porque os deles qnd comparado aos ponto A,B e C. E 0.
+
+Resumindo: UMAP escalana(redefine elas) as curvas, sem considerar o quao perto ou longe os pontos vizinhos (Definido pelo o nearest neighboor) estao. Para que a soma dos similarity scores, deles seja igual ao log com base 2 (numero de vizinhos). Tal escalamento, faz com que cada ponto seja semelhante com pelo menos um outro ponto(amostra). No entanto, usar curvas diferentes significa que o similarity score entre eles nao e simetrico. Ver imagem :Similaity score assimitricos. 
+
+Para fazer elesm, ficarem simetricos o UMAP. Se utiliza de um metodo que pega meio que a media entre eles.
+
+
+---Processo de aproximacao---
+Depois de ter feito esse processo de todo de calculo, das curvas de similarity score.
+Vamos para o grafico com uma dimensao so.
+
+Para consiguir clusterizar, os dados. UMAP, pega dois pontos de dimensao menor que deveriam estar mais proximos e os aproximam.
+
+Tal selecao, e feita de maneira randomica. Mas enbasando no cluster e na proporcinalidade do seu similarity score, no alta dimensao.Esse carinha.Ver imagem:Similarity score simetrico
+Na imagem, acima ele teria uma maior chance de assinalar os pontos A e B do cluster ABC
+
+
+Nesse caso, ele seleciona randomicamente ou o ponto B ou o A e verificar qual se aproxima de ql. No exemplo, B vai para A. 
+
+Depois disso, o UMAP pega um ponto do qual o B deveria se afastar, mas dessa vez o similarity score na alta dimensao, nao e levado em consideracao. Ele so pega um que esta em outro cluster. E se afasta dele.
+
+Agora de qual ponto se aproxima, e de qual ponto se juntar. Ele tem que descobrir o quanto aproximar um do outro.Para fazer isso, o UMAP calcula similarity scores na baixa dimensao. Basicamente os eixo y, em uma curva do similarity scores calculados do, ponto B e A. E B e E.
+
+No entanto, essa curva se diferencia da high dimensional porque ela nao tem uma variabilidade de curvas. A de baixa dimensao, vem de uma curva de similarity score que e derivada de uma distribuicao t (Outra aula- mas basicamente algo semelhante a uma distribuicao normal so que com mais inclinacao). 
+Ver imagem: Curva de similarity de baixa dimensao
+
+Algo que vale lembra, e que as curvas de baixa dimensao tem todas o mesmo tamanho. E no caso B vai para A o interesse do UMAP sera centralizar o ponto B no meio da distribuicao t. E no caso B se afasta de E o interesse do umap e afasta-lo do centro. Ver imagem:Umap e seu processo de afastamento em curvas de similarity score de baixa dimensao
+
+No final, ele vai mover o ponto B para o A. Um poucado, para evitar que o grafico fique desproporcional. E o mesmo e feito, para todos os outros pontos
+---Fim de rocesso de aproximacao---
+
+Vale ressaltar que apexar de serem parecido um do outro t-sne e UMAP se diferenciam, no seguinte aspecto. Em t-sne o grafico de baixa dimensao inicial, vive se alterando. Agora no UMAP se utiliza de algo chamado Spectral embedding, que seria basicamente a capacidade de manter de grafico de baixa dimensao sempre o mesmo.
+
+Outra diferenca, e que t-sne move todos os pontos. UMAP so move um ou outro, fazendo que ele funcione melhor com grande datasets.
+
+No final de tudo, o parametro nearest neighboor. Ver imagem :Parametro nearest neighbor. E estipulado pelo o user, mas quando ele e grande ele da uma imagem mais geral, quando ele e pequitucho ele da uma imagem mais detalhado mas sem a visao geral./
